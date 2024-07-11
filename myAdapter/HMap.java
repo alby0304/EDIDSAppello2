@@ -247,4 +247,16 @@ public interface HMap{
      * @see Object#equals(Object)
      */
     int hashCode();
+
+    public interface Entry{
+        boolean equals(Object o);
+
+        Object getKey();
+
+        Object getValue();
+
+        int hashCode();
+
+        Object setValue(Object value);
+    }
 }

@@ -91,7 +91,7 @@ public interface HSet extends HCollection {
      *                              collection does not support null elements
      *                              (optional).
   */
-  boolean contains();
+  boolean contains(Object o);
 
   /**
      * Returns an iterator over the elements in this collection. There are no

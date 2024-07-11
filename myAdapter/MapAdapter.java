@@ -1,9 +1,9 @@
 package myAdapter;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Vector;
+import myAdapter.IllegalStateException;
 
 public class MapAdapter implements HMap{
 
@@ -130,6 +130,16 @@ public class MapAdapter implements HMap{
         return hash.remove(key);
     }
 
+    public void putAll(HMap t){
+        HIterator it = t.entrySet().iterator();
+        while(it.hasNext())
+        {
+            EntryAdapter entry = (EntryAdapter)it.next();
+            put(entry.getKey(),entry.getValue());
+
+        }
+    }
+
     /**
      * Removes all mappings from this map (optional operation).
      *
@@ -153,13 +163,44 @@ public class MapAdapter implements HMap{
     public HSet keySet(){
         return new SetAdapter(0);
     }
-    //TODO:vlaues -> mi serve HCollection 
-    //TODO:entrySet -> mi serve HSet
-    //TODO:equals -> mi serve Hset
+    public HCollection values(){
+        return new SetAdapter(1);
+    }
+    public HSet entrySet(){
+        return new SetAdapter(2);
+    }
 
+    public boolean equals(Object o){
+        if (!(o instanceof HMap))
+            return false;
 
-    private void excKey(Object o) 
-    {
+        HMap map = (HMap) o;
+        if (size() != map.size())
+            return false;
+
+        HIterator it = entrySet().iterator();
+        HIterator it2 = map.entrySet().iterator();
+
+        while (it.hasNext()) {
+            Object e1 = it.next();
+            Object e2 = it2.next();
+            if (!(e1 == null ? e2 == null : e1.equals(e2)))
+                return false;
+        }
+
+        return true;
+    }
+    
+    public int hashCode(){
+        int hash = 0;
+        HIterator it = entrySet().iterator();
+        while(it.hasNext()){
+            hash += it.next().hashCode();
+        }
+        return hash;
+    }
+
+    private void excKey(Object o){
         if (o == null) 
         {
             throw new NullPointerException();
@@ -169,8 +210,7 @@ public class MapAdapter implements HMap{
             throw new ClassCastException();
         }
     }
-    private void excValue(Object o) 
-    {
+    private void excValue(Object o) {
         if (o == null) 
         {
             throw new NullPointerException();
@@ -181,6 +221,62 @@ public class MapAdapter implements HMap{
         }
     }
 
+    public class EntryAdapter implements HMap.Entry{
+        private Object key;
+        private Object value;
+        
+        public EntryAdapter(){
+        }
+        private EntryAdapter(Object key, Object value){
+            this.key = key;
+            this.value = value;
+        }
+
+        public Object getKey(){
+            return key;
+        }
+
+        public Object getValue(){
+            return value;
+        }
+
+        public Object setValue(Object value){
+             Object o = this.value;
+             this.value = value;
+             return o;
+        }
+
+        public boolean equals(Object o){
+            if(o.getClass().isInstance(new EntryAdapter()));
+            EntryAdapter entry = (EntryAdapter)o;
+            //TODO:possono essre null?
+            if(key.equals(entry.getKey())&&value.equals(entry.getValue())){
+                return true;
+            }
+            return false;
+        }
+        
+        public int hashCode(){
+            int hash = 0;
+            if(key == null){
+                hash +=0;
+            }
+            else{
+                hash += key.hashCode();
+            }
+            if(value == null){
+                hash +=0;
+            }
+            else{
+                hash += value.hashCode();
+            }
+            return hash;
+        }
+
+
+
+    }
+
     //TODO:setAdapter
     private class SetAdapter implements HSet{
 
@@ -189,8 +285,7 @@ public class MapAdapter implements HMap{
         // 2 = entrySet
         private int type; 
 
-        private SetAdapter(int type)
-        {
+        private SetAdapter(int type){
             this.type = type;
         }
 
@@ -236,7 +331,14 @@ public class MapAdapter implements HMap{
                 return hash.containsValue(o);
             }
             else{
-                 return true; //TODO:Map.entry
+                EntryAdapter enter = (EntryAdapter) o;
+                if(hash.containsKey(enter.getKey())){
+                    if(enter.getValue()==hash.get(enter.getKey())){
+                        return true;
+                    }
+                }
+                return false;
+
             }
         }
 
@@ -296,8 +398,9 @@ public class MapAdapter implements HMap{
                 a = new Object[size()];
             }
             int i = 0;
-            while(hash.keys().hasMoreElements()){
-                a[i] = hash.keys().nextElement();
+            HIterator it = iterator();
+            while(it.hasNext()){
+                a[i] = it.next();
             }
     
             if (a.length > size()){
@@ -361,20 +464,24 @@ public class MapAdapter implements HMap{
         * @throws UnsupportedOperationException remove is not supported by this
         *                                       collection.
         */
-        public boolean remove(Object o)
-        {
+        public boolean remove(Object o){
             if(type == 0){
                 hash.remove(o);
+                return true;
             }
             else if(type == 1){
                 while(hash.keys().hasMoreElements()){
                     Object key = hash.keys().nextElement();
                     if(o == get(key)){
                         remove(key);
+                        return true;
                     }
                 }
             }
-            return true;//TODO:Map.Entry
+            EntryAdapter enter = (EntryAdapter)o;
+            hash.remove(enter.getKey());
+            return true;
+
         }
 
         /**
@@ -441,14 +548,95 @@ public class MapAdapter implements HMap{
             //Not supported (ne metodo values,ne entrySet,ne keySet supportano questo metodo)
         }
 
+        public boolean retainAll(HCollection c){
+            if(c==null){
+                throw new NullPointerException();
+            }
+            HIterator it = iterator();
+            boolean rtn = false;
+            while (it.hasNext()) {
+                if (!c.contains(it.next())) {
+                    it.remove();
+                    rtn = true;
+                }
+            }
+            return rtn;
+        }
+
+        public boolean removeAll(HCollection c){
+            if(c==null){
+                throw new NullPointerException();
+            }
+            HIterator it = iterator();
+            boolean rtn = false;
+            while (it.hasNext()) {
+                if (c.contains(it.next())) {
+                    it.remove();
+                    rtn = true;
+                }
+            }
+            return rtn;
+        }
+
+        public void clear()
+        {
+            hash.clear();
+        }
+
+        public boolean equals(Object o){
+            HCollection c;
+            if(type == 1){
+                if(!(o instanceof HCollection)){
+                    return false;
+                }
+                c = (HCollection)o;
+            }
+            else{
+                if(!(o instanceof HSet)){
+                    return false;
+                }
+                c = (HSet)o;
+            }
+            HIterator it = iterator();
+            HIterator it2 = c.iterator();
+            while(it.hasNext()){
+                Object o1 = it.next();
+                Object o2 = it2.next();
+                if((o1 == null)||(o2==null)||(o1.equals(o2)==false)){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public int hashCode(){
+            int hash = 0;
+            HIterator it = iterator();
+            while(it.hasNext()){
+                hash += it.next().hashCode();
+            }
+            return 0; 
+        }
 
         private class IteratorAdapter implements HIterator{
 
             private boolean status = true;
             private int type;
+            Enumeration en;
     
             private IteratorAdapter(int type){
                 this.type = type;
+                if(type == 0){
+                    en = hash.keys();
+                }
+                if(type == 1){
+                    en = hash.elements();
+                }
+                if(type == 2){
+                    en = hash.keys();
+                }
+
+
             }
             
             /**
@@ -459,15 +647,7 @@ public class MapAdapter implements HMap{
              * @return <code>true</code> if the iterator has more elements.
              */
             public boolean hasNext(){
-                if(type == 0){
-                    return hash.keys().hasMoreElements();
-                }
-                else if(type == 1)
-                {
-                    return hash.elements().hasMoreElements();
-                }
-    
-                return true; //TODO:Map.Entry
+                return en.hasMoreElements();
             }
     
             /**
@@ -476,22 +656,18 @@ public class MapAdapter implements HMap{
              * @return the next element in the iteration.
              * @throws NoSuchElementException iteration has no more elements.
              */
-            public  Object next()
-            {
+            public  Object next(){
+                status = true;
                 if(!hasNext())
                 {
                     throw new NoSuchElementException();
                 }
-                    status = true;
-                if(type == 0){
-                    hash.keys().nextElement();
+                Object next = en.nextElement();
+                if(type == 2 ){
+                    Object nextValue = hash.get(next);
+                    return new EntryAdapter(next, nextValue);
                 }
-                else if(type == 1)
-                {
-                    hash.elements().nextElement();
-                }
-    
-                return true; //TODO:Map.Entry
+                return next;
             }
 
             /**
@@ -515,27 +691,25 @@ public class MapAdapter implements HMap{
             public void remove(){
                 if(status != false){
                     status = false;
-                    if(type == 0){
-                        hash.remove(hash.keys().nextElement());
-                    }
-                    else if(type == 1){
-                        Object o = hash.elements().nextElement();
+                    if(type == 1){
+                        Object o = en.nextElement();
                         while(hash.keys().hasMoreElements()){
                             Object key = hash.keys().nextElement();
                                 if(o == get(key)){
                                     hash.remove(key);
                                 }
-                            }
                         }
+                        
                     }
-                    //TODO:Map.Entry
+                    else{
+                        hash.remove(en.nextElement());
+                    }
                 }
             }
     
     
         }
     }
-    
     
 }
 
