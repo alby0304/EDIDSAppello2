@@ -7,12 +7,12 @@ package myAdapter;
  * <br>
  * Implemented in this package because not present in CLDC 1.1
  */
-public class IllegalStateException extends RuntimeException {
+public class UnsupportedOperationException extends RuntimeException {
 
     /**
      * Constructs an IllegalStateException with no detail message.
      */
-    public IllegalStateException() {
+    public UnsupportedOperationException(){
     }
 
     /**
@@ -20,7 +20,7 @@ public class IllegalStateException extends RuntimeException {
      * 
      * @param message the detail message.
      */
-    public IllegalStateException(String message) {
+    public UnsupportedOperationException(String message) {
         super(message);
     }
 

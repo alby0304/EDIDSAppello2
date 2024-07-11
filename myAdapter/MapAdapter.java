@@ -3,11 +3,31 @@ package myAdapter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
-import myAdapter.IllegalStateException;
+import myAdapter.UnsupportedOperationException;
 
+//TODO:introduzione progetto
 public class MapAdapter implements HMap{
-
-    private Hashtable hash = new Hashtable();
+    /*
+     * The backing Hashtable of the Map
+     */
+    private Hashtable hash;
+    /*
+     * A void (no arguments) constructor which creates an empty map
+     */
+    public MapAdapter(){
+        hash = new Hashtable();
+    }
+    /*
+     * A constructor with a single argument of type Map,
+     * which creates a new map with the same key-value mappings as its argument.
+     * 
+     * <br>
+     * The constructor allows the user to copy any map, producing an equivalent map of the desired class
+     */
+    public MapAdapter(HMap t){
+        hash = new Hashtable();
+        putAll(t);
+    }
 
     /**
      * Returns the number of elements in this collection. If this collection
@@ -17,7 +37,11 @@ public class MapAdapter implements HMap{
      * @return the number of elements in this collection
      */
     public int size(){
-        return hash.size();
+        int size = hash.size();
+        if(size>Integer.MAX_VALUE) {
+            size = Integer.MAX_VALUE;
+        }
+        return size;
     }
 
     /**
@@ -31,13 +55,12 @@ public class MapAdapter implements HMap{
 
     /**
      * Returns <code>true</code> if this map contains a mapping for the specified key.
-     * More formally, returns <code>true</code> if and only if this map contains at a mapping for a key k such that
-     * <code>(key==null ? k==null : key.equals(k))</code>.
+     * More formally, check if the key is null and return it using the <code>containsKey(Object key)</code> method in Hashtable.
      *
      * @param key key whose presence in this map is to be tested.
      * @return <code>true</code> if this map contains the specified key.
-     * @throws ClassCastException   if the key is of an inappropriate type for this map (optional).
-     * @throws NullPointerException if the key is null and this map does not not permit null keys (optional).
+     * @throws ClassCastException  if the key is of an inappropriate type for this map.
+     * @throws NullPointerException if the key is null and this map does not not permit null value.
      */
     public boolean containsKey(Object key){
         excKey(key);
@@ -46,14 +69,13 @@ public class MapAdapter implements HMap{
 
     /**
      * Returns <code>true</code> if this map maps one or more keys to the specified value.
-     * More formally, returns <code>true</code> if and only if this map contains at a mapping to a value v such that
-     * <code>(value==null ? v==null : value.equals(v))</code>.
+     * More formally, check if the value is null and return it using the <code>containsValue(Object value)</code> method in Hashtable.
      * This operation will probably require time linear in the map size for most implementations of the Map interface.
      *
      * @param value value whose presence in this map is to be tested.
      * @return <code>true</code> if this map contains the specified key.
-     * @throws ClassCastException   if the value is of an inappropriate type for this map (optional).
-     * @throws NullPointerException if the value is null and this map does not not permit null value (optional).
+     * @throws ClassCastException   if the value is of an inappropriate type for this map.
+     * @throws NullPointerException if the value is null and this map does not not permit null value.
      */
     public boolean containsValue(Object value){
         excValue(value);
@@ -63,20 +85,11 @@ public class MapAdapter implements HMap{
     /**
      * Returns the value to which this map maps the specified key.
      * Returns <code>null</code> if the map contains no mapping for this key.
-     * A return value of <code>null</code> does not <i>necessarily</i> indicate that the map contains no mapping for the key;
-     * it's also possible that the map explicitly maps the key to <code>null</code>. The containsKey operation may be used to distinguish these two cases.
-     *
-     * <br>
-     * <br>
-     * More formally, if this map contains a mapping from a key <code>k</code> to a value <code>v</code> such that <code>(key==null ? k==null : key.equals(k))</code>,
-     * then this method returns <code>v</code>; otherwise it returns <code>null</code>. 
-     * (There can be at most one such mapping.)
      * 
      * @param key key whose associated value is to be returned.
      * @return the value to which this map maps the specified key, or <code>null</code> if the map contains no mapping for this key.
-     * @throws ClassCastException   if the value is of an inappropriate type for this map (optional).
-     * @throws NullPointerException if the value is null and this map does not not permit null value (optional).
-     * @see #containsKey(Object)
+     * @throws ClassCastException  if the key is of an inappropriate type for this map.
+     * @throws NullPointerException if the key is null and this map does not not permit null value.
      */
     public Object get(Object key){
         excKey(key);
@@ -84,20 +97,16 @@ public class MapAdapter implements HMap{
     }
 
     /**
-     * Associates the specified value with the specified key in this map (optional operation).
+     * Associates the specified value with the specified key in this map.
      * If the map previously contained a mapping for this key, the old value is replaced by the specified value.
-     * (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if <a href=
-    *   "https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Map.html#containsKey">m.containsKey(k)</a> would return true.))
+     * (A map <code>m</code> is said to contain a mapping for a key <code>k</code> if and only if {@link #containsKey(Object)} would return true.))
      * 
      * @param key key with which the specified value is to be associated.
      * @param value value to be associated with the specified key.
      * @return previous value associated with specified key,
-     *          or <code>null</code> if there was no mapping for key. 
-     *          A <code>null</code> return can also indicate that the map previously associated <code>null</code> with the specified key,
-     *          if the implementation supports <code>null</code> values.
+     *          or <code>null</code> if there was no mapping for key.
      * @throws ClassCastException    if the class of the specified key or value prevents it from being stored in this map.
-     * @throws IllegalArgumentException  if some aspect of this key or value prevents it from being stored in this map.
-     * @throws NullPointerException this map does not permit <code>null</code>s keys or values, and the specified key or value is null.
+     * @throws NullPointerException  if the specified key or value is null.
      */
     public Object put(Object key,Object value){
         excKey(key);
@@ -109,27 +118,33 @@ public class MapAdapter implements HMap{
     }
 
     /**
-     * Removes the mapping for this key from this map if it is present (optional operation).
+     * Removes the mapping for this key from this map if it is present.
      * More formally, if this map contains a mapping from key k to value v such that <code>(key==null ? k==null : key.equals(k))</code>,
      * that mapping is removed. (The map can contain at most one such mapping.)
      * <br>
      * <br>
      * Returns the value to which the map previously associated the key,
      *  or <code>null</code> if the map contained no mapping for this key.
-     *  (A <code>null</code> return can also indicate that the map previously associated <code>null</code> with the specified key if the implementation supports <code>null</code> values.)
-     *  The map will not contain a mapping for the specified key once the call returns.
      * 
      * @param key key whose associated value is to be removed.
      * @return previous value associated with specified key, or <code>null</code> if there was no mapping for key.
-     * @throws ClassCastException   if the key is of an inappropriate type for this map (optional).
-     * @throws NullPointerException if the value is null and this map does not not permit null value (optional).
-     * @throws UnsupportedOperationException if the <code>remove</code> operation is not supported by this map.
+     * @throws ClassCastException   if the key is of an inappropriate type for this map.
+     * @throws NullPointerException if the key is null and this map does not not permit null value.
      */
     public Object remove(Object key){
         excKey(key);
         return hash.remove(key);
     }
 
+    /**
+     * Copies all of the mappings from the specified map to this map.
+     * The effect of this call is equivalent to that of calling {@link #put(Object key,Object value)} on this map once for each mapping from key to value in the specified map.
+     * The behavior of this operation is unspecified if the specified map is modified while the operation is in progress.
+     * 
+     * @param t Mappings to be stored in this map.
+     * @throws ClassCastException    if the class of the specified key or value prevents it from being stored in this map.
+     * @throws NullPointerException this map does not permit <code>null</code>s keys or values, and the specified key or value is null.
+     */
     public void putAll(HMap t){
         HIterator it = t.entrySet().iterator();
         while(it.hasNext())
@@ -142,15 +157,11 @@ public class MapAdapter implements HMap{
 
     /**
      * Removes all mappings from this map (optional operation).
-     *
-     * @throws UnsupportedOperationException if the <code>clear</code> method is
-     *                                       not supported by this map.
      */
     public void clear(){
         hash.clear();
     }
 
-    //TODO:keySet -> mi serve HSet 
     /**
      * Returns a set view of the keys contained in this map.
      * The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.
@@ -163,13 +174,46 @@ public class MapAdapter implements HMap{
     public HSet keySet(){
         return new SetAdapter(0);
     }
+
+    /**
+     * Returns a collection view of the values contained in this map.
+     * The collection is backed by the map, so changes to the map are reflected in the collection, and vice-versa.
+     * If the map is modified while an iteration over the collection is in progress, the results of the iteration are undefined.
+     * The collection supports element removal, which removes the corresponding mapping from the map, via the <code>Iterator.remove, Set.remove, removeAll retainAll, and clear operations</code>.
+     * It does not support the add or addAll operations.
+     *
+     * @return a collection view of the keys contained in this map.
+     */
     public HCollection values(){
         return new SetAdapter(1);
     }
+
+     /**
+     * Returns a set view of the mappings contained in this map.
+     * Each element in the returned set is a <a href= "https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/index.html">Map.Entry</a>.
+     * The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.
+     * If the map is modified while an iteration over the set is in progress, the results of the iteration are undefined.
+     * The set supports element removal, which removes the corresponding mapping from the map, via the <code>Iterator.remove, Set.remove, removeAll, retainAll and clear operations</code>.
+     * It does not support the add or addAll operations.
+     *
+     * @return a set view of the mapping contained in this map.
+     */
     public HSet entrySet(){
         return new SetAdapter(2);
     }
 
+    /**
+     * Compares the specified object with this map for equality.
+     * Returns true if the given object is also a map and the two Maps represent the same mappings.
+     * More formally, two maps t1 and t2 represent the same mappings if <code>t1.entrySet().equals(t2.entrySet())</code>.
+     * This ensures that the equals method works properly across different implementations of the Map interface.
+     *
+     * @param o Object to be compared for equality with this map.
+     * @return <code>true</code> if the specified object is equal to this
+     *         collection
+     * 
+     * @see Object#equals(Object)
+     */
     public boolean equals(Object o){
         if (!(o instanceof HMap))
             return false;
@@ -191,6 +235,15 @@ public class MapAdapter implements HMap{
         return true;
     }
     
+    /**
+     * Returns the hash code value for this map.
+     * The hash code of a map is defined to be the sum of the hashCodes of each entry in the map's entrySet view.
+     * This ensures that <code>t1.equals(t2)</code> implies that <code>t1.hashCode()==t2.hashCode()</code> for any two maps <code>t1</code> and <code>t2</code>, as required by the general contract of Object.hashCode.
+     *
+     * @return the hash code value for this map
+     * @see Object#hashCode()
+     * @see Object#equals(Object)
+     */
     public int hashCode(){
         int hash = 0;
         HIterator it = entrySet().iterator();
@@ -200,6 +253,10 @@ public class MapAdapter implements HMap{
         return hash;
     }
 
+    /**
+     * Auxiliary method that tests the keys to ensure they are not null and are all of the same type.
+     *  More formally, it checks if the map is not empty that the instance of the key is the same as the key of the first element.
+     */
     private void excKey(Object o){
         if (o == null) 
         {
@@ -210,6 +267,11 @@ public class MapAdapter implements HMap{
             throw new ClassCastException();
         }
     }
+
+    /**
+     * Auxiliary method that tests the values to ensure they are not null and are all of the same type.
+     *  More formally, it checks if the map is not empty that the instance of the value is the same as the value of the first element.
+     */
     private void excValue(Object o) {
         if (o == null) 
         {
@@ -221,13 +283,29 @@ public class MapAdapter implements HMap{
         }
     }
 
-    public class EntryAdapter implements HMap.Entry{
+    //TODO:introduzione implmentazone interfaccia e copiare sui metodi
+    public static class EntryAdapter implements HMap.Entry{
+        /*
+         * Key element of the key-value pair that constitutes the Entry.
+         * All keys within the Map are of the same type and cannot be null.
+         * Each key is unique and cannot have duplicates, making it the preferred element for use as the Map favors efficient searching and the use of methods on the keys.
+         */
         private Object key;
+        /*
+         * Value element of the key-value pair that constitutes the Entry
+         *  All values within the Map are of the same type and cannot be null.
+         * Values can have duplicates, which is not recommended for use as Maps favor efficient searching and the use of methods on keys.
+         */
         private Object value;
-        
+        /*
+         * Empty public constructor
+         */
         public EntryAdapter(){
         }
-        private EntryAdapter(Object key, Object value){
+        /*
+         * Public constructor that allows initializing the object's variables.
+         */
+        public  EntryAdapter(Object key, Object value){
             this.key = key;
             this.value = value;
         }
@@ -241,15 +319,24 @@ public class MapAdapter implements HMap{
         }
 
         public Object setValue(Object value){
+            if(value == null){
+                throw new NullPointerException();
+            }
              Object o = this.value;
+
+             if(!value.getClass().isInstance(o)){
+                throw new ClassCastException();
+             }
              this.value = value;
              return o;
         }
 
         public boolean equals(Object o){
-            if(o.getClass().isInstance(new EntryAdapter()));
-            EntryAdapter entry = (EntryAdapter)o;
+
             //TODO:possono essre null?
+            if(o.getClass().isInstance(new EntryAdapter())){
+            }
+            EntryAdapter entry = (EntryAdapter)o;
             if(key.equals(entry.getKey())&&value.equals(entry.getValue())){
                 return true;
             }
@@ -277,14 +364,21 @@ public class MapAdapter implements HMap{
 
     }
 
-    //TODO:setAdapter
+    //TODO:introduzione setAdapter e copiare sui metodi tutti anche quelli già fatti perchè li ho sistemati
     private class SetAdapter implements HSet{
 
-        // 0 = KeySet
-        // 1 = values
-        // 2 = entrySet
+        /*
+         * The attribute 'type' indicates the behavior of the returned set.
+         * With type = 0, the set behaves as defined by 'keySet' (a set containing the keys).
+         * With type = 1, it behaves as defined by 'values' (a collection containing the values).
+         * With type = 2, it behaves as defined by 'entrySet' (a set containing 'Map.Entry' pairs of key-value).
+         * In all three cases, removals are permitted using also an iterator, but additions are not.
+         */
         private int type; 
-
+        /*
+         * Private constructor as it should only be possible to create Set/Collection through the aforementioned methods.
+         * Respects the constraints of the previously described type.
+         */
         private SetAdapter(int type){
             this.type = type;
         }
@@ -297,7 +391,7 @@ public class MapAdapter implements HMap{
         * @return the number of elements in this set (its cardinality). 
         */
         public int size(){
-            return hash.size();
+            return size();
         }
 
         /* Returns <code>true</code> if this set contains no elements.
@@ -308,7 +402,7 @@ public class MapAdapter implements HMap{
         * @return  <code>true</code> if this set contains no elements.
         */
         public boolean isEmpty(){
-            return hash.isEmpty();
+            return  isEmpty();
         }
 
         /**
@@ -436,7 +530,7 @@ public class MapAdapter implements HMap{
         * @throws NullPointerException if the specified array is <code>null</code>.
         */
         public boolean add(Object o){
-            return false;
+            throw new UnsupportedOperationException();
             //Not supported (ne metodo values,ne entrySet,ne keySet supportano questo metodo)
         }
 
@@ -544,7 +638,7 @@ public class MapAdapter implements HMap{
          */
         public boolean addAll(HCollection c)
         {
-            return false;
+            throw new UnsupportedOperationException();
             //Not supported (ne metodo values,ne entrySet,ne keySet supportano questo metodo)
         }
 
