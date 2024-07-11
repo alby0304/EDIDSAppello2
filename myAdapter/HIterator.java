@@ -1,7 +1,5 @@
 package myAdapter;
 
-import java.util.NoSuchElementException;
-
 /**
  * An iterator over a collection. Iterator takes the place of Enumeration in
  * the Java collections framework. Iterators differ from enumerations in two

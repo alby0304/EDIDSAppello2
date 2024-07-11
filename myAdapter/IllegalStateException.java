@@ -1,16 +1,18 @@
 package myAdapter;
 
 /**
- * Thrown to indicate that the requested operation is not supported.
+ * Signals that a method has been invoked at an illegal or inappropriate time.
+ * In other words, the Java environment or Java application is not in an
+ * appropriate state for the requested operation.
  * <br>
  * Implemented in this package because not present in CLDC 1.1
  */
-public class UnsupportedOperationException extends RuntimeException {
+public class IllegalStateException extends RuntimeException {
 
     /**
      * Constructs an IllegalStateException with no detail message.
      */
-    public UnsupportedOperationException(){
+    public IllegalStateException(){
     }
 
     /**
@@ -18,7 +20,7 @@ public class UnsupportedOperationException extends RuntimeException {
      * 
      * @param message the detail message.
      */
-    public UnsupportedOperationException(String message) {
+    public IllegalStateException(String message) {
         super(message);
     }
 

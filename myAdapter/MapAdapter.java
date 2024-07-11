@@ -3,6 +3,7 @@ package myAdapter;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.NoSuchElementException;
+import myAdapter.IllegalStateException;
 import myAdapter.UnsupportedOperationException;
 
 //TODO:introduzione progetto
@@ -332,13 +333,11 @@ public class MapAdapter implements HMap{
         }
 
         public boolean equals(Object o){
-
-            //TODO:possono essre null?
             if(o.getClass().isInstance(new EntryAdapter())){
-            }
-            EntryAdapter entry = (EntryAdapter)o;
-            if(key.equals(entry.getKey())&&value.equals(entry.getValue())){
-                return true;
+                EntryAdapter entry = (EntryAdapter)o;
+                if(key.equals(entry.getKey())&&value.equals(entry.getValue())){
+                    return true;
+                }
             }
             return false;
         }
@@ -419,12 +418,20 @@ public class MapAdapter implements HMap{
          */
         public boolean contains(Object o){
             if(type == 0){
+                excKey(o);
                 return hash.containsKey(o);
             }
             else if(type == 1){
+                excKey(o);
                 return hash.containsValue(o);
             }
             else{
+                if(o == null){
+                    throw new NullPointerException();
+                }
+                else if(!o.getClass().isInstance(new EntryAdapter())){
+                    throw new ClassCastException();
+                }
                 EntryAdapter enter = (EntryAdapter) o;
                 if(hash.containsKey(enter.getKey())){
                     if(enter.getValue()==hash.get(enter.getKey())){
@@ -559,23 +566,37 @@ public class MapAdapter implements HMap{
         *                                       collection.
         */
         public boolean remove(Object o){
+            boolean rtn = false;
             if(type == 0){
-                hash.remove(o);
-                return true;
+                excKey(o);
+                if(hash.remove(o) != null){
+                    rtn = true;
+                }
             }
             else if(type == 1){
-                while(hash.keys().hasMoreElements()){
-                    Object key = hash.keys().nextElement();
+                excValue(o);
+                Enumeration en = hash.keys();
+                while(en.hasMoreElements()){
+                    Object key = en.nextElement();
                     if(o == get(key)){
-                        remove(key);
-                        return true;
+                        hash.remove(key);
+                        rtn = true;
                     }
                 }
             }
-            EntryAdapter enter = (EntryAdapter)o;
-            hash.remove(enter.getKey());
-            return true;
-
+            else {
+                if(o == null){
+                    throw new NullPointerException();
+                }
+                else if(!o.getClass().isInstance(new EntryAdapter())){
+                    throw new ClassCastException();
+                }
+                EntryAdapter enter = (EntryAdapter) o;
+                if(hash.remove(enter.getKey())!=null){
+                    rtn = true;
+                }
+            }
+            return rtn;
         }
 
         /**
@@ -599,6 +620,9 @@ public class MapAdapter implements HMap{
         * @see #contains(Object)
         */
         public boolean containsAll(HCollection c){
+            if(c==null){
+                throw new NullPointerException();
+            }
             boolean change  = true;
             while(c.iterator().hasNext()){
                 if(contains(c.iterator().next())==false && change == true)
@@ -678,19 +702,18 @@ public class MapAdapter implements HMap{
         }
 
         public boolean equals(Object o){
-            HCollection c;
+            
             if(type == 1){
                 if(!(o instanceof HCollection)){
                     return false;
                 }
-                c = (HCollection)o;
             }
             else{
                 if(!(o instanceof HSet)){
                     return false;
                 }
-                c = (HSet)o;
             }
+            HCollection c = (SetAdapter) o;
             HIterator it = iterator();
             HIterator it2 = c.iterator();
             while(it.hasNext()){
@@ -712,6 +735,8 @@ public class MapAdapter implements HMap{
             return 0; 
         }
 
+
+        //TODO:introduzione Iterator e copiare i commenti dei metodi
         private class IteratorAdapter implements HIterator{
 
             private boolean status = true;
@@ -798,6 +823,9 @@ public class MapAdapter implements HMap{
                     else{
                         hash.remove(en.nextElement());
                     }
+                }
+                else{
+                    throw new IllegalStateException();
                 }
             }
     
