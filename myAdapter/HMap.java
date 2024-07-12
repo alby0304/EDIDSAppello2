@@ -223,7 +223,7 @@ public interface HMap{
      */
     int hashCode();
 
-    /*
+    /**
      * A map entry (key-value pair).
      * The <code>Map.entrySet</code> method returns a collection-view of the map, whose elements are of this class.
      * The only way to obtain a reference to a map entry is from the iterator of this collection-view.
@@ -232,21 +232,21 @@ public interface HMap{
      * except through the iterator's own <code>remove</code> operation, or through the <code>setValue</code> operation on a map entry returned by the iterator.
      */
     public static interface Entry{
-        /*
+        /**
          * Returns the key corresponding to this entry.
          * 
          * @return the key corresponding to this entry.
          */
         Object getKey();
 
-        /*
+        /**
          * Returns the value corresponding to this entry. If the mapping has been removed from the backing map (by the iterator's <code>remove</code> operation), the results of this call are undefined.
          * 
          * @return he value corresponding to this entry.
          */
         Object getValue();
 
-        /*
+        /**
          * Replaces the value corresponding to this entry with the specified value.
          * The behavior of this call is undefined if the mapping has already been removed from the map (by the iterator's <code>remove</code> operation).
          * 
@@ -257,21 +257,22 @@ public interface HMap{
          */
         Object setValue(Object value);
 
-        /*
+        /**
          * Compares the specified object with this entry for equality. Returns <code>true</code> if the given object is also a map entry and the two entries represent the same mapping. More formally, two entries e1 and e2 represent the same mapping if <code>
                         (e1.getKey()==null ?
                         e2.getKey()==null : e1.getKey().equals(e2.getKey()))  &&
                         (e1.getValue()==null ?
                          e2.getValue()==null : e1.getValue().equals(e2.getValue())) </code>
 
-        *<br>
-        *@param o object to be compared for equality with this map entry.
-        @return <code>true</code> if the specified object is equal to this map entry.                
-        *@see Object#equals(Object)
-        *
+         * <br>
+         * @param o object to be compared for equality with this map entry.
+         * @return <code>true</code> if the specified object is equal to this map entry.                
+         * @see Object#equals(Object)
+         *
          */
         boolean equals(Object o);
-        /*
+        
+        /**
          * Returns the hash code value for this map entry. The hash code of a map entry <code>e</code> is defined to be:
             <code>(e.getKey()==null   ? 0 : e.getKey().hashCode()) ^
             (e.getValue()==null ? 0 : e.getValue().hashCode())</code>

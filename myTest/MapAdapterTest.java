@@ -4,7 +4,7 @@ import myAdapter.*;
 
 //TODO tets suite case design
 public class MapAdapterTest{
-    /*
+    /**
      * Empty constructor.
      */
     public MapAdapterTest(){

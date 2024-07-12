@@ -22,17 +22,18 @@ import myAdapter.UnsupportedOperationException;
  * 
  */ 
 public class MapAdapter implements HMap{
-    /*
+    /**
      * The backing Hashtable of the Map
      */
     private Hashtable hash;
-    /*
+    /**
      * A void (no arguments) constructor which creates an empty map
      */
     public MapAdapter(){
         hash = new Hashtable();
     }
-    /*
+
+    /**
      * A constructor with a single argument of type Map,
      * which creates a new map with the same key-value mappings as its argument.
      * 
@@ -300,19 +301,21 @@ public class MapAdapter implements HMap{
 
     //TODO:introduzione implmentazone interfaccia e copiare sui metodi
     /**
-     * Questa classe implementa l'interfaccia HMap attraverso l'utilizzo di chiavi e valori per la gestione della mappa stessa.
-     * Questa non può contenere chiavi duplicate le qauli possono riferirsi solo ad un valore. 
-     * Vengono forniti due costruttori standard:
+     * This class implements the HMap interface through the use of keys and values ​​to manage the map itself.
+     * This cannot contain duplicate keys which can only refer to one value. 
+     * <br>
+     * Two standard constructors are provided:
      * <ul>
-     * <li> un costruttore vuoto (senza argomenti) 
-     * <li> un costruttore che inizializza le variabili (key, value)  
+     * <li> an empty constructor (no arguments) 
+     * <li> a constructor that initializes variables (key, value)  
      * </ul>
+     * <br>
+     * Some implementations prohibit inserting null keys and values ​​if unsuitable parameters are used.
+     * NullPointerException and ClassCastException exceptions are thrown.
      * 
-     * Alcune implementazioni vietano di inserire chiavi e valori nulli dunque nel caso vengano utilizzati parametri non idonei
-     * vengono generate le eccezioni NullPointerException e ClassCastException.
      * 
-     * 
-     */    public static class EntryAdapter implements HMap.Entry{
+     */    
+    public static class EntryAdapter implements HMap.Entry{
         /*
          * Key element of the key-value pair that constitutes the Entry.
          * All keys within the Map are of the same type and cannot be null.
@@ -338,14 +341,33 @@ public class MapAdapter implements HMap{
             this.value = value;
         }
 
+        /**
+         * Returns the key corresponding to this entry.
+         * 
+         * @return the key corresponding to this entry.
+         */
         public Object getKey(){
             return key;
         }
 
+        /**
+         * Returns the value corresponding to this entry. If the mapping has been removed from the backing map (by the iterator's <code>remove</code> operation), the results of this call are undefined.
+         * 
+         * @return he value corresponding to this entry.
+         */
         public Object getValue(){
             return value;
         }
-
+        
+        /**
+         * Replaces the value corresponding to this entry with the specified value.
+         * The behavior of this call is undefined if the mapping has already been removed from the map (by the iterator's <code>remove</code> operation).
+         * 
+         * @param value new value to be stored in this entry
+         * @return old value corresponding to the entry
+         * @throws ClassCastException if the class of the specified value prevents it from being stored in the backing map.
+         * @throws NullPointerException the backing map does not permit null values, and the specified value is null.
+         */
         public Object setValue(Object value){
             if(value == null){
                 throw new NullPointerException();
@@ -359,6 +381,19 @@ public class MapAdapter implements HMap{
              return o;
         }
 
+        /**
+         * Compares the specified object with this entry for equality. Returns <code>true</code> if the given object is also a map entry and the two entries represent the same mapping. More formally, two entries e1 and e2 represent the same mapping if <code>
+                        (e1.getKey()==null ?
+                        e2.getKey()==null : e1.getKey().equals(e2.getKey()))  &&
+                        (e1.getValue()==null ?
+                         e2.getValue()==null : e1.getValue().equals(e2.getValue())) </code>
+
+         * <br>
+         * @param o object to be compared for equality with this map entry.
+         * @return <code>true</code> if the specified object is equal to this map entry.                
+         * @see Object#equals(Object)
+         *
+         */
         public boolean equals(Object o){
             if(o.getClass().isInstance(new EntryAdapter())){
                 EntryAdapter entry = (EntryAdapter)o;
@@ -369,6 +404,17 @@ public class MapAdapter implements HMap{
             return false;
         }
         
+        /**
+         * Returns the hash code value for this map entry. The hash code of a map entry <code>e</code> is defined to be:
+            <code>(e.getKey()==null   ? 0 : e.getKey().hashCode()) ^
+            (e.getValue()==null ? 0 : e.getValue().hashCode())</code>
+            <br>
+            <br>
+            This ensures that <code>e1.equals(e2</code> implies that <code>e1.hashCode()==e2.hashCode()</code> for any two Entries e1 and e2, as required by the general contract of Object.hashCode.
+         *
+         * @return the hash code value for this map entry.
+         * @see Object#hashCode()
+         */
         public int hashCode(){
             int hash = 0;
             if(key == null){
@@ -393,13 +439,16 @@ public class MapAdapter implements HMap{
     //TODO:introduzione setAdapter e copiare sui metodi tutti anche quelli già fatti perchè li ho sistemati
     /**
      * Set of the class MapAdapter. It implements the HSet interface.
-     * It implements all methods except for <code>add()</code> and <code>addAll()</code> which are not supported.
+     * It implements all methods except for <code>add()</code> and <code>addAll()</code> 
+     * which are not supported and throw exceptions.
      * <br>
-     * 
+     * It's a collection that contains no duplicate elements. 
+     * More formally, sets contain no pair of elements e1 and e2 such that e1.equals(e2), 
+     * and at most one null element.
      */
     private class SetAdapter implements HSet{
 
-        /*
+        /**
          * The attribute 'type' indicates the behavior of the returned set.
          * <ul>
          * <li>With type = 0, the set behaves as defined by <code>keySet</code> (a set containing the keys).</li>
@@ -410,7 +459,8 @@ public class MapAdapter implements HMap{
          * In all three cases, removals are permitted using also an iterator, but additions are not.
          */
         private int type; 
-        /*
+        
+        /**
          * Private constructor as it should only be possible to create Set/Collection through the aforementioned methods.
          * Respects the constraints of the previously described type.
          */
@@ -418,24 +468,26 @@ public class MapAdapter implements HMap{
             this.type = type;
         }
 
-        /* Returns the number of elements in this set (its cardinality). If this set contains more than <code>Integer.MAX_VALUE</code> elements, returns <code>Integer.MAX_VALUE</code>.
-        * <br>
-        * Specified by: <br>
-        * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#size()">size</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
-        * <br>
-        * @return the number of elements in this set (its cardinality). 
-        */
+        /**
+         *  Returns the number of elements in this set (its cardinality). If this set contains more than <code>Integer.MAX_VALUE</code> elements, returns <code>Integer.MAX_VALUE</code>.
+         * <br>
+         * Specified by: <br>
+         * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#size()">size</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+         * <br>
+         * @return the number of elements in this set (its cardinality). 
+         */
         public int size(){
             return size();
         }
 
-        /* Returns <code>true</code> if this set contains no elements.
-        * <br>
-        * Specified by: <br>
-        * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#isEmpty()">isEmpty</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
-        * <br>
-        * @return  <code>true</code> if this set contains no elements.
-        */
+        /**
+         *  Returns <code>true</code> if this set contains no elements.
+         * <br>
+         * Specified by: <br>
+         * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#isEmpty()">isEmpty</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+         * <br>
+         * @return  <code>true</code> if this set contains no elements.
+         */
         public boolean isEmpty(){
             return  isEmpty();
         }
@@ -702,6 +754,33 @@ public class MapAdapter implements HMap{
             //Not supported (ne metodo values,ne entrySet,ne keySet supportano questo metodo)
         }
 
+        /**
+         * Retains only the elements in this collection that are contained in the
+         * specified collection (optional operation). In other words, removes from
+         * this set all of its elements that are not contained in the specified collection.
+         * If the specified collection is also a set, this operation effectively modifies this set so that its value is the <i>intersection</i> of the two sets.
+         *  <br>
+         * Specified by: <br>
+         * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#retainAll()">retainAll</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+         * <br>
+         * @param c elements to be retained in this collection.
+         * @return <code>true</code> if this collection changed as a result of the
+         *         call
+         * 
+         * @throws UnsupportedOperationException if the <code>retainAll</code> method
+         *                                       is not supported by this Collection.
+         * @throws ClassCastException            if the types of one or more elements
+         *                                       in this collection are incompatible
+         *                                       with the specified collection
+         *                                       (optional).
+         * @throws NullPointerException          if this collection contains one or more
+         *                                       null elements and the specified
+         *                                       collection does not support null
+         *                                       elements (optional).
+         * @throws NullPointerException          if the specified collection is
+         *                                       <code>null</code>.
+         * @see #remove(Object)
+         */
         public boolean retainAll(HCollection c){
             if(c==null){
                 throw new NullPointerException();
@@ -717,6 +796,34 @@ public class MapAdapter implements HMap{
             return rtn;
         }
 
+        /**
+         * 
+         * Removes all this collection's elements that are also contained in the
+         * specified collection (optional operation).
+         * If the specified collection is also a set,
+         * this operation effectively modifies this set so that its value is the <i>asymmetric set difference</i> of the two sets.
+         * <br>
+         * Specified by: <br>
+         * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#removeAll()">removeAll</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+         * <br>
+         * @param c elements to be removed from this collection.
+         * @return <code>true</code> if this collection changed as a result of the
+         *         call
+         * 
+         * @throws UnsupportedOperationException if the <code>removeAll</code> method
+         *                                       is not supported by this collection.
+         * @throws ClassCastException            if the types of one or more elements
+         *                                       in this collection are incompatible
+         *                                       with the specified collection
+         *                                       (optional).
+         * @throws NullPointerException          if this collection contains one or more
+         *                                       null elements and the specified
+         *                                       collection does not support null
+         *                                       elements (optional).
+         * @throws NullPointerException          if the specified collection is
+         *                                       <code>null</code>.
+         * @see #remove(Object)
+         */
         public boolean removeAll(HCollection c){
             if(c==null){
                 throw new NullPointerException();
@@ -732,11 +839,37 @@ public class MapAdapter implements HMap{
             return rtn;
         }
 
+        /**
+         * Removes all of the elements from this set(optional operation).
+         * This set will be empty after this method returns unless it
+         * throws an exception.
+         *<br>
+        * Specified by: <br>
+        * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#clear()">clear</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+        * <br>
+        * @throws UnsupportedOperationException if the <code>clear</code> method is
+        *                                       not supported by this collection.
+        */
         public void clear()
         {
             hash.clear();
         }
 
+        /**
+         * Compares the specified object with this collection for equality.
+         * Returns <code>true</code> if the specified object is also a set, the two sets have the same size, and every member of the specified set is contained in this set (or equivalently, every member of this set is contained in the specified set).
+         * This definition ensures that the equals method works properly across different implementations of the set interface.
+         * <br>
+         * Specified by: <br>
+         * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#equals()">equals</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+         * <br>
+         *
+         * @param o Object to be compared for equality with this collection.
+         * @return <code>true</code> if the specified object is equal to this
+         *         collection
+         * 
+         * @see Object#hashCode()
+         */
         public boolean equals(Object o){
             
             if(type == 1){
@@ -762,6 +895,21 @@ public class MapAdapter implements HMap{
             return true;
         }
 
+        /**
+         * Returns the hash code value for this set. 
+         * The hash code of a set is defined to be the sum of the hash codes of the elements in the set,
+         * where the hashcode of a null element is defined to be zero. 
+         * This ensures that <code>s1.equals(s2)</code> implies that <code>s1.hashCode()==s2.hashCode()</code> for any two sets <code>s1</code> and <code>s2</code>,
+         * as required by the general contract of the <code>Object.hashCode</code> method
+         *<br>
+        * Specified by: <br>
+        * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#hashCode()">hashCode</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
+        * <br>
+        * @return the hash code value for this collection
+        * 
+        * @see Object#hashCode()
+        * @see Object#equals(Object)
+        */
         public int hashCode(){
             int hash = 0;
             HIterator it = iterator();
@@ -773,6 +921,17 @@ public class MapAdapter implements HMap{
 
 
         //TODO:introduzione Iterator e copiare i commenti dei metodi
+        /**
+         * Iterator of the Set. It implements the HIterator interface.
+         * The iterator is used to scan and put the set in order.
+         * <br>
+         * The type of Iterator depends on the Set and can have 3 different behaviors:
+         * <ul>
+         * <li>if type = 0, it behaves like an iterator over the <code>keys</code></li>
+         * <li>if type = 1, it behaves like an iterator over the <code>value</code></li>
+         * <li>if type = 2, it behaves like an iterator over the <code>Map.Entry</code></li>
+         * </ul>
+         */
         private class IteratorAdapter implements HIterator{
             /*
              * Variable that indicates whether the state of the iterator is still valid.
