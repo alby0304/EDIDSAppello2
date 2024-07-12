@@ -3,6 +3,33 @@ import org.junit.*;
 import myAdapter.*;
 
 //TODO tets suite case design
+/**
+ * This class is a test suite designed for testing the MapAdapter class.
+ * <br>
+ * This test suite is designed using Junit version 4.13.2, the jar files
+ * (junit-4.13.2.jar and hamcrest-core-1.3.jar) can be found in the JUnit
+ * folder.
+ * <br>
+ * MapAdapterTest is built as part of the exam of the course "Elementi di
+ * Ingegneria del Software" 2023/24 at Padua University.
+ * <br>
+ * This test suite contains n different tests plus one helper method written
+ * to avoid duplicating code. Every method of MaAdapter, EntryAdapter and private class
+ * SetAdapter is tested. Some methods could not have a test named after
+ * them, but every method is tested. The naming convention chosen is
+ * testFeatureBeingTested like.
+ * 
+ * @doc.testSuiteDesign For every (public) method present in the tested classes,
+ *                      all the possible use cases were considered and all the
+ *                      relevant edge cases were tested (at least these were the
+ *                      intentions). For example the method get could
+ *                      be called on an empty map, and if called on a full map
+ *                      than it should work and return key and should not work 
+ *                      for negative or biggest size() indexes. 
+ * @see myAdapter.MapAdapter
+ * @see myAdapter.MapAdapter.EntryAdapter
+ * 
+ */
 public class MapAdapterTest{
     /**
      * Empty constructor.
@@ -108,7 +135,7 @@ public class MapAdapterTest{
      * @doc.testDescription Instantiates a map, fill it with the helper(0,10) method and
      *                      that its size is ten.
      * @doc.postCondition The map is a valid instance.
-     * @doc.expectedResults The map is has size ten.
+     * @doc.expectedResults The map has size ten.
      */
     @Test
     public void testSizeMap(){
@@ -177,6 +204,25 @@ public class MapAdapterTest{
 
         Assert.assertTrue(map.isEmpty());
         Assert.assertEquals(0, map.size());
+    }
+
+    /**
+     * Tests the containsKey method on a map.
+     * 
+     * @doc.testCaseDesign This test is designed for analyzing the containsKey() method 
+     *                     of a new map
+     * @doc.testDescription Instantiates a map and checks that the map is not empty and 
+     *                      has the key inside of it.
+     * @doc.preCondition The map is correctly instantiated.
+     * @doc.postCondition The map is a valid instance.
+     * @doc.expectedResults The map is not empty and contains the right key.
+     */
+    @Test
+    public void testContainsKey() {
+        MapAdapter map = helper(0,10);
+
+        Assert.assertTrue(map.containsKey(3));
+        Assert.assertEquals(10, map.size());
     }
 
 }
