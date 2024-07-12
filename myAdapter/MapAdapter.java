@@ -7,6 +7,20 @@ import myAdapter.IllegalStateException;
 import myAdapter.UnsupportedOperationException;
 
 //TODO:introduzione progetto
+/**
+ * This class is an implementation of the HMap interface.
+ * <br>
+ * HMap is a copy of the Map interface of Java Standars Edition CLDC 1.1.
+ * MapAdapter uses as adaptee the class Hashtable of Java Micro Edition CLDC 1.1.
+ * <br>
+ * MapAdapter is built as part of the exam of the course "Elementi di
+ * Ingegneria del Software" 2023/24 at Padua University.
+ * <br>
+ * MapAdapter has three collection views, which allow a map's contents to be viewed 
+ * as a set of keys, collection of values, or set of key-value mappings. 
+ * The order of a map is defined as the order in which the iterators on the map's collection views return their elements. 
+ * 
+ */ 
 public class MapAdapter implements HMap{
     /*
      * The backing Hashtable of the Map
@@ -285,7 +299,20 @@ public class MapAdapter implements HMap{
     }
 
     //TODO:introduzione implmentazone interfaccia e copiare sui metodi
-    public static class EntryAdapter implements HMap.Entry{
+    /**
+     * Questa classe implementa l'interfaccia HMap attraverso l'utilizzo di chiavi e valori per la gestione della mappa stessa.
+     * Questa non può contenere chiavi duplicate le qauli possono riferirsi solo ad un valore. 
+     * Vengono forniti due costruttori standard:
+     * <ul>
+     * <li> un costruttore vuoto (senza argomenti) 
+     * <li> un costruttore che inizializza le variabili (key, value)  
+     * </ul>
+     * 
+     * Alcune implementazioni vietano di inserire chiavi e valori nulli dunque nel caso vengano utilizzati parametri non idonei
+     * vengono generate le eccezioni NullPointerException e ClassCastException.
+     * 
+     * 
+     */    public static class EntryAdapter implements HMap.Entry{
         /*
          * Key element of the key-value pair that constitutes the Entry.
          * All keys within the Map are of the same type and cannot be null.
@@ -364,13 +391,22 @@ public class MapAdapter implements HMap{
     }
 
     //TODO:introduzione setAdapter e copiare sui metodi tutti anche quelli già fatti perchè li ho sistemati
+    /**
+     * Set of the class MapAdapter. It implements the HSet interface.
+     * It implements all methods except for <code>add()</code> and <code>addAll()</code> which are not supported.
+     * <br>
+     * 
+     */
     private class SetAdapter implements HSet{
 
         /*
          * The attribute 'type' indicates the behavior of the returned set.
-         * With type = 0, the set behaves as defined by 'keySet' (a set containing the keys).
-         * With type = 1, it behaves as defined by 'values' (a collection containing the values).
-         * With type = 2, it behaves as defined by 'entrySet' (a set containing 'Map.Entry' pairs of key-value).
+         * <ul>
+         * <li>With type = 0, the set behaves as defined by <code>keySet</code> (a set containing the keys).</li>
+         * <li>With type = 1, it behaves as defined by <code>values</code>  (a collection containing the values).</li>
+         * <li>With type = 2, it behaves as defined by <code>entrySet</code>  (a set containing 'Map.Entry' pairs of key-value).</li>
+         * </ul>
+         * <br>
          * In all three cases, removals are permitted using also an iterator, but additions are not.
          */
         private int type; 
@@ -738,11 +774,37 @@ public class MapAdapter implements HMap{
 
         //TODO:introduzione Iterator e copiare i commenti dei metodi
         private class IteratorAdapter implements HIterator{
-
-            private boolean status = true;
+            /*
+             * Variable that indicates whether the state of the iterator is still valid.
+             * An iterator becomes invalid if the <code>remove()</code>  method is called twice consecutively without calling <code>next()</code>  before the second call.
+             */
+            private boolean state = true;
+            /*
+             * The attribute follows the specifications provided in SetAdapter.
+             * In particular:
+             * <ul>
+             * <li>if type = 0, it behaves like an iterator over the <code>keys</code></li>
+             * <li>if type = 1, it behaves like an iterator over the <code>value</code></li>
+             * <li>if type = 2, it behaves like an iterator over the <code>Map.Entry</code></li>
+             * </ul>
+             */
             private int type;
-            Enumeration en;
-    
+            /*
+             * The backing Enumeration of the iterator.
+             * It can contain elements of different types:
+             * type = 0 contains the <code>keys</code> of the map
+             * type = 1 contains the <code>value</code> of the map
+             * type = 2, although it is an iterator of <code>Map.Entry</code>, does not contain this class, but contains the keys since navigation and search are facilitated with the keys.
+             * However, it will still return objects of type Map.Entry."
+             */
+            private Enumeration en;
+            
+            /*
+             * Private constructor because it is not possible to instantiate an object of this type from the outside;
+             * the object is only returned by the <code>iterator()</code> method of the <code>SetAdapter</code> class.
+             * <br>
+             * It instantiates the Enumeration with the corresponding enumeration of keys/values, respecting the type behavior described above.
+             */
             private IteratorAdapter(int type){
                 this.type = type;
                 if(type == 0){
@@ -776,7 +838,7 @@ public class MapAdapter implements HMap{
              * @throws NoSuchElementException iteration has no more elements.
              */
             public  Object next(){
-                status = true;
+                state = true;
                 if(!hasNext())
                 {
                     throw new NoSuchElementException();
@@ -808,8 +870,8 @@ public class MapAdapter implements HMap{
              *                                       <code>next</code> method.
              */
             public void remove(){
-                if(status != false){
-                    status = false;
+                if(state != false){
+                    state = false;
                     if(type == 1){
                         Object o = en.nextElement();
                         while(hash.keys().hasMoreElements()){
