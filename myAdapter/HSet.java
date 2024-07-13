@@ -1,6 +1,6 @@
 package myAdapter;
 
-/* 
+/**
 * A collection that contains no duplicate elements.  More formally, sets
 * contain no pair of elements <code>e1</code> and <code>e2</code> such that
 * <code>e1.equals(e2)</code>, and at most one null element.  As implied by
@@ -152,7 +152,7 @@ public interface HSet extends HCollection {
      * Specified by: <br>
      * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#add()">add</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
      * <br>
-     * @param a the array into which the elements of this collection are to be
+     * @param o the array into which the elements of this collection are to be
      *          stored, if it is big enough; otherwise, a new array of the same
      *          runtime type is allocated for this purpose.
      * @return an array containing the elements of this collection

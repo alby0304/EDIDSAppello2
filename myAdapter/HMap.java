@@ -1,5 +1,5 @@
 package myAdapter;
-/*
+/**
  * An object that maps keys to values.
  * A map cannot contain duplicate keys; each key can map to at most one value.
  * <br>
@@ -44,7 +44,7 @@ package myAdapter;
  * exception if the map whose mappings are to be "superimposed" is empty.
  * <br>
  * <br>
- * <Some map implementations have restrictions on the keys and values they 
+ * Some map implementations have restrictions on the keys and values they 
  * may contain.  For example, some implementations prohibit null keys and 
  * values, and some have restrictions on the types of their keys.  Attempting 
  * to insert an ineligible key or value throws an unchecked exception, 
@@ -260,7 +260,7 @@ public interface HMap{
         /**
          * Compares the specified object with this entry for equality. Returns <code>true</code> if the given object is also a map entry and the two entries represent the same mapping. More formally, two entries e1 and e2 represent the same mapping if <code>
                         (e1.getKey()==null ?
-                        e2.getKey()==null : e1.getKey().equals(e2.getKey()))  &&
+                        e2.getKey()==null : e1.getKey().equals(e2.getKey()))  &amp;&amp;
                         (e1.getValue()==null ?
                          e2.getValue()==null : e1.getValue().equals(e2.getValue())) </code>
 

@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import myAdapter.IllegalStateException;
 import myAdapter.UnsupportedOperationException;
 
-//TODO:introduzione progetto
+
 /**
  * This class is an implementation of the HMap interface.
  * <br>
@@ -39,8 +39,13 @@ public class MapAdapter implements HMap{
      * 
      * <br>
      * The constructor allows the user to copy any map, producing an equivalent map of the desired class
+     * @param t map from which elements are copied
+     * @throws NullPointerException if the passed map is a null pointer 
      */
     public MapAdapter(HMap t){
+        if(t == null){
+            throw new NullPointerException();
+        }
         hash = new Hashtable();
         putAll(t);
     }
@@ -299,7 +304,6 @@ public class MapAdapter implements HMap{
         }
     }
 
-    //TODO:introduzione implmentazone interfaccia e copiare sui metodi
     /**
      * This class implements the HMap interface through the use of keys and values ​​to manage the map itself.
      * This cannot contain duplicate keys which can only refer to one value. 
@@ -316,27 +320,33 @@ public class MapAdapter implements HMap{
      * 
      */    
     public static class EntryAdapter implements HMap.Entry{
-        /*
+        /**
          * Key element of the key-value pair that constitutes the Entry.
          * All keys within the Map are of the same type and cannot be null.
          * Each key is unique and cannot have duplicates, making it the preferred element for use as the Map favors efficient searching and the use of methods on the keys.
          */
         private Object key;
-        /*
+        /**
          * Value element of the key-value pair that constitutes the Entry
          *  All values within the Map are of the same type and cannot be null.
          * Values can have duplicates, which is not recommended for use as Maps favor efficient searching and the use of methods on keys.
          */
         private Object value;
-        /*
+        /**
          * Empty public constructor
          */
         public EntryAdapter(){
         }
-        /*
+        /**
          * Public constructor that allows initializing the object's variables.
+         * @param key object to assign to the key element 
+         * @param value object to assign to the value element
+         * @throws NullPointerException if the key or the value is null
          */
         public  EntryAdapter(Object key, Object value){
+            if(key == null || value == null){
+                throw new NullPointerException();
+            }
             this.key = key;
             this.value = value;
         }
@@ -384,7 +394,7 @@ public class MapAdapter implements HMap{
         /**
          * Compares the specified object with this entry for equality. Returns <code>true</code> if the given object is also a map entry and the two entries represent the same mapping. More formally, two entries e1 and e2 represent the same mapping if <code>
                         (e1.getKey()==null ?
-                        e2.getKey()==null : e1.getKey().equals(e2.getKey()))  &&
+                        e2.getKey()==null : e1.getKey().equals(e2.getKey()))  &amp;&amp;
                         (e1.getValue()==null ?
                          e2.getValue()==null : e1.getValue().equals(e2.getValue())) </code>
 
@@ -436,7 +446,6 @@ public class MapAdapter implements HMap{
 
     }
 
-    //TODO:introduzione setAdapter e copiare sui metodi tutti anche quelli già fatti perchè li ho sistemati
     /**
      * Set of the class MapAdapter. It implements the HSet interface.
      * It implements all methods except for <code>add()</code> and <code>addAll()</code> 
@@ -919,8 +928,6 @@ public class MapAdapter implements HMap{
             return 0; 
         }
 
-
-        //TODO:introduzione Iterator e copiare i commenti dei metodi
         /**
          * Iterator of the Set. It implements the HIterator interface.
          * The iterator is used to scan and put the set in order.

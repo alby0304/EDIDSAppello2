@@ -1,8 +1,9 @@
 package myTest;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.*;
 import myAdapter.*;
 
-//TODO tets suite case design
 /**
  * This class is a test suite designed for testing the MapAdapter class.
  * <br>
@@ -19,7 +20,7 @@ import myAdapter.*;
  * them, but every method is tested. The naming convention chosen is
  * testFeatureBeingTested like.
  * 
- * @doc.testSuiteDesign For every (public) method present in the tested classes,
+ * @testSuiteDesign For every (public) method present in the tested classes,
  *                      all the possible use cases were considered and all the
  *                      relevant edge cases were tested (at least these were the
  *                      intentions). For example the method get could
@@ -64,12 +65,12 @@ public class MapAdapterTest{
      /**
      * Tests the creation of an empty map.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the creation of a new
+     * @testCaseDesign This test is designed for analyzing the creation of a new
      *                     empty map
-     * @doc.testDescription Instantiates a map and verifies that it is empty and
+     * @testDescription Instantiates a map and verifies that it is empty and
      *                      that its size is zero.
-     * @doc.postCondition The map is a valid instance.
-     * @doc.expectedResults The map is empty and has size zero.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is empty and has size zero.
      */
     @Test
     public void testNewMap(){
@@ -83,14 +84,14 @@ public class MapAdapterTest{
     /**
      * Tests the helper method.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the creation of a
+     * @testCaseDesign This test is designed for analyzing the creation of a
      *                     map filled with numbers keys and letters value via the helper method
      *                     helper().
-     * @doc.testDescription Creates a maps via the helper(0, 10) method
+     * @testDescription Creates a maps via the helper(0, 10) method
      *                      and verifies that it is not empty, its size equals 10,
      *                      and the first and the last element are correct.
-     * @doc.postCondition The map is instantiated and filled with numbers.
-     * @doc.expectedResults The mapp has the right size, is not empty and contains
+     * @postCondition The map is instantiated and filled with numbers.
+     * @expectedResults The mapp has the right size, is not empty and contains
      *                      the right elements.
      */
     @Test
@@ -102,19 +103,18 @@ public class MapAdapterTest{
         Assert.assertEquals("A", map.get(0));
         Assert.assertEquals("J", map.get(9));
     }
-    
 
     /**
      * Tests the creation by copy of the map.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the creation of a
+     * @testCaseDesign This test is designed for analyzing the creation of a
      *                     map filled with another map.
-     * @doc.testDescription Creates a maps via the helper(0, 10) method
+     * @testDescription Creates a maps via the helper(0, 10) method
      *                      and initialies a new map passing the newly created map as a parameter,
      *                      then testing the new map that it is not empty, its size equals 10,
      *                      and the first and the last element are correct.
-     * @doc.postCondition The map is instantiated and filled with numbers.
-     * @doc.expectedResults The mapp has the right size, is not empty and contains
+     * @postCondition The map is instantiated and filled with numbers.
+     * @expectedResults The mapp has the right size, is not empty and contains
      *                      the right elements.
      */
     @Test
@@ -127,18 +127,34 @@ public class MapAdapterTest{
         Assert.assertEquals("J", map.get(9));
     }
 
+    
+    /**
+     * Ttest throwing the exception <code>NullPointerException</code>
+     * 
+     * @testCaseDesign the test is designed to verify that an exception is thrown 
+     *                 following the creation of a map to which a null pointer is passed
+     * @testDescription Instantiates a map by passing it a null pointer
+     * @postCondition The map is a invalid instance.
+     * @expectedResults Throwing NullPointerException.
+     */
+    @Test(expected = NullPointerException.class)
+    public void testNewMapWithNullPointerExceptionConstructor() 
+    {
+        MapAdapter map = new MapAdapter(null);
+    }
+
      /**
      * Tests the size method of a map.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the size() method of a map with
+     * @testCaseDesign This test is designed for analyzing the size() method of a map with
      *                     some element in it.
-     * @doc.testDescription Instantiates a map, fill it with the helper(0,10) method and
+     * @testDescription Instantiates a map, fill it with the helper(0,10) method and
      *                      that its size is ten.
-     * @doc.postCondition The map is a valid instance.
-     * @doc.expectedResults The map has size ten.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has size ten.
      */
     @Test
-    public void testSizeMap(){
+    public void testSizeMapOnFilledMap(){
         MapAdapter map = helper(0,10);
         Assert.assertEquals(10, map.size());
 
@@ -147,12 +163,12 @@ public class MapAdapterTest{
      /**
      * Tests the size method of an empty map.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the size() method of a new
+     * @testCaseDesign This test is designed for analyzing the size() method of a new
      *                     empty map
-     * @doc.testDescription Instantiates a map and verifies that it is empty and
+     * @testDescription Instantiates a map and verifies that it is empty and
      *                      that its size is zero.
-     * @doc.postCondition The map is a valid instance.
-     * @doc.expectedResults The map is has size zero.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is has size zero.
      */
     @Test
     public void testSizeEmptyMap(){
@@ -163,17 +179,172 @@ public class MapAdapterTest{
 
     }
 
+
+    /**
+     * Tests the isEmpty() method on a filled map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the isEmpty() method of a 
+     *                 filled map.                      
+     * @testDescription Instantiates a map and verifies that it is not empty and
+     *                  the method returns <code>false</code>.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is not empty.
+     */
+    @Test
+    public void testIsEmptyOnFilledMap(){
+        MapAdapter map = helper(0,10);
+        Assert.assertFalse(map.isEmpty());
+    }
+
+    /**
+     * Tests the isEmpty() method on an empty map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the isEmpty() method on an 
+     *                 empty map.                      
+     * @testDescription Instantiates a map and verifies that it is empty and
+     *                  the method returns <code>true</code>.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is empty.
+     */
+    @Test
+    public void testIsEmpyOnEmptyMap(){
+        MapAdapter map = new MapAdapter();
+        Assert.assertTrue(map.isEmpty());
+    }
+
+    /**
+     * Tests the containsKey method on a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsKey() method 
+     *                     of a new map.
+     * @testDescription Instantiates a map and checks that the map is not empty and 
+     *                      has the key inside of it.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is not empty and contains the right key.
+     */
+    @Test
+    public void testContainsKey() {
+        MapAdapter map = helper(0,10);
+        Assert.assertTrue(map.containsKey(3));
+        Assert.assertEquals(10, map.size());
+    }
     
+    /**
+     * Tests the containsKey method on an empty map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsKey() method 
+     *                 of an empty map.
+     * @testDescription Instantiates a map and checks that the map is empty (it doesn't have any key) 
+     *                  and has size 0.     
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is empty and does not contain any keys.
+     */
+    @Test
+    public void testContainsKeyOnEmptyMap() {
+        MapAdapter map = new MapAdapter();
+        Assert.assertFalse(map.containsKey(3));
+        Assert.assertEquals(0, map.size());
+    }
+
+    /**
+     * Tests the containsKey() method on a map passing it a null key.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsKey() method 
+     *                 of a new map passing it a null value and checking the throwing of an exception.
+     * @testDescription Instantiates a map and checks that the method throws a NullPointerException.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map doesn't have the null key inside of it.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testContainsKeyNull() {
+        MapAdapter map = helper(0,10);
+        map.containsKey(null);
+    }
+
+    /**
+     * Tests the containsKey() method on an empty map passing it a null key.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsKey() method 
+     *                 on an empty map passing it a null value and checking the throwing of an exception.
+     * @testDescription Instantiates an empty map and checks that the method throws a NullPointerException.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map is empty and doesn't have the null key inside of it.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testContainsKeyNullOnEmptyMap() {
+        MapAdapter map = new MapAdapter();
+        map.containsKey(null);
+    }
+    
+    /**
+     * Tests the containsKey() method on a map passing it a key .
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsKey() method 
+     *                 of a new map passing it a null value and checking the throwing of an exception.
+     * @testDescription Instantiates a map and checks that the method throws a NullPointerException.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map doesn't have the null key inside of it.
+     */
+    @Test (expected = ClassCastException.class)
+    public void testContainsKeyDifferentTypeMap() {
+        MapAdapter map = helper(0,10);
+        double a = 2.1;
+        map.containsKey(a);
+    }
+
+
+    @Test
+    public void testContainsValue() {
+        MapAdapter map = helper(0,10);
+        Assert.assertTrue(map.containsValue("B"));
+        Assert.assertEquals(10, map.size());
+    }
+    
+    @Test
+    public void testContainsValueOnEmptyMap() {
+        MapAdapter map = new MapAdapter();
+        Assert.assertFalse(map.containsValue("B"));
+        Assert.assertEquals(0, map.size());
+    }
+
+    @Test (expected = NullPointerException.class)
+    public void testContainsValueNull() {
+        MapAdapter map = helper(0,10);
+        map.containsValue(null);
+        Assert.assertEquals(0, map.size());
+    }
+
+    @Test
+    public void testContainsValueNullOnEmptyMap() {
+        MapAdapter map = new MapAdapter();
+        Assert.assertThrows(NullPointerException.class,()-> {map.containsValue(null);});
+        Assert.assertEquals(0, map.size());
+    }
+
+    @Test (expected = ClassCastException.class)
+    public void testContainsValueDifferentTypeMap() {
+        MapAdapter map = helper(0,10);
+        double a = 2.1;
+        map.containsValue(a);
+    }
+    
+    
+
     /**
      * Tests the clear method on an empty map.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the behaviour of an
+     * @testCaseDesign This test is designed for analyzing the behaviour of an
      *                     empty map when clear() is called on it.
-     * @doc.testDescription Instantiates an empty map, calls the clear() method and
+     * @testDescription Instantiates an empty map, calls the clear() method and
      *                      checks that the  map is empty and has size zero.
-     * @doc.preCondition The map is correctly instantiated.
-     * @doc.postCondition The map is still empty.
-     * @doc.expectedResults The map is still empty and has size zero.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is still empty.
+     * @expectedResults The map is still empty and has size zero.
      */
     @Test
     public void testClearEmptyMap() {
@@ -188,13 +359,13 @@ public class MapAdapterTest{
     /**
      * Tests the clear method on an empty map.
      * 
-     * @doc.testCaseDesign This test is designed for analyzing the behaviour of an
+     * @testCaseDesign This test is designed for analyzing the behaviour of an
      *                     empty map when clear() is called on it.
-     * @doc.testDescription Instantiates an empty map, calls the clear() method and
+     * @testDescription Instantiates an empty map, calls the clear() method and
      *                      checks that the  map is empty and has size zero.
-     * @doc.preCondition The map is correctly instantiated.
-     * @doc.postCondition The map is still empty.
-     * @doc.expectedResults The map is still empty and has size zero.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is still empty.
+     * @expectedResults The map is still empty and has size zero.
      */
     @Test
     public void testClearNonEmptyMap() {
@@ -206,23 +377,5 @@ public class MapAdapterTest{
         Assert.assertEquals(0, map.size());
     }
 
-    /**
-     * Tests the containsKey method on a map.
-     * 
-     * @doc.testCaseDesign This test is designed for analyzing the containsKey() method 
-     *                     of a new map
-     * @doc.testDescription Instantiates a map and checks that the map is not empty and 
-     *                      has the key inside of it.
-     * @doc.preCondition The map is correctly instantiated.
-     * @doc.postCondition The map is a valid instance.
-     * @doc.expectedResults The map is not empty and contains the right key.
-     */
-    @Test
-    public void testContainsKey() {
-        MapAdapter map = helper(0,10);
-
-        Assert.assertTrue(map.containsKey(3));
-        Assert.assertEquals(10, map.size());
-    }
 
 }
