@@ -337,7 +337,7 @@ public interface HSet extends HCollection {
      * where the hashcode of a null element is defined to be zero. 
      * This ensures that <code>s1.equals(s2)</code> implies that <code>s1.hashCode()==s2.hashCode()</code> for any two sets <code>s1</code> and <code>s2</code>,
      * as required by the general contract of the <code>Object.hashCode</code> method
-     *<br>
+     * <br>
      * Specified by: <br>
      * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#hashCode()">hashCode</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
      * <br>

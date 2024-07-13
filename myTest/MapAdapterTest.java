@@ -29,6 +29,7 @@ import myAdapter.*;
  *                      for negative or biggest size() indexes. 
  * @see myAdapter.MapAdapter
  * @see myAdapter.MapAdapter.EntryAdapter
+ * @see myAdapter.MapAdapter.SetAdapter
  * 
  */
 public class MapAdapterTest{
@@ -129,7 +130,7 @@ public class MapAdapterTest{
 
     
     /**
-     * Ttest throwing the exception <code>NullPointerException</code>
+     * Test throwing the exception <code>NullPointerException</code>
      * 
      * @testCaseDesign the test is designed to verify that an exception is thrown 
      *                 following the creation of a map to which a null pointer is passed
@@ -281,14 +282,15 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the containsKey() method on a map passing it a key .
+     * Tests the containsKey() method on a map passing it a <code>double</code> key.
      * 
      * @testCaseDesign This test is designed for analyzing the containsKey() method 
-     *                 of a new map passing it a null value and checking the throwing of an exception.
-     * @testDescription Instantiates a map and checks that the method throws a NullPointerException.
+     *                 of a new map passing it a <code>double</code> value of a key
+     *                 and checking the throwing of an exception.
+     * @testDescription Instantiates a map and checks that the method throws a ClassCastException.
      * @preCondition The map is correctly instantiated.
      * @postCondition The map is a valid instance.
-     * @expectedResults The map doesn't have the null key inside of it.
+     * @expectedResults The map doesn't have the <code>double</code> key inside of it.
      */
     @Test (expected = ClassCastException.class)
     public void testContainsKeyDifferentTypeMap() {
@@ -297,7 +299,16 @@ public class MapAdapterTest{
         map.containsKey(a);
     }
 
-
+    /**
+     * Tests the containsValue() method on a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsValue() method 
+     *                 of a new map.
+     * @testDescription Instantiates a map and checks that the map contains the right value.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has size 10 and has a value inside of it.
+     */
     @Test
     public void testContainsValue() {
         MapAdapter map = helper(0,10);
@@ -305,6 +316,17 @@ public class MapAdapterTest{
         Assert.assertEquals(10, map.size());
     }
     
+    /**
+     * Tests the containsValue() method on an empty map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsValue() method 
+     *                 on an empty map.
+     * @testDescription Instantiates a map and checks that the map does not contain 
+     *                  any value.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has size 0 and does not have any value.
+     */
     @Test
     public void testContainsValueOnEmptyMap() {
         MapAdapter map = new MapAdapter();
@@ -312,13 +334,34 @@ public class MapAdapterTest{
         Assert.assertEquals(0, map.size());
     }
 
+    /**
+     * Tests the containsValue() method on a map passing it a <code>null</code> value.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsValue() method 
+     *                 of a new map passing it a <code>null</code> value 
+     *                 and checking the throwing of an exception.
+     * @testDescription Instantiates a map and checks that the method throws a NullPointerException.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map doesn't have the <code>null</code> value inside of it.
+     */
     @Test (expected = NullPointerException.class)
     public void testContainsValueNull() {
         MapAdapter map = helper(0,10);
         map.containsValue(null);
-        Assert.assertEquals(0, map.size());
     }
 
+    /**
+     * Tests the containsValue() method on an empty map passing it a <code>null</code> value.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsValue() method 
+     *                 of an empty map passing it a <code>null</code> value 
+     *                 and checking the throwing of an exception.
+     * @testDescription Instantiates a map and checks that the method throws a NullPointerException.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map doesn't have the <code>null</code> value inside of it and it has size 0.
+     */
     @Test
     public void testContainsValueNullOnEmptyMap() {
         MapAdapter map = new MapAdapter();
@@ -326,6 +369,17 @@ public class MapAdapterTest{
         Assert.assertEquals(0, map.size());
     }
 
+    /**
+     * Tests the containsValue() method on a map passing it a <code>double</code> value.
+     * 
+     * @testCaseDesign This test is designed for analyzing the containsValue() method 
+     *                 of a new map passing it a <code>value</code> value 
+     *                 and checking the throwing of an exception.
+     * @testDescription Instantiates a map and checks that the method throws a ClassCastException.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map doesn't have the <code>double</code> value inside of it.
+     */
     @Test (expected = ClassCastException.class)
     public void testContainsValueDifferentTypeMap() {
         MapAdapter map = helper(0,10);
@@ -333,8 +387,6 @@ public class MapAdapterTest{
         map.containsValue(a);
     }
     
-    
-
     /**
      * Tests the clear method on an empty map.
      * 
