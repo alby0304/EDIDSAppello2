@@ -59,7 +59,8 @@ package myAdapter;
 
 public interface HSet extends HCollection {
 
-  /* Returns the number of elements in this set (its cardinality). If this set contains more than <code>Integer.MAX_VALUE</code> elements, returns <code>Integer.MAX_VALUE</code>.
+  /**
+  * Returns the number of elements in this set (its cardinality). If this set contains more than <code>Integer.MAX_VALUE</code> elements, returns <code>Integer.MAX_VALUE</code>.
   * <br>
   * Specified by: <br>
   * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#size()">size</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
@@ -77,7 +78,7 @@ public interface HSet extends HCollection {
   */
   boolean isEmpty();
 
-  /* Returns <code>true</code> if this set contains the specified element. More formally, returns <code>true</code> if and only if this set contains an element e such that <code>(o==null ? e==null : o.equals(e))</code>.
+  /** Returns <code>true</code> if this set contains the specified element. More formally, returns <code>true</code> if and only if this set contains an element e such that <code>(o==null ? e==null : o.equals(e))</code>.
   * <br>
   * Specified by: <br>
   * <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html#contains()">contains</a> in interface <a href="https://www2.cs.duke.edu/csed/java/jdk1.4.2/docs/api/java/util/Collection.html">Collection</a>
@@ -162,6 +163,10 @@ public interface HSet extends HCollection {
      *                              element in this
      *                              collection.
      * @throws NullPointerException if the specified array is <code>null</code>.
+     * @throws UnsupportedOperationException add is not supported by this
+     *                                       collection.
+     * @throws IllegalArgumentException      some aspect of this element prevents
+     *                                       it from being added to this collection.
      */
     boolean add(Object o);
 

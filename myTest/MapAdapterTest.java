@@ -1,4 +1,5 @@
 package myTest;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
