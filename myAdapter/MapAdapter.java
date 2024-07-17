@@ -177,7 +177,6 @@ public class MapAdapter implements HMap{
         {
             EntryAdapter entry = (EntryAdapter)it.next();
             put(entry.getKey(),entry.getValue());
-
         }
     }
 

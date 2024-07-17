@@ -2,8 +2,11 @@ package myTest;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Map;
+
 import org.junit.*;
 import myAdapter.*;
+import myAdapter.MapAdapter.EntryAdapter;
 
 /**
  * This class is a test suite designed for testing the MapAdapter class.
@@ -430,5 +433,411 @@ public class MapAdapterTest{
         Assert.assertEquals(0, map.size());
     }
 
+    
 
+    /**
+     * Tests the get method on a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when get() is called on it.
+     * @testDescription Instantiates a map, put a key and a value inside of it and
+     *                  checks that the key is associated to a value.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has a value associated to a key.
+     */
+    @Test
+    public void testGet() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2,3);
+        
+        Assert.assertEquals(3, map.get(2));
+    }
+
+    /**
+     * Tests the get method on a map when a null key is passed.
+     *
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when get() is called on it when a null key is passed.
+     * @testDescription Instantiates a map, and checks that the method throws a NullPointerException
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map doesn't have a value associated to a <code>null</code> key.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testGetNullKey() {
+        
+        MapAdapter map = helper(1, 10);
+        map.get(null);
+        
+    }
+
+    /**
+     * Tests the get method on a different type key. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when get() is called on it using a different type of key.
+     * @testDescription Instantiates a map, put a key and a value inside of it,
+     *                  checks if it throws ClassCastException 
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has not a value associated to the different key.
+     */
+    @Test (expected = ClassCastException.class)
+    public void testGetDifferentTypeKey() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+        double a = 2.1;
+        map.get(a);
+    }
+
+    /**
+     * Tests the get method on an empty map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     empty map when get() is called on it .
+     * @testDescription Instantiates a map and checks if the map is empty .
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has no value.
+     */
+    @Test
+    public void testGetOnEmptyMap() {
+        
+        MapAdapter map = new MapAdapter();
+        Assert.assertEquals(null,map.get(1));
+    }
+
+    /**
+     * Tests the put method on a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when put() is called on it.
+     * @testDescription Instantiates a map, put a key and a value inside of it,
+     *                  checks if the key is present and returns the correspondig value.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has a value associated to a key.
+     */
+    @Test
+    public void testPut() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2,3);
+
+        Assert.assertTrue(map.containsKey(2));
+        Assert.assertEquals(3, map.get(2));
+    }
+
+    /**
+     * Tests the put method on a map using a different type of key. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when put() is called on it using a different type of key.
+     * 
+     * @testDescription Instantiates a map, put a different type of key and a value inside of it,
+     *                  checks if it throws ClassCastException.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has not a valid key.
+     */
+    @Test (expected = ClassCastException.class)
+    public void testPutKeyDifferentTypeMap() {
+        
+        MapAdapter map = helper(1, 10);
+        double a = 2.1;
+        map.put(a,3);
+
+    }
+
+    /**
+     * Tests the put method on a map using a different type of value.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when put() is called on it using a different type of value.
+     * 
+     * @testDescription Instantiates a map, put a key and a different type of value inside it,
+     *                  checks if throws ClassCastException.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has not a valid value associated to a key.
+     */
+    @Test (expected = ClassCastException.class)
+    public void testPutDifferentTypeValue() {
+        
+        MapAdapter map = helper(1, 10);
+        double a = 2.1;
+        map.put(1,a);
+
+    }
+
+    /**
+     * Tests the put method on a map when it has a null key.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when put() is called on it with a null key
+     * 
+     * @testDescription Instantiates a map, put a null key and a value inside of it and
+     *                  checks that the method throws a NullPointerException
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is an invalid instance.
+     * @expectedResults The map has an invalid key.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testPutNullKey() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(null,3);
+    }
+
+    /**
+     * Tests the put method on a map when a null value is passed. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when put() is called on it with a null value.
+     * 
+     * @testDescription Instantiates a map, put a key and a null value inside of it and
+     *                  checks that the method throws a NullPointerException.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is an invalid instance.
+     * @expectedResults The map has an invalid value.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testPutNullValue() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, null);
+        
+    }
+
+    /**
+     * Tests the remove method on a map. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when remove() is called on it.
+     * 
+     * @testDescription Instantiates a map, put a key and a value inside of it and
+     *                  checks if the value is still associated to the key .
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is an invalid instance.
+     * @expectedResults The map has no key.
+     */
+    @Test 
+    public void testRemove() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+
+        Assert.assertEquals(3, map.remove(2));   
+    }
+
+    /**
+     * Tests the remove method on a map using a different type of key. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when remove() is called on it with a different type of key.
+     * 
+     * @testDescription Instantiates a map and checks if the method throws  ClassCastException.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The method throws ClassCastException.
+     */
+    @Test (expected = ClassCastException.class)
+    public void testRemoveDifferentTypeKey() {
+        
+        MapAdapter map = helper(1, 10);
+        double a = 2.1;
+        map.remove(a);
+    }
+
+    /**
+     * Tests the remove method on a map when a null key is passed.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when remove() is called on it with a null key.
+     * 
+     * @testDescription Instantiates a map, checks if the method throws a NullPointerException.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has an invalid key.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testRemoveNullKey() {
+        
+        MapAdapter map = helper(1, 10);
+        map.remove(null);
+    }
+
+    /**
+     * Tests the remove method on a empty map. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     empty map when remove() is called on it.
+     * 
+     * @testDescription Instantiates a map and checks if the map is already empty.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has no value.
+     */
+    @Test
+    public void testRemoveOnEmptyMap() {
+        
+        MapAdapter map = new MapAdapter();
+        
+        Assert.assertEquals(null, map.remove(1));
+    }
+
+    /**
+     * Tests the putAll method on a map. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when putAll() is called on it.
+     * 
+     * @testDescription Instantiates two maps, calls putAll() method and
+     *                  checks if the second map is equals to the first one.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The second map is equals to the first one.
+     */
+    @Test 
+    public void testPutAll() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+        MapAdapter map2= map;
+        map2.putAll(map);
+        
+        Assert.assertEquals(map, map2);
+    }
+
+    /**
+     * Tests the put method on a map when a null value is passed. //TODO: far vedere a tess
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when put() is called on it with a null value.
+     * 
+     * @testDescription Instantiates a map, put a key and a null value inside of it and
+     *                  checks that the method throws a NullPointerException.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is an invalid instance.
+     * @expectedResults The map has an invalid value.
+     */
+    @Test //(expected = ClassCastException.class)
+    public void testPutAllNullKey() {
+        
+        MapAdapter map = helper(1, 10);
+        Assert.assertThrows(ClassCastException.class,()->{map.put(2.1, 3);});
+        MapAdapter map2= map;
+        //map2.putAll(map);
+        Assert.assertThrows(ClassCastException.class,()->{map2.putAll(map);});
+    }
+
+    
+    /**
+     * Tests the equals method on a map. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when equals() is called on it.
+     * 
+     * @testDescription Instantiates a map, put a key and a value inside of it and
+     *                  checks if the equals() method works correctly.
+     * 
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The two map are equals
+     */
+    @Test 
+    public void testEquals() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+        MapAdapter map2= new MapAdapter();
+        map2.putAll(map);
+        
+        Assert.assertTrue(map2.equals(map));
+    }
+
+    /**
+     * Tests the equals method on two maps with different values . 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                 map when equals() is called on it using different values compared to another map.
+     * 
+     * @testDescription Instantiates two maps, and checks if the map are equals.
+     * 
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The map are valid instance.
+     * @expectedResults The maps are not equals.
+     */
+    @Test 
+    public void testEqualsDifferentValues() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+        MapAdapter map2= new MapAdapter();
+        map2.put(2,4);
+        
+        Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
+    }
+
+    /**
+     * Tests the equals method on two maps with different key. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                     map when equals() is called on it using different keys compared to another map.
+     * 
+     * @testDescription Instantiates a map, and checks if the map are equals.
+     * 
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The maps are valid instance.
+     * @expectedResults The map are not equals.
+     */
+    @Test 
+    public void testEqualsDifferentKey() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+        MapAdapter map2= new MapAdapter();
+        map2.put(3,3);
+        
+        Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
+    }
+
+    /**
+     * Tests the equals method on two different maps. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of a 
+     *                 map when equals() is called on it compared to another map.
+     * 
+     * @testDescription Instantiates two maps, and checks if the map are equals.
+     * 
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The map are valid instance.
+     * @expectedResults The maps are not equals.
+     */
+    @Test 
+    public void testEqualsDifferentMaps() {
+        
+        MapAdapter map = new MapAdapter();
+        map.put(2, 3);
+        MapAdapter map2= new MapAdapter();
+        map2.put(3,4);
+        
+        Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
+    }
 }
