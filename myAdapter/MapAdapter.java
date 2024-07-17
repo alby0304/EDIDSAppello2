@@ -137,9 +137,6 @@ public class MapAdapter implements HMap{
     public Object put(Object key,Object value){
         excKey(key);
         excValue(value);
-        if(hash.containsKey(key)){
-            hash.remove(key);
-        }
         return hash.put(key,value);
     }
 
@@ -252,21 +249,6 @@ public class MapAdapter implements HMap{
             return true;
         }
         return false;
-        //TODO: Verificare se funziona
-        /* 
-         * HIterator it = entrySet().iterator();
-            HIterator it2 = map.entrySet().iterator();
-
-         while (it.hasNext()) {
-            Object e1 = it.next();
-            Object e2 = it2.next();
-            if (!(e1 == null ? e2 == null : e1.equals(e2)))
-                return false;
-            }
-
-            return true;
-        */
-        
     }
     
     /**
@@ -285,7 +267,6 @@ public class MapAdapter implements HMap{
             hash += it.next().hashCode();
         }
         return hash;
-        //TODO:verificare se funziona return entrySet().hashCode();
     }
 
     /**
@@ -530,7 +511,7 @@ public class MapAdapter implements HMap{
          * @return the number of elements in this set (its cardinality). 
          */
         public int size(){
-            return size();
+            return hash.size();
         }
 
         /**
@@ -542,7 +523,7 @@ public class MapAdapter implements HMap{
          * @return  <code>true</code> if this set contains no elements.
          */
         public boolean isEmpty(){
-            return  isEmpty();
+            return  hash.isEmpty();
         }
 
         /**
@@ -572,8 +553,8 @@ public class MapAdapter implements HMap{
                     throw new ClassCastException();
                 }
                 EntryAdapter enter = (EntryAdapter) o;
-                if(hash.containsKey(enter.getKey())){
-                    if(enter.getValue()==hash.get(enter.getKey())){
+                if(containsKey(enter.getKey())){
+                    if(enter.getValue() == get(enter.getKey())){
                         return true;
                     }
                 }
@@ -607,7 +588,7 @@ public class MapAdapter implements HMap{
          * @return an array containing all of the elements in this set
          */
         public Object[] toArray() {
-            return new Object[size()];
+            return  toArray(new Object[size()]);
         }
 
         /**
@@ -629,17 +610,23 @@ public class MapAdapter implements HMap{
                 throw new NullPointerException();
             }
     
-            if (a.length < size()){
+            if (a.length <= size()){
                 a = new Object[size()];
+            }
+            else{
+                a = new Object[a.length];
             }
             int i = 0;
             HIterator it = iterator();
             while(it.hasNext()){
                 a[i] = it.next();
+                i++;
             }
     
             if (a.length > size()){
-                a[size()] = null;
+                for(int j=i;i<size();i++){
+                    a[j] = null;
+                }
             }
     
             return a;
@@ -737,8 +724,9 @@ public class MapAdapter implements HMap{
             if(c==null){
                 throw new NullPointerException();
             }
-            while(c.iterator().hasNext()){
-                if(contains(c.iterator().next())==false)
+            HIterator it = c.iterator();
+            while(it.hasNext()){
+                if(contains(it.next())==false)
                 {
                     return false;
                 }
@@ -793,8 +781,9 @@ public class MapAdapter implements HMap{
             HIterator it = iterator();
             boolean rtn = false;
             while (it.hasNext()) {
-                if (!c.contains(it.next())) {
-                    it.remove();
+                Object o = it.next();
+                if (!c.contains(o)) {
+                    remove(o);
                     rtn = true;
                 }
             }
@@ -833,8 +822,9 @@ public class MapAdapter implements HMap{
             HIterator it = iterator();
             boolean rtn = false;
             while (it.hasNext()) {
-                if (c.contains(it.next())) {
-                    it.remove();
+                Object o = it.next();
+                if (c.contains(o)) {
+                    remove(o);
                     rtn = true;
                 }
             }
@@ -884,12 +874,15 @@ public class MapAdapter implements HMap{
             SetAdapter c = (SetAdapter) o;
             HIterator it = iterator();
             HIterator it2 = c.iterator();
-            while(it.hasNext()){
+            while(it.hasNext()&&it2.hasNext()){
                 Object o1 = it.next();
                 Object o2 = it2.next();
                 if((o1 == null)||(o2==null)||(o1.equals(o2)==false)){
                     return false;
                 }
+            }
+            if(it.hasNext()!=it2.hasNext()){
+                return false;
             }
             return true;
         }
@@ -915,7 +908,7 @@ public class MapAdapter implements HMap{
             while(it.hasNext()){
                 hash += it.next().hashCode();
             }
-            return 0; 
+            return hash; 
         }
 
         /**

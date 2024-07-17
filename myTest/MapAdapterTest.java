@@ -2,8 +2,6 @@ package myTest;
 import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Map;
-
 import org.junit.*;
 import myAdapter.*;
 import myAdapter.MapAdapter.EntryAdapter;
@@ -176,7 +174,7 @@ public class MapAdapterTest{
      * @expectedResults The map is has size zero.
      */
     @Test
-    public void testSizeEmptyMap(){
+    public void testSizeOnEmptyMap(){
         MapAdapter map = new MapAdapter();
 
         Assert.assertTrue(map.isEmpty());
@@ -390,50 +388,6 @@ public class MapAdapterTest{
         double a = 2.1;
         map.containsValue(a);
     }
-    
-    /**
-     * Tests the clear method on an empty map.
-     * 
-     * @testCaseDesign This test is designed for analyzing the behaviour of an
-     *                     empty map when clear() is called on it.
-     * @testDescription Instantiates an empty map, calls the clear() method and
-     *                      checks that the  map is empty and has size zero.
-     * @preCondition The map is correctly instantiated.
-     * @postCondition The map is still empty.
-     * @expectedResults The map is still empty and has size zero.
-     */
-    @Test
-    public void testClearEmptyMap() {
-        MapAdapter map = new MapAdapter();
-
-        map.clear();
-
-        Assert.assertTrue(map.isEmpty());
-        Assert.assertEquals(0, map.size());
-    }
-
-    /**
-     * Tests the clear method on an empty map.
-     * 
-     * @testCaseDesign This test is designed for analyzing the behaviour of an
-     *                     empty map when clear() is called on it.
-     * @testDescription Instantiates an empty map, calls the clear() method and
-     *                      checks that the  map is empty and has size zero.
-     * @preCondition The map is correctly instantiated.
-     * @postCondition The map is still empty.
-     * @expectedResults The map is still empty and has size zero.
-     */
-    @Test
-    public void testClearNonEmptyMap() {
-        MapAdapter map = helper(0,10);
-
-        map.clear();
-
-        Assert.assertTrue(map.isEmpty());
-        Assert.assertEquals(0, map.size());
-    }
-
-    
 
     /**
      * Tests the get method on a map.
@@ -619,6 +573,17 @@ public class MapAdapterTest{
         
     }
 
+    //TODO:Facco gay
+    @Test
+    public void testPutExistingKey() {
+        MapAdapter map = new MapAdapter();
+        map.put (2,"A");
+        Assert.assertEquals("A", map.get(2));
+        Assert.assertEquals("A", map.put(2,"B"));
+        Assert.assertEquals("B", map.get(2));
+        
+    }
+
     /**
      * Tests the remove method on a map. 
      * 
@@ -700,6 +665,14 @@ public class MapAdapterTest{
         Assert.assertEquals(null, map.remove(1));
     }
 
+    //TODO:FACCO GAY
+    @Test
+    public void testRemoveKeyNotInMap() {
+        
+        MapAdapter map = helper(1,10);
+        Assert.assertEquals(null, map.remove(20));
+    }
+
     /**
      * Tests the putAll method on a map. 
      * 
@@ -716,16 +689,14 @@ public class MapAdapterTest{
     @Test 
     public void testPutAll() {
         
-        MapAdapter map = new MapAdapter();
-        map.put(2, 3);
-        MapAdapter map2= map;
+        MapAdapter map = helper(1,10);
+        MapAdapter map2 = new MapAdapter();
         map2.putAll(map);
-        
-        Assert.assertEquals(map, map2);
+        Assert.assertTrue(map2.equals(map));
     }
 
     /**
-     * Tests the put method on a map when a null value is passed. //TODO: far vedere a tess
+     * Tests the put method on a map when a null value is passed.
      * 
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when put() is called on it with a null value.
@@ -738,14 +709,107 @@ public class MapAdapterTest{
      * @expectedResults The map has an invalid value.
      */
     @Test //(expected = ClassCastException.class)
-    public void testPutAllNullKey() {
+    public void testPutAllNullPtr() {
         
         MapAdapter map = helper(1, 10);
-        Assert.assertThrows(ClassCastException.class,()->{map.put(2.1, 3);});
-        MapAdapter map2= map;
-        //map2.putAll(map);
-        Assert.assertThrows(ClassCastException.class,()->{map2.putAll(map);});
+        Assert.assertThrows(NullPointerException.class,()->{map.putAll(null);});
     }
+
+
+    //TOD:FACCO GAY
+    @Test 
+    public void testPutAllDifferentTypeKey() {
+        
+        MapAdapter map = helper(1, 10);
+        MapAdapter map2 = new MapAdapter();
+        map2.put("A","A");
+        Assert.assertThrows(ClassCastException.class,()->{map.putAll(map2);});
+    }
+
+    //TODO:FACCO GAY
+    @Test 
+    public void testPutAllEmptyMap() {
+        
+        MapAdapter map = helper(1, 10);
+        MapAdapter map2 = helper(1,10);
+        MapAdapter map3 = new MapAdapter();
+        map2.putAll(map3);
+        Assert.assertTrue(map2.equals(map));
+    }
+
+    /**
+     * Tests the clear method on an empty map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of an
+     *                     empty map when clear() is called on it.
+     * @testDescription Instantiates an empty map, calls the clear() method and
+     *                      checks that the  map is empty and has size zero.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is still empty.
+     * @expectedResults The map is still empty and has size zero.
+     */
+    @Test
+    public void testClearEmptyMap() {
+        MapAdapter map = new MapAdapter();
+
+        map.clear();
+
+        Assert.assertTrue(map.isEmpty());
+        Assert.assertEquals(0, map.size());
+    }
+
+    /**
+     * Tests the clear method on an empty map.
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of an
+     *                     empty map when clear() is called on it.
+     * @testDescription Instantiates an empty map, calls the clear() method and
+     *                      checks that the  map is empty and has size zero.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is still empty.
+     * @expectedResults The map is still empty and has size zero.
+     */
+    @Test
+    public void testClearNonEmptyMap() {
+        MapAdapter map = helper(0,10);
+
+        map.clear();
+
+        Assert.assertTrue(map.isEmpty());
+        Assert.assertEquals(0, map.size());
+    }
+
+    //TODO:FACCO GAY
+    @Test
+    public void testCreationKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertEquals(10, keySet.size());
+        Assert.assertTrue(keySet.contains(9));
+    }
+
+    //TODO:FACCO GAY
+    @Test
+    public void testCreationValues() {
+        MapAdapter map = helper(0,10);
+        HCollection values = map.values();
+        Assert.assertEquals(10, values.size());
+        Assert.assertTrue(values.contains("A"));
+    }
+
+    //TODO:FACCO GAY
+    @Test
+    public void testCreationEntrySet() {
+        MapAdapter map = new MapAdapter();
+        map.put(0,"A");
+        map.put(1,"B");
+        HSet entrySet = map.entrySet();
+        Assert.assertEquals(2, entrySet.size());
+        Assert.assertEquals("A", map.get(0));
+        EntryAdapter entry = new EntryAdapter(0,"A");
+        Assert.assertTrue(entrySet.contains(entry));
+    }
+
 
     
     /**
@@ -792,7 +856,7 @@ public class MapAdapterTest{
         MapAdapter map2= new MapAdapter();
         map2.put(2,4);
         
-        Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
+        Assert.assertFalse(map2.equals(map));
     }
 
     /**
@@ -815,7 +879,7 @@ public class MapAdapterTest{
         MapAdapter map2= new MapAdapter();
         map2.put(3,3);
         
-        Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
+        Assert.assertFalse(map2.equals(map));
     }
 
     /**
@@ -838,7 +902,7 @@ public class MapAdapterTest{
         MapAdapter map2= new MapAdapter();
         map2.put(3,4);
         
-        Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
+        Assert.assertFalse(map2.equals(map));
     }
 
     /**
@@ -862,26 +926,45 @@ public class MapAdapterTest{
         Assert.assertEquals(map.hashCode(),map2.hashCode());
     }
 
-    //TODO: FAR VEDERE A TESS: exckey e excvalue metodi privati. In realtà il funzionamento si prova già all'interno del test di get(), put(), remove()...                                               
-    /**
-     * Tests the excKey method on two different maps.
-     *     
-     * @testCaseDesign This test is designed for analyzing the behaviour of a 
-     *                 map when equals() is called on it compared to another map.
-     * 
-     * @testDescription Instantiates two maps, and checks if the map are equals.
-     * 
-     * @preCondition The maps are correctly instantiated.
-     * @postCondition The maps are valid instance.
-     * @expectedResults The maps are not equals.
-     */
-    /*@Test 
-    public void testExcKey() {
+    //TODO: FACCO GAY
+    @Test 
+    public void testhashCodeForDifferentMaps() {
         
-        MapAdapter map = helper(0, 1);
+        MapAdapter map = helper(1,10);
+        MapAdapter map2= helper(11,15);
+                
+        Assert.assertNotEquals(map.hashCode(),map2.hashCode());
+    }
+
+    //TODO: FACCO GAY
+    @Test 
+    public void testhashCodeForDifferentValuelMaps() {
         
-        Assert.assertNotEquals(null,map.excKey());
-    }*/
+        MapAdapter map = helper(1,10);
+        MapAdapter map2= helper(1,10);
+        map2.put(2, "F");  
+        Assert.assertNotEquals(map.hashCode(),map2.hashCode());
+    }
+
+    //TODO: FACCO GAY
+    @Test 
+    public void testhashCodeForDifferentKeyAndPutMaps() {
+        
+        MapAdapter map = helper(1,10);
+        MapAdapter map2= helper(1,10);
+        map2.put(11, "D");  
+        Assert.assertNotEquals(map.hashCode(),map2.hashCode());
+    }
+
+
+
+
+
+    //ENTRYADAPTER TEST
+
+
+
+
 
     /**
      * Tests the EntryAdapter constructor with null key. 
@@ -897,7 +980,7 @@ public class MapAdapterTest{
     @Test (expected = NullPointerException.class)
     public void testEntryConstructorNullKey() {
         
-        EntryAdapter e= new EntryAdapter(null,2);
+        EntryAdapter e = new EntryAdapter(null,2);
     }
 
     /**
@@ -915,7 +998,7 @@ public class MapAdapterTest{
     @Test (expected = NullPointerException.class)
     public void testEntryConstructorNullValue() {
         
-        EntryAdapter e= new EntryAdapter(1,null);
+        EntryAdapter e = new EntryAdapter(1,null);
     }
 
     /**
@@ -932,7 +1015,7 @@ public class MapAdapterTest{
      */
     @Test 
     public void testEntryGetkey() {
-        EntryAdapter e= new EntryAdapter(1,2);
+        EntryAdapter e = new EntryAdapter(1,2);
 
         Assert.assertEquals(1, e.getKey());
     }
@@ -1158,10 +1241,455 @@ public class MapAdapterTest{
     public void testhashCodeForEqualEntry() {
         
         EntryAdapter e = new EntryAdapter(1,2);
-        EntryAdapter e2 = e;
+        EntryAdapter e2 = new EntryAdapter(1,2);
 
         Assert.assertEquals(e.hashCode(),e2.hashCode());
     }
 
+    //TODO:FACCO GAY, DA QUI IN POI TUTTI
+    @Test
+    public void testhashCodeForDifferntEntry() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(7,"A");
+
+        Assert.assertNotEquals(e.hashCode(),e2.hashCode());
+    }
+
+
+
+
+
+    //TEST HSET RITORNATO DA KEYSET
+
+
+    @Test
+    public void testSizeKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertEquals(10, keySet.size());
+    }
+
+    @Test
+    public void testSizeKeySetOnEmptySet() {
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        Assert.assertEquals(0, keySet.size());
+    }
+
+    @Test
+    public void testIsEmptyKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertFalse(keySet.isEmpty());
+    }
+
+    @Test
+    public void testIsEmptyKeySetOnEmptySet() {
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        Assert.assertTrue(keySet.isEmpty());
+    }
     
+    @Test
+    public void testContainsKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertTrue(keySet.contains(0));
+    }
+
+    @Test
+    public void testContainsKeySetonEmptySet() {
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        Assert.assertFalse(keySet.contains(0));
+    }
+
+    @Test
+    public void testContainsNullKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{keySet.contains(null);});
+    }
+
+    @Test
+    public void testContainsNullKeySetOnEmptySet() {
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{keySet.contains(null);});
+    }
+
+    @Test
+    public void testContainsDifferentTypeKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertThrows(ClassCastException.class,()->{keySet.contains(2.1);});
+    }
+
+    @Test
+    public void testIteratorCreationKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertTrue(it.hasNext());
+    }
+
+    @Test
+    public void testIteratorCreationonEmptyKeySet(){
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void testToArrayKeySet(){
+        MapAdapter map = helper(0,3);
+        HSet keySet = map.keySet();
+        int[] vet = {0,1,2};
+        Object[] vet2 = keySet.toArray();
+        Assert.assertEquals(2,vet2[0]);
+        Assert.assertEquals(3,vet2.length);
+    }
+
+    @Test
+    public void testToArrayObjectKeySet(){
+        MapAdapter map = new MapAdapter();
+        map.put("1","A");
+        map.put("2","B");
+        map.put("3","C");
+        HSet keySet = map.keySet();
+        String[] vet = new String[3];
+        Object[] vet2 = keySet.toArray(vet);
+        Assert.assertEquals("3",vet2[0]);
+        Assert.assertEquals(3,vet2.length);
+    }
+
+    @Test
+    public void testToArrayObjectDifferentTypeKeySet(){
+        MapAdapter map = new MapAdapter();
+        map.put("1","A");
+        map.put("2","B");
+        map.put("3","C");
+        HSet keySet = map.keySet();
+        MapAdapter[] vet = new MapAdapter[3];
+        Object[] vet2 = keySet.toArray(vet);
+        Assert.assertEquals("3",vet2[0]);
+        Assert.assertEquals(3,vet2.length);
+    }
+
+    @Test
+    public void testToArrayObjectBiggerSizeKeySet(){
+        MapAdapter map = new MapAdapter();
+        map.put("1","A");
+        map.put("2","B");
+        map.put("3","C");
+        HSet keySet = map.keySet();
+        String[] vet = new String[4];
+        Object[] vet2 = keySet.toArray(vet);
+        Assert.assertEquals("3",vet2[0]);
+        Assert.assertEquals(null,vet2[3]);
+        Assert.assertEquals(4,vet2.length);
+    }
+
+    @Test
+    public void testToArrayObjectSmallerSizeKeySet(){
+        MapAdapter map = new MapAdapter();
+        map.put("1","A");
+        map.put("2","B");
+        map.put("3","C");
+        HSet keySet = map.keySet();
+        String[] vet = new String[2];
+        Object[] vet2 = keySet.toArray(vet);
+        Assert.assertEquals("3",vet2[0]);
+        Assert.assertEquals(3,vet2.length);
+    }
+
+    @Test
+    public void testToArrayObjectNullPointerKeySet(){
+        MapAdapter map = new MapAdapter();
+        map.put("1","A");
+        map.put("2","B");
+        map.put("3","C");
+        HSet keySet = map.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{Object[] vet2 = keySet.toArray(null);});
+    }
+
+    @Test
+    public void testAddKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertThrows(myAdapter.UnsupportedOperationException.class,()->{keySet.add(1);});
+    }
+
+    @Test
+    public void testRemoveKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        keySet.remove(0);
+        Assert.assertEquals(9,keySet.size());
+        Assert.assertFalse(keySet.contains(0));
+    }
+
+    @Test
+    public void testRemoveDifferentTypeKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertThrows(ClassCastException.class,()->{keySet.remove(2.1);});
+    }
+
+    @Test
+    public void testRemoveNullKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{keySet.remove(null);});
+    }
+
+    @Test
+    public void testRemoveOnEmptyKeySet(){
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        Assert.assertFalse(keySet.remove(0));
+    }
+
+    @Test
+    public void testRemoveNotInKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        Assert.assertFalse(keySet.remove(11));
+    }
+
+    @Test
+    public void testContainsAllKeySet(){
+        MapAdapter map = helper(0,3);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertTrue(keySet.containsAll(keySet2));
+    }
+
+    @Test
+    public void testContainsAllSomeDifferentKeySet(){
+        MapAdapter map = helper(0,3);
+        map.remove(1);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertFalse(keySet.containsAll(keySet2));
+    }
+
+    @Test
+    public void testContainsAllNoOneInKeySet(){
+        MapAdapter map = helper(4,7);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertFalse(keySet.containsAll(keySet2));
+    }
+
+    @Test
+    public void testContainsAllNullPointerKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,2);
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{keySet.containsAll(null);});
+    }
+
+    @Test
+    public void testContainsAllClassCastKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = new MapAdapter();
+        map2.put("A","A");
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(ClassCastException.class,()->{keySet.containsAll(keySet2);});
+    }
+
+    @Test
+    public void testAddAllKeySet(){
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,2);
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(myAdapter.UnsupportedOperationException.class,()->{keySet.addAll(keySet2);});
+    }
+
+    @Test
+    public void testRetainAllKeySet(){
+        MapAdapter map = helper(0,3);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertFalse(keySet.retainAll(keySet2));
+        Assert.assertEquals(3,keySet.size());
+    }
+
+    @Test
+    public void testRetainAllSomeDifferentKeySet(){
+        MapAdapter map = helper(0,3);
+        map.remove(1);
+        map.put(4,"S");
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertTrue(keySet.retainAll(keySet2));
+        Assert.assertEquals(2,keySet.size());
+    }
+
+    @Test
+    public void testRetainAllNoOneInKeySet(){
+        MapAdapter map = helper(4,7);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertTrue(keySet.retainAll(keySet2));
+    }
+
+    @Test
+    public void testRetainAllNullPointerKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,2);
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{keySet.retainAll(null);});
+    }
+
+    @Test
+    public void testRetainAllClassCastKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = new MapAdapter();
+        map2.put("A","A");
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(ClassCastException.class,()->{keySet.retainAll(keySet2);});
+    }
+
+    @Test
+    public void testRemoveAllKeySet(){
+        MapAdapter map = helper(0,3);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertTrue(keySet.removeAll(keySet2));
+        Assert.assertEquals(0,keySet.size());
+    }
+
+    @Test
+    public void testRemoveAllSomeDifferentKeySet(){
+        MapAdapter map = helper(0,3);
+        map.remove(1);
+        map.put(4,"S");
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertTrue(keySet.removeAll(keySet2));
+        Assert.assertEquals(1,keySet.size());
+    }
+
+    @Test
+    public void testRemoveAllNoOneInKeySet(){
+        MapAdapter map = helper(4,7);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,3);
+        HSet keySet2 = map2.keySet();
+        Assert.assertFalse(keySet.removeAll(keySet2));
+    }
+
+    @Test
+    public void testRemoveAllNullPointerKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = helper(0,2);
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(NullPointerException.class,()->{keySet.removeAll(null);});
+    }
+
+    @Test
+    public void testRemoveAllClassCastKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        MapAdapter map2 = new MapAdapter();
+        map2.put("A","A");
+        HSet keySet2 = map2.keySet();
+        Assert.assertThrows(ClassCastException.class,()->{keySet.removeAll(keySet2);});
+    }
+
+    @Test
+    public void testClearKeySet(){
+        MapAdapter map = helper(0,2);
+        HSet keySet = map.keySet();
+        keySet.clear();
+        Assert.assertEquals(0,keySet.size());
+    }
+    
+    @Test
+    public void testClearOnEmptyKeySet(){
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        keySet.clear();
+        Assert.assertEquals(0,keySet.size());
+    }
+
+    @Test 
+    public void testEqualsKeySet() {
+        
+        MapAdapter map = helper(0,10);
+        MapAdapter map2 = helper(0,10);
+        HSet keySet = map.keySet();
+        HSet keySet2 = map2.keySet();
+        Assert.assertTrue(keySet.equals(keySet2));
+    }
+
+    @Test 
+    public void testEqualsLessKeySet() {
+        
+        MapAdapter map = helper(0,10);
+        MapAdapter map2 = helper(0,10);
+        map2.remove(0);
+        HSet keySet = map.keySet();
+        HSet keySet2 = map2.keySet();
+        Assert.assertFalse(keySet.equals(keySet2));
+    }
+
+    @Test 
+    public void testEqualsDifferentKeySet() {
+        
+        MapAdapter map = helper(0,10);
+        MapAdapter map2 = helper(0,10);
+        map2.put(11,"A");
+        HSet keySet = map.keySet();
+        HSet keySet2 = map2.keySet();
+        Assert.assertFalse(keySet.equals(keySet2));
+    }
+
+    @Test 
+    public void testHashCodeKeySet() {
+        
+        MapAdapter map = helper(0,10);
+        MapAdapter map2 = helper(0,10);
+        HSet keySet = map.keySet();
+        HSet keySet2 = map2.keySet();
+        Assert.assertEquals(keySet.hashCode(),keySet2.hashCode());
+    }
+
+    @Test 
+    public void testHashCodeDifferentKeySet() {
+        
+        MapAdapter map = helper(0,10);
+        MapAdapter map2 = helper(0,10);
+        map2.remove(0);
+        HSet keySet = map.keySet();
+        HSet keySet2 = map2.keySet();
+        Assert.assertEquals(keySet.hashCode(),keySet2.hashCode());
+    }
+    
+
+    @Test 
+    public void testHashCodeNullKeySet() {
+        
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        Assert.assertEquals(0,keySet.hashCode());
+    }
 }
