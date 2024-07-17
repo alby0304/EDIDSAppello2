@@ -759,7 +759,7 @@ public class MapAdapterTest{
      * 
      * @preCondition The map is correctly instantiated.
      * @postCondition The map is a valid instance.
-     * @expectedResults The two map are equals
+     * @expectedResults The two maps are equals
      */
     @Test 
     public void testEquals() {
@@ -778,10 +778,10 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                 map when equals() is called on it using different values compared to another map.
      * 
-     * @testDescription Instantiates two maps, and checks if the map are equals.
+     * @testDescription Instantiates two maps, and checks if the maps are equals.
      * 
      * @preCondition The maps are correctly instantiated.
-     * @postCondition The map are valid instance.
+     * @postCondition The maps are valid instance.
      * @expectedResults The maps are not equals.
      */
     @Test 
@@ -801,11 +801,11 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when equals() is called on it using different keys compared to another map.
      * 
-     * @testDescription Instantiates a map, and checks if the map are equals.
+     * @testDescription Instantiates a map, and checks if the maps are equals.
      * 
      * @preCondition The maps are correctly instantiated.
      * @postCondition The maps are valid instance.
-     * @expectedResults The map are not equals.
+     * @expectedResults The maps are not equals.
      */
     @Test 
     public void testEqualsDifferentKey() {
@@ -824,10 +824,10 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour of a 
      *                 map when equals() is called on it compared to another map.
      * 
-     * @testDescription Instantiates two maps, and checks if the map are equals.
+     * @testDescription Instantiates two maps, and checks if the maps are equals.
      * 
      * @preCondition The maps are correctly instantiated.
-     * @postCondition The map are valid instance.
+     * @postCondition The maps are valid instance.
      * @expectedResults The maps are not equals.
      */
     @Test 
@@ -840,4 +840,328 @@ public class MapAdapterTest{
         
         Assert.assertFalse(map2.entrySet().equals(map.entrySet()));
     }
+
+    /**
+     * Tests the hashCode method on two maps. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of two identical  
+     *                 maps when hashCode() is called.
+     * 
+     * @testDescription Instantiates two maps, and checks if the maps have the same hashCode.
+     * 
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The maps are valid instance.
+     * @expectedResults The maps have the same hashCode.
+     */
+    @Test 
+    public void testhashCodeForEqualMaps() {
+        
+        MapAdapter map = helper(1,10);
+        MapAdapter map2= map;
+                
+        Assert.assertEquals(map.hashCode(),map2.hashCode());
+    }
+
+    //TODO: FAR VEDERE A TESS: exckey e excvalue metodi privati. In realtà il funzionamento si prova già all'interno del test di get(), put(), remove()...                                               
+    /**
+     * Tests the excKey method on two different maps.
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of a 
+     *                 map when equals() is called on it compared to another map.
+     * 
+     * @testDescription Instantiates two maps, and checks if the map are equals.
+     * 
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The maps are valid instance.
+     * @expectedResults The maps are not equals.
+     */
+    /*@Test 
+    public void testExcKey() {
+        
+        MapAdapter map = helper(0, 1);
+        
+        Assert.assertNotEquals(null,map.excKey());
+    }*/
+
+    /**
+     * Tests the EntryAdapter constructor with null key. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of the EntryAdapter constructor with null key
+     *                 
+     * @testDescription Instantiates an entry with key null.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entry has null key.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testEntryConstructorNullKey() {
+        
+        EntryAdapter e= new EntryAdapter(null,2);
+    }
+
+    /**
+     * Tests the EntryAdapter constructor with null value. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of 
+     *                 the EntryAdapter constructor with null value
+     * 
+     * @testDescription Instantiates an entry with value null.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entry has null value.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testEntryConstructorNullValue() {
+        
+        EntryAdapter e= new EntryAdapter(1,null);
+    }
+
+    /**
+     * Tests the getKey method of the EntryAdapter. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of getKey() on an entry.
+     * 
+     * @testDescription Instantiates an entry and checks if the key is correct
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entry has a correct key
+     */
+    @Test 
+    public void testEntryGetkey() {
+        EntryAdapter e= new EntryAdapter(1,2);
+
+        Assert.assertEquals(1, e.getKey());
+    }
+
+    /**
+     * Tests the getValue method of the EntryAdapter. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of getValue() on an entry.
+     * 
+     * @testDescription Instantiates an entry and checks if the value is correct.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entry has a correct value.
+     */
+    @Test 
+    public void testEntryGetValue() {
+        EntryAdapter e= new EntryAdapter(1,2);
+
+        Assert.assertEquals(2, e.getValue());
+    }
+
+    /**
+     * Tests the setValue method of the EntryAdapter. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of setValue().
+     * 
+     * @testDescription Instantiates an entry, and checks if the replacement has taken place.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The value of the entry has changed.
+     */
+    @Test 
+    public void testEntrySetValue() {
+        
+        EntryAdapter e= new EntryAdapter(1,2);
+        
+        Assert.assertEquals(2, e.setValue(4));
+    }
+
+    /**
+     * Tests the setValue method of the EntryAdapter using null value. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of setValue() passing null value.
+     * 
+     * @testDescription Instantiates an entry, and checks if the method throws NullPointerException
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entry has an invalid value.
+     */
+    @Test (expected = NullPointerException.class)
+    public void testEntrySetValueNull() {
+        
+        EntryAdapter e= new EntryAdapter(1,4);
+        e.setValue(null);
+        
+    }
+
+ 
+    /**
+     * Tests the setValue method of the EntryAdapter using different type of value. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of setValue() passing a different type of value.
+     * 
+     * @testDescription Instantiates an entry, and checks if the method throws ClassCastException
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entry has an invalid value.
+     */
+    @Test (expected = ClassCastException.class)
+    public void testEntrySetValueDifferentType() {
+        
+        EntryAdapter e= new EntryAdapter(1,4);
+        e.setValue(2.3);
+    }
+
+    /**
+     * Tests the equals method of the EntryAdapter. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of equals() when the entries are the same.
+     *  
+     * @testDescription Instantiates two entries and checks if are equals.
+     * 
+     * @preCondition The entries are correctly instantiated.
+     * @postCondition The entries are valid instance.
+     * @expectedResults The entries are equals.
+     */
+    @Test
+    public void testEntryEquals() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(1,2);
+
+        Assert.assertTrue(e.equals(e2));
+    }
+
+    /**
+     * Tests the equals method of EntryAdapter using the same key. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of equals() when the entries have the same key.
+     * 
+     * @testDescription Instantiates two entries and checks if the keys are equals.
+     * 
+     * @preCondition The entries are correctly instantiated.
+     * @postCondition The entries are valid instance.
+     * @expectedResults The entries have the same keys.
+     */
+    @Test
+    public void testEntryEqualsWithSameKey() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(1,3);
+
+        Assert.assertTrue(e.getKey().equals(e2.getKey()));
+    }
+
+    /**
+     * Tests the equals method of EntryAdapter using the same value. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of equals() when the entries have the same value.
+     * 
+     * @testDescription Instantiates two entries and checks if the value are equals.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entries have the same value.
+     */
+    @Test
+    public void testEntryEqualsWithSameValue() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(2,2);
+
+        Assert.assertTrue(e.getValue().equals(e2.getValue()));
+    }
+    
+    /**
+     * Tests the equals method of EntryAdapter using different keys. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of equals() when the entries have different keys.
+     * 
+     * @testDescription IInstantiates two entries and checks if the keys are different.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entries have different keys.
+     */
+    @Test
+    public void testEntryEqualsWithDifferentKey() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(2,3);
+
+        Assert.assertFalse(e.getKey().equals(e2.getKey()));
+    }
+
+    /**
+     * Tests the equals method of EntryAdapter using different values. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of equals() when the entries have different values.
+     * 
+     * @testDescription Instantiates two entries and checks if the values are different
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The entries have different values.
+     */
+    @Test
+    public void testEntryEqualsWithDifferentValue() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(2,3);
+
+        Assert.assertFalse(e.getValue().equals(e2.getValue()));
+    }
+
+    /**
+     * Tests the equals method of EntryAdapter using different entries. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of equals() using different entries
+     * 
+     * @testDescription Instantiates two entries and checks if they are equals
+     * 
+     * @preCondition The entries are correctly instantiated.
+     * @postCondition The entries are valid instance.
+     * @expectedResults The entries are different.
+     */
+    @Test
+    public void testEntryEqualsWithDifferentEntry() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = new EntryAdapter(2,3);
+
+        Assert.assertFalse(e.equals(e2));
+    }
+    
+    /**
+     * Tests the <code>hashCode()</code> method of EntryAdapter comparing 2 entries. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the hashCode 
+     *                 of 2 identical entries
+     * 
+     * @testDescription Instantiates an entry and checks if the hashCodes are the same.
+     * 
+     * @preCondition The entry is correctly instantiated.
+     * @postCondition The entry is valid instance.
+     * @expectedResults The hashCodes of the 2 entries are the same.
+     */
+    @Test
+    public void testhashCodeForEqualEntry() {
+        
+        EntryAdapter e = new EntryAdapter(1,2);
+        EntryAdapter e2 = e;
+
+        Assert.assertEquals(e.hashCode(),e2.hashCode());
+    }
+
+    
 }
