@@ -538,7 +538,7 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when put() is called on it with a null key
      * 
-     * @testDescription Instantiates a map, put a null key and a value inside of it and
+     * @testDescription Instantiates a map, put a null key and
      *                  checks that the method throws a NullPointerException
      * 
      * @preCondition The map is correctly instantiated.
@@ -558,7 +558,7 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when put() is called on it with a null value.
      * 
-     * @testDescription Instantiates a map, put a key and a null value inside of it and
+     * @testDescription Instantiates a map, put a null value and
      *                  checks that the method throws a NullPointerException.
      * 
      * @preCondition The map is correctly instantiated.
@@ -573,7 +573,17 @@ public class MapAdapterTest{
         
     }
 
-    //TODO:Facco gay
+    /**
+     * Tests the put method on a map when a existing key is passed. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                 map when put() is called on it with a existing key.
+     * @testDescription Instantiates a map and checks if the previous value 
+     *                  associated with a specified key has been replaced.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is an valid instance.
+     * @expectedResults The map has a new value associated with the same key.
+     */
     @Test
     public void testPutExistingKey() {
         MapAdapter map = new MapAdapter();
@@ -589,10 +599,8 @@ public class MapAdapterTest{
      * 
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when remove() is called on it.
-     * 
      * @testDescription Instantiates a map, put a key and a value inside of it and
      *                  checks if the value is still associated to the key .
-     * 
      * @preCondition The map is correctly instantiated.
      * @postCondition The map is an invalid instance.
      * @expectedResults The map has no key.
@@ -665,7 +673,16 @@ public class MapAdapterTest{
         Assert.assertEquals(null, map.remove(1));
     }
 
-    //TODO:FACCO GAY
+    /**
+     * Tests the remove method with a key that is not in the map. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                 map when remove() is called on it with a key that is not present.
+     * @testDescription Instantiates a map and checks if the map has the key.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults The map has not the specified key.
+     */
     @Test
     public void testRemoveKeyNotInMap() {
         
@@ -678,10 +695,8 @@ public class MapAdapterTest{
      * 
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when putAll() is called on it.
-     * 
      * @testDescription Instantiates two maps, calls putAll() method and
      *                  checks if the second map is equals to the first one.
-     * 
      * @preCondition The map is correctly instantiated.
      * @postCondition The map is a valid instance.
      * @expectedResults The second map is equals to the first one.
@@ -700,10 +715,8 @@ public class MapAdapterTest{
      * 
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when put() is called on it with a null value.
-     * 
      * @testDescription Instantiates a map, put a key and a null value inside of it and
      *                  checks that the method throws a NullPointerException.
-     * 
      * @preCondition The map is correctly instantiated.
      * @postCondition The map is an invalid instance.
      * @expectedResults The map has an invalid value.
@@ -716,7 +729,17 @@ public class MapAdapterTest{
     }
 
 
-    //TOD:FACCO GAY
+    /**
+     * Tests the putAll() method with a different type ok key. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                 map when putAll() is called on it and is passed a map with a different type of key.
+     * @testDescription Instantiates a map and checks if the class of the specified key 
+     *                  prevents it from being stored in this map.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a invalid instance.
+     * @expectedResults the map cannot contain a different type of key.
+     */
     @Test 
     public void testPutAllDifferentTypeKey() {
         
@@ -726,7 +749,16 @@ public class MapAdapterTest{
         Assert.assertThrows(ClassCastException.class,()->{map.putAll(map2);});
     }
 
-    //TODO:FACCO GAY
+    /**
+     * Tests the putAll() method passing an empty map. 
+     * 
+     * @testCaseDesign This test is designed for analyzing the behaviour of a
+     *                 map when putAll() is called on it and is passed an empty map.
+     * @testDescription Instantiates a map and checks if map2 is always equals to map.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map is a valid instance.
+     * @expectedResults the map is empty.
+     */
     @Test 
     public void testPutAllEmptyMap() {
         
@@ -779,7 +811,17 @@ public class MapAdapterTest{
         Assert.assertEquals(0, map.size());
     }
 
-    //TODO:FACCO GAY
+    /**
+     * Tests the creation of a keySet of a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing if keySet() method 
+     *                 could create a keySet of a map
+     * @testDescription Instantiates an empty map, calls the keySet() method and
+     *                      checks that the map has a keySet.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map and the keySet are valid intances.
+     * @expectedResults The keySet is correctly instantiated.
+     */
     @Test
     public void testCreationKeySet() {
         MapAdapter map = helper(0,10);
@@ -789,6 +831,17 @@ public class MapAdapterTest{
     }
 
     //TODO:FACCO GAY
+    /**
+     * Tests the creation of a collecion of values of a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing if values() method 
+     *                 could return a colleciton of values of a map
+     * @testDescription Instantiates a map, calls the values() method and
+     *                      checks that the collection of values have all the values of the map.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map and the collection are valid intances.
+     * @expectedResults The collection of values is correctly instantiated.
+     */
     @Test
     public void testCreationValues() {
         MapAdapter map = helper(0,10);
@@ -798,6 +851,17 @@ public class MapAdapterTest{
     }
 
     //TODO:FACCO GAY
+    /**
+     * Tests the creation of a entrySet of a map.
+     * 
+     * @testCaseDesign This test is designed for analyzing if entrySet() method 
+     *                 could create an entrySet of a map
+     * @testDescription Instantiates an empty map, calls the entrySet() method and
+     *                      checks that the map has a entrySet.
+     * @preCondition The map is correctly instantiated.
+     * @postCondition The map and the keySet are valid intances.
+     * @expectedResults The keySet is correctly instantiated.
+     */
     @Test
     public void testCreationEntrySet() {
         MapAdapter map = new MapAdapter();
