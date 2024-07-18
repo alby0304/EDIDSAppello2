@@ -554,7 +554,7 @@ public class MapAdapter implements HMap{
                 }
                 EntryAdapter enter = (EntryAdapter) o;
                 if(containsKey(enter.getKey())){
-                    if(enter.getValue() == get(enter.getKey())){
+                    if(enter.getValue().equals(get(enter.getKey()))){
                         return true;
                     }
                 }
