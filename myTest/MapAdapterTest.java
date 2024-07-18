@@ -4844,6 +4844,81 @@ public class MapAdapterTest{
         Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
     }
 
+    /**
+     * Tests the remove method on entrySet using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of remove() on entrySet using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the method throws myAdapter.IllegalStateException
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults It's not possible to remove the element.
+     */
+    @Test
+    public void testIteratorRemoveEntrySet(){
+        MapAdapter map = helper(0, 10);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        Assert.assertThrows(myAdapter.IllegalStateException.class,()->{it.remove();});
+    }
+
+    /**
+     * Tests the remove method on entrySet, using the iterator, calling it twice after next(). 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of remove() on a entrySet using the iterator calling it twice after next().
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the method throws myAdapter.IllegalStateException
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The entrySet has 9 keys.
+     */
+    @Test
+    public void testIteratorDoubleRemoveEntrySet(){
+        MapAdapter map = helper(0, 10);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        it.next();
+        it.remove();
+        Assert.assertThrows(myAdapter.IllegalStateException.class,()->{it.remove();});
+        Assert.assertEquals(9,entrySet.size());
+        Assert.assertEquals(9,map.size());
+    }
+
+         /**
+     * Tests the remove method on entrySet using the iterator calling it after next() twice. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of remove() on entrySet using the iterator calling it after next() twice.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the keySet
+                        has less keys.
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The entrySet has 8 keys.
+     */
+    @Test
+    public void testIteratorRemoveNextRemoveEntrySet(){
+        MapAdapter map = helper(0, 10);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        it.next();
+        it.remove();
+        it.next();
+        it.remove();
+        Assert.assertEquals(8,entrySet.size());
+        Assert.assertEquals(8,map.size());
+        Assert.assertFalse(entrySet.contains(new EntryAdapter(9,"J")));
+        Assert.assertFalse(map.containsValue("J"));
+        Assert.assertFalse(entrySet.contains(new EntryAdapter(8,"I")));
+        Assert.assertFalse(map.containsValue("I"));
+    }
+    
+
     //SET ENTRY SU ITERATOR 
     @Test
     public void testIteratorSetValuesEntrySet(){
