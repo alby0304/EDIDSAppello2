@@ -927,7 +927,7 @@ public class MapAdapter implements HMap{
              * Variable that indicates whether the state of the iterator is still valid.
              * An iterator becomes invalid if the <code>remove()</code>  method is called twice consecutively without calling <code>next()</code>  before the second call.
              */
-            private boolean state = true;
+            private boolean state = false;
             /**
              * The attribute follows the specifications provided in SetAdapter.
              * In particular:
@@ -941,12 +941,24 @@ public class MapAdapter implements HMap{
             /**
              * The backing Enumeration of the iterator.
              * It can contain elements of different types:
-             * type = 0 contains the <code>keys</code> of the map
-             * type = 1 contains the <code>value</code> of the map
-             * type = 2, although it is an iterator of <code>Map.Entry</code>, does not contain this class, but contains the keys since navigation and search are facilitated with the keys.
+             * <ul>
+             * <li>type = 0 contains the <code>keys</code> of the map</li>
+             * <li>type = 1 contains the <code>value</code> of the map</li>
+             * <li>type = 2, although it is an iterator of <code>Map.Entry</code>, does not contain this class, but contains the keys since navigation and search are facilitated with the keys.</li>
+             * </ul>
+             * <br>
              * However, it will still return objects of type Map.Entry."
              */
             private Enumeration en;
+            /**
+             * Object containing the element returned by the next method:
+             * <ul>
+             * <li>type = 0 contains object of the <code>keys type</code>
+             * <li>type = 1 contains object of the <code>value type</code>
+             * <li>type = 2 contains object of the <code>Map.Entry type</code></li>
+             * </ul>
+            */
+            private Object next;
             
             /**
              * Private constructor because it is not possible to instantiate an object of this type from the outside;
@@ -993,11 +1005,11 @@ public class MapAdapter implements HMap{
                 {
                     throw new NoSuchElementException();
                 }
-                Object o = en.nextElement();
+                next = en.nextElement();
                 if(type == 2 ){
-                    return new EntryAdapter(hash,o,get(o));
+                    return new EntryAdapter(hash,next,get(next));
                 }
-                return o;
+                return next;
             }
 
             /**
@@ -1018,17 +1030,18 @@ public class MapAdapter implements HMap{
                 if(state != false){
                     state = false;
                     if(type == 1){
-                        Object o = en.nextElement();
-                        while(hash.keys().hasMoreElements()){
-                            Object key = hash.keys().nextElement();
-                                if(o == get(key)){
+                        Enumeration en2 = hash.keys();
+                        while(en2.hasMoreElements()){
+                            Object key = en2.nextElement();
+                                if(next == get(key)){
                                     hash.remove(key);
                                 }
                         }
                         
                     }
                     else{
-                        hash.remove(en.nextElement());
+                        hash.remove(next);
+
                     }
                 }
                 else{
