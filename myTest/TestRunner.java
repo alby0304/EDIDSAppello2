@@ -7,7 +7,7 @@ import org.junit.runner.notification.Failure;
 /**
  * This class runs the ListAdapterTest tests.
  * 
- * @see ListAdapterTest
+ * @see MapAdapter
  */
 public class TestRunner {
 

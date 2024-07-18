@@ -4313,7 +4313,15 @@ public class MapAdapterTest{
         Assert.assertEquals(0,entrySet.hashCode());
     }
 
+
+
+
+
     //TODO: TEST ITERATOR KEYSET
+
+
+
+
 
      /**
      * Tests the hasNext method on a keySet using the iterator. 
@@ -4436,8 +4444,7 @@ public class MapAdapterTest{
         it.next();
         Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
     }
-    
-    //TODO vedere da qua 
+
     /**
      * Tests the remove method on keySet using the iterator. 
      *     
@@ -4512,8 +4519,340 @@ public class MapAdapterTest{
         Assert.assertFalse(map.containsKey(8));
     }
 
-    //SET ENTRY SU ITERATOR 
 
+
+
+    //TODO: TEST ITERATOR VALUES
+    /**
+     * Tests the hasNext method on a values using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of hasNext() of a values using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the iterator is valid.
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The iteration has elements.
+     */
+    @Test
+    public void testIteratorHasNextValues() {
+        MapAdapter map = helper(0,10);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        Assert.assertTrue(it.hasNext());
+    }
+
+    /**
+     * Tests the hasNext method on an empty values using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of hasNext() on an empty values using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the iterator is invalid.
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The iteration has no more elements.
+     */
+    @Test
+    public void testIteratorHasNextEmptyValues() {
+        MapAdapter map = new MapAdapter();
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        Assert.assertFalse(it.hasNext());
+    }
+
+    /**
+     * Tests the hasNext method on values with one key using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of hasNext() on values with one key using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the iterator is invalid.
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The iteration has no more elements.
+     */
+    @Test
+    public void testIteratorHasNextLastElementValues() {
+        MapAdapter map = helper(0,1);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        it.next();
+        Assert.assertFalse(it.hasNext());
+    }
+
+    /**
+     * Tests the next method on a values using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of next() of a values using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the element is correct.
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The next element of the iteration is 9.
+     */
+    @Test
+    public void testIteratorNextValues(){
+        MapAdapter map = helper(0, 10);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        Assert.assertEquals("J", it.next());
+    }
+
+    /**
+     * Tests the next method on an empty values using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of next() of an empty values using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the method throws NoSuchElementException
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The iterator can't return the next element.
+     */
+    @Test
+    public void testIteratorNextEmptyValues(){
+        MapAdapter map = new MapAdapter();
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
+    }
+
+    /**
+     * Tests the next method on values with one key, using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of next() on values with one key using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the method throws NoSuchElementException
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The iterator can't return the element.
+     */
+    @Test
+    public void testIteratorNextLastElementValues(){
+        MapAdapter map = helper(0,1);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        it.next();
+        Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
+    }
+
+    /**
+     * Tests the remove method on values using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of remove() on values using the iterator.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the method throws myAdapter.IllegalStateException
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults It's not possible to remove the element.
+     */
+    @Test
+    public void testIteratorRemoveValues(){
+        MapAdapter map = helper(0, 10);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        Assert.assertThrows(myAdapter.IllegalStateException.class,()->{it.remove();});
+    }
+
+    /**
+     * Tests the remove method on values, using the iterator, calling it twice after next(). 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of remove() on a values using the iterator calling it twice after next().
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the method throws myAdapter.IllegalStateException
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The values has 9 keys.
+     */
+    @Test
+    public void testIteratorDoubleRemoveValues(){
+        MapAdapter map = helper(0, 10);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        it.next();
+        it.remove();
+        Assert.assertThrows(myAdapter.IllegalStateException.class,()->{it.remove();});
+        Assert.assertEquals(9,values.size());
+        Assert.assertEquals(9,map.size());
+    }
+
+     /**
+     * Tests the remove method on values using the iterator calling it after next() twice. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of remove() on values using the iterator calling it after next() twice.
+     * 
+     * @testDescription Instantiates a values and a iterator and checks if the keySet
+                        has less keys.
+     * 
+     * @preCondition The values and iterator are correctly instantiated.
+     * @postCondition The values and iterator are valid instance.
+     * @expectedResults The values has 8 keys.
+     */
+    @Test
+    public void testIteratorRemoveNextRemoveValues(){
+        MapAdapter map = helper(0, 10);
+        HCollection values = map.values();
+        HIterator it = values.iterator();
+        it.next();
+        it.remove();
+        it.next();
+        it.remove();
+        Assert.assertEquals(8,values.size());
+        Assert.assertEquals(8,map.size());
+        Assert.assertFalse(values.contains("J"));
+        Assert.assertFalse(map.containsValue("J"));
+        Assert.assertFalse(values.contains("I"));
+        Assert.assertFalse(map.containsValue("I"));
+    }
+
+
+
+    //TEST ITERATOR ENTRYADAPTER
+    /**
+     * Tests the hasNext method on a entrySet using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of hasNext() of a entrySet using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the iterator is valid.
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The iteration has elements.
+     */
+    @Test
+    public void testIteratorHasNextEntrySet() {
+        MapAdapter map = helper(0,10);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        Assert.assertTrue(it.hasNext());
+    }
+
+    /**
+     * Tests the hasNext method on an empty entrySet using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of hasNext() on an empty entrySet using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the iterator is invalid.
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The iteration has no more elements.
+     */
+    @Test
+    public void testIteratorHasNextEmptyEntrySet() {
+        MapAdapter map = new MapAdapter();
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        Assert.assertFalse(it.hasNext());
+    }
+
+    /**
+     * Tests the hasNext method on entrySet with one key using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of hasNext() on entrySet with one key using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the iterator is invalid.
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The iteration has no more elements.
+     */
+    @Test
+    public void testIteratorHasNextLastElementEntrySet() {
+        MapAdapter map = helper(0,1);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        it.next();
+        Assert.assertFalse(it.hasNext());
+    }
+
+    /**
+     * Tests the next method on a entrySet using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of next() of a entrySet using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the element is correct.
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The next element of the iteration is 9.
+     */
+    @Test
+    public void testIteratorNextEntrySet(){
+        MapAdapter map = helper(0, 10);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        Assert.assertEquals(new EntryAdapter(9,"J"), it.next());
+    }
+
+    /**
+     * Tests the next method on an empty entrySet using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of next() of an empty entrySet using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the method throws NoSuchElementException
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The iterator can't return the next element.
+     */
+    @Test
+    public void testIteratorNextEmptyEntrySet(){
+        MapAdapter map = new MapAdapter();
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
+    }
+
+    /**
+     * Tests the next method on entrySet with one key, using the iterator. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of next() on entrySet with one key using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the method throws NoSuchElementException
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The iterator can't return the element.
+     */
+    @Test
+    public void testIteratorNextLastElementEntrySet(){
+        MapAdapter map = helper(0,1);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        it.next();
+        Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
+    }
+
+    //SET ENTRY SU ITERATOR 
+    @Test
+    public void testIteratorSetValuesEntrySet(){
+        MapAdapter map = helper(0,1);
+        HSet entrySet = map.entrySet();
+        HIterator it = entrySet.iterator();
+        ((EntryAdapter)(it.next())).setValue("Z");
+        Assert.assertEquals("Z",map.get(0));
+    }
 }
 
 
