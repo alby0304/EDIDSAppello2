@@ -830,7 +830,6 @@ public class MapAdapterTest{
         Assert.assertTrue(keySet.contains(9));
     }
 
-    //TODO:FACCO GAY
     /**
      * Tests the creation of a collecion of values of a map.
      * 
@@ -850,7 +849,6 @@ public class MapAdapterTest{
         Assert.assertTrue(values.contains("A"));
     }
 
-    //TODO:FACCO GAY
     /**
      * Tests the creation of a entrySet of a map.
      * 
@@ -859,8 +857,8 @@ public class MapAdapterTest{
      * @testDescription Instantiates an empty map, calls the entrySet() method and
      *                      checks that the map has a entrySet.
      * @preCondition The map is correctly instantiated.
-     * @postCondition The map and the keySet are valid intances.
-     * @expectedResults The keySet is correctly instantiated.
+     * @postCondition The map and the entrySet are valid intances.
+     * @expectedResults The entrySet is correctly instantiated.
      */
     @Test
     public void testCreationEntrySet() {
@@ -905,9 +903,7 @@ public class MapAdapterTest{
      * 
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                 map when equals() is called on it using different values compared to another map.
-     * 
      * @testDescription Instantiates two maps, and checks if the maps are equals.
-     * 
      * @preCondition The maps are correctly instantiated.
      * @postCondition The maps are valid instance.
      * @expectedResults The maps are not equals.
@@ -990,7 +986,16 @@ public class MapAdapterTest{
         Assert.assertEquals(map.hashCode(),map2.hashCode());
     }
 
-    //TODO: FACCO GAY
+    /**
+     * Tests the hashCode method on two different maps. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of two different  
+     *                 maps when hashCode() is called.
+     * @testDescription Instantiates two maps, and checks if the maps have a different hashCode.
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The maps are valid instance.
+     * @expectedResults The maps have a different hashCode.
+     */
     @Test 
     public void testhashCodeForDifferentMaps() {
         
@@ -1000,7 +1005,16 @@ public class MapAdapterTest{
         Assert.assertNotEquals(map.hashCode(),map2.hashCode());
     }
 
-    //TODO: FACCO GAY
+    /**
+     * Tests the hashCode method on two maps with different values. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of two  
+     *                 maps with different values when hashCode() is called.
+     * @testDescription Instantiates two maps, and checks if the maps have a different hashCode.
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The maps are valid instance.
+     * @expectedResults The maps have a different hashCode.
+     */
     @Test 
     public void testhashCodeForDifferentValuelMaps() {
         
@@ -1010,7 +1024,18 @@ public class MapAdapterTest{
         Assert.assertNotEquals(map.hashCode(),map2.hashCode());
     }
 
-    //TODO: FACCO GAY
+    /**
+     * Tests the hashCode method on two maps, after calling the put() method
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour of two identical  
+     *                 maps when hashCode() is called after calling put() on one of those.
+     * 
+     * @testDescription Instantiates two maps, and checks if the maps have a different hashCode.
+     * 
+     * @preCondition The maps are correctly instantiated.
+     * @postCondition The maps are valid instance.
+     * @expectedResults The maps have a different hashCode.
+     */
     @Test 
     public void testhashCodeForDifferentKeyAndPutMaps() {
         
@@ -1290,12 +1315,12 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the <code>hashCode()</code> method of EntryAdapter comparing 2 entries. 
+     * Tests the <code>hashCode()</code> method of EntryAdapter comparing 2 identical entries. 
      *     
      * @testCaseDesign This test is designed for analyzing the hashCode 
      *                 of 2 identical entries
      * 
-     * @testDescription Instantiates an entry and checks if the hashCodes are the same.
+     * @testDescription Instantiates 2 entries and checks if the hashCodes are the same.
      * 
      * @preCondition The entry is correctly instantiated.
      * @postCondition The entry is valid instance.
@@ -1310,9 +1335,18 @@ public class MapAdapterTest{
         Assert.assertEquals(e.hashCode(),e2.hashCode());
     }
 
-    //TODO:FACCO GAY, DA QUI IN POI TUTTI
+    /**
+     * Tests the <code>hashCode()</code> method of EntryAdapter comparing 2 different entries. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the hashCode 
+     *                 of 2 different entries
+     * @testDescription Instantiates 2 entries and checks if the hashCodes are different.
+     * @preCondition The entries are correctly instantiated.
+     * @postCondition The entris are valid instance.
+     * @expectedResults The entries have different hashCodes.
+     */
     @Test
-    public void testhashCodeForDifferntEntry() {
+    public void testhashCodeForDifferentEntry() {
         
         EntryAdapter e = new EntryAdapter(1,2);
         EntryAdapter e2 = new EntryAdapter(7,"A");
@@ -1325,8 +1359,19 @@ public class MapAdapterTest{
 
 
     //TEST HSET RITORNATO DA KEYSET
-
-
+    
+    /**
+     * Tests the size method of Hset. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a Hset when size() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks its size.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set has size 10.
+     */
     @Test
     public void testSizeKeySet() {
         MapAdapter map = helper(0,10);
@@ -1334,20 +1379,56 @@ public class MapAdapterTest{
         Assert.assertEquals(10, keySet.size());
     }
 
+    /**
+     * Tests the size method of Hset on empty Set. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a empty Hset when size() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks its size.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set has size 0.
+     */
     @Test
     public void testSizeKeySetOnEmptySet() {
         MapAdapter map = new MapAdapter();
         HSet keySet = map.keySet();
         Assert.assertEquals(0, keySet.size());
     }
-
+    
+    /**
+     * Tests the isEmpty method of Hset. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a Hset when isEmpty() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks if it is empty.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set is not empty.
+     */
     @Test
     public void testIsEmptyKeySet() {
         MapAdapter map = helper(0,10);
         HSet keySet = map.keySet();
         Assert.assertFalse(keySet.isEmpty());
     }
-
+    
+    /**
+     * Tests the isEmpty method of Hset on empty Set. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of an empty Hset when isEmpty() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks if it is empty.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set is empty.
+     */
     @Test
     public void testIsEmptyKeySetOnEmptySet() {
         MapAdapter map = new MapAdapter();
@@ -1355,27 +1436,75 @@ public class MapAdapterTest{
         Assert.assertTrue(keySet.isEmpty());
     }
     
+     /**
+     * Tests the containsKey method of Hset on Set. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of an empty Hset when isEmpty() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks if it is empty.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set is empty.
+     */
     @Test
     public void testContainsKeySet() {
         MapAdapter map = helper(0,10);
         HSet keySet = map.keySet();
         Assert.assertTrue(keySet.contains(0));
     }
-
+    
+     /**
+     * Tests the contains method of Hset. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a Hset when isEmpty() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks if it is empty.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set is empty.
+     */
     @Test
     public void testContainsKeySetonEmptySet() {
         MapAdapter map = new MapAdapter();
         HSet keySet = map.keySet();
         Assert.assertFalse(keySet.contains(0));
     }
-
+    
+     /**
+     * Tests the isEmpty method of Hset on empty Set. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of an empty Hset when isEmpty() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks if it is empty.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set is empty.
+     */
     @Test
     public void testContainsNullKeySet() {
         MapAdapter map = helper(0,10);
         HSet keySet = map.keySet();
         Assert.assertThrows(NullPointerException.class,()->{keySet.contains(null);});
     }
-
+    
+    /**
+     * Tests the isEmpty method of Hset on empty Set. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of an empty Hset when isEmpty() is called on it.
+     * 
+     * @testDescription Instantiates a set and checks if it is empty.
+     * 
+     * @preCondition The set is correctly instantiated.
+     * @postCondition The set is valid instance.
+     * @expectedResults The set is empty.
+     */
     @Test
     public void testContainsNullKeySetOnEmptySet() {
         MapAdapter map = new MapAdapter();

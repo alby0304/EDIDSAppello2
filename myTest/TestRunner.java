@@ -8,7 +8,6 @@ import org.junit.runner.notification.Failure;
  * This class runs the ListAdapterTest tests.
  * 
  * @see ListAdapterTest
- * @author Stefano Garbari
  */
 public class TestRunner {
 
