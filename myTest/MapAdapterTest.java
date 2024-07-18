@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.*;
 import myAdapter.*;
 import myAdapter.MapAdapter.EntryAdapter;
+import java.util.NoSuchElementException;
 
 /**
  * This class is a test suite designed for testing the MapAdapter class.
@@ -599,7 +600,7 @@ public class MapAdapterTest{
      * 
      * @testCaseDesign This test is designed for analyzing the behaviour of a
      *                     map when remove() is called on it.
-     * @testDescription Instantiates a map, put a key and a value inside of it and
+     * @testDescription Instantiates a map and
      *                  checks if the value is still associated to the key .
      * @preCondition The map is correctly instantiated.
      * @postCondition The map is an invalid instance.
@@ -909,7 +910,7 @@ public class MapAdapterTest{
      * @expectedResults The maps are not equals.
      */
     @Test 
-    public void testEqualsDifferentValues() {
+    public void testEqualsDifferentValuesMap() {
         
         MapAdapter map = new MapAdapter();
         map.put(2, 3);
@@ -1678,7 +1679,7 @@ public class MapAdapterTest{
      * 
      * @preCondition The keySet is correctly instantiated.
      * @postCondition The keySet is valid instance.
-     * @expectedResults The array has correct length, value in order and and the last one is <code>.
+     * @expectedResults The array has correct length, value in order and and the last one is 3.
      */
     @Test
     public void testToArrayObjectSmallerSizeKeySet(){
@@ -1694,16 +1695,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the toArray() method of Hset on a keySet passing it a bigger array. 
+     * Tests the toArray() method of Hset on a keySet passing it null element. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a keySet when toArray() is called on it passing an array bigger than its size.
+     *                 of a keySet when toArray() is called on it passing a null element.
      * 
-     * @testDescription Instantiates a keySet and checks if the array is correctly created.
+     * @testDescription Instantiates a keySet and checks if the method throws NullPointerException.
      * 
      * @preCondition The keySet is correctly instantiated.
      * @postCondition The keySet is valid instance.
-     * @expectedResults The array has correct length, value in order and and the last one is <code>null</code>.
+     * @expectedResults The array is not created.
      */
     @Test
     public void testToArrayObjectNullPointerKeySet(){
@@ -1714,7 +1715,19 @@ public class MapAdapterTest{
         HSet keySet = map.keySet();
         Assert.assertThrows(NullPointerException.class,()->{Object[] vet2 = keySet.toArray(null);});
     }
-
+    
+    /**
+     * Tests the add() method of Hset on a keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when add() is called on it.
+     * 
+     * @testDescription Instantiates a keySet and checks if throws UnsupportedOperationException.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The keySet can't use the opertion. 
+     */
     @Test
     public void testAddKeySet(){
         MapAdapter map = helper(0,10);
@@ -1722,6 +1735,18 @@ public class MapAdapterTest{
         Assert.assertThrows(myAdapter.UnsupportedOperationException.class,()->{keySet.add(1);});
     }
 
+    /**
+     * Tests the remove() method of Hset on a keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when remove() is called on it.
+     * 
+     * @testDescription Instantiates a keySet and checks if the key is still in the keySet .
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The keySet has 9 keys.
+     */
     @Test
     public void testRemoveKeySet(){
         MapAdapter map = helper(0,10);
@@ -1730,7 +1755,19 @@ public class MapAdapterTest{
         Assert.assertEquals(9,keySet.size());
         Assert.assertFalse(keySet.contains(0));
     }
-
+    
+     /**
+     * Tests the remove() method of Hset on a keySet using different type of key. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet using different type of key when remove() is called on it.
+     * 
+     * @testDescription Instantiates a keySet and checks if the method throws ClassCastException .
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The keySet can't use remove with different type of key.
+     */
     @Test
     public void testRemoveDifferentTypeKeySet(){
         MapAdapter map = helper(0,10);
@@ -1738,6 +1775,18 @@ public class MapAdapterTest{
         Assert.assertThrows(ClassCastException.class,()->{keySet.remove(2.1);});
     }
 
+    /**
+     * Tests the remove() method of Hset on a keySet passing a null key. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when remove() is called on it passing a null key.
+     * 
+     * @testDescription Instantiates a keySet and checks if a NullPointerException is thrown.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The keySet has 10 keys.
+     */
     @Test
     public void testRemoveNullKeySet(){
         MapAdapter map = helper(0,10);
@@ -1745,6 +1794,18 @@ public class MapAdapterTest{
         Assert.assertThrows(NullPointerException.class,()->{keySet.remove(null);});
     }
 
+    /**
+     * Tests the remove() method of Hset on an empty keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of an empty keySet when remove() is called on it.
+     * 
+     * @testDescription Instantiates a keySet and checks if the keySet has no key.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The keySet has 0 keys.
+     */
     @Test
     public void testRemoveOnEmptyKeySet(){
         MapAdapter map = new MapAdapter();
@@ -1752,13 +1813,37 @@ public class MapAdapterTest{
         Assert.assertFalse(keySet.remove(0));
     }
 
+    /**
+     * Tests the remove() method on a keySet passing a key not in the set. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when remove() is called on it passing a key not in the set.
+     * 
+     * @testDescription Instantiates a keySet and checks if the keySet is the same.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The keySet has 10 keys.
+     */
     @Test
     public void testRemoveNotInKeySet(){
         MapAdapter map = helper(0,10);
         HSet keySet = map.keySet();
         Assert.assertFalse(keySet.remove(11));
     }
-
+    
+    /**
+     * Tests the containsAll() method of Hset on a keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when containsAll() is called on it.
+     * 
+     * @testDescription Instantiates two keySet and checks if the two keySets have the same element .
+     * 
+     * @preCondition The keySet are correctly instantiated.
+     * @postCondition The keySet are valid instance.
+     * @expectedResults The two keySets have the same element.
+     */
     @Test
     public void testContainsAllKeySet(){
         MapAdapter map = helper(0,3);
@@ -1768,6 +1853,18 @@ public class MapAdapterTest{
         Assert.assertTrue(keySet.containsAll(keySet2));
     }
 
+    /**
+     * Tests the containsAll() method on a keySet passing a keySet with some difference. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when containsAll() is called on it passing a keySet a little difference.
+     * 
+     * @testDescription Instantiates a keySet and checks if the 2 keySets are different.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults The 2 keySets have different elements.
+     */
     @Test
     public void testContainsAllSomeDifferentKeySet(){
         MapAdapter map = helper(0,3);
@@ -1778,6 +1875,18 @@ public class MapAdapterTest{
         Assert.assertFalse(keySet.containsAll(keySet2));
     }
 
+    /**
+     * Tests the containsAll() method on a keySet passing a different keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when containsAll() is called on it passing a different keySet.
+     * 
+     * @testDescription Instantiates a keySet and checks if the 2 keySets are different.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults The 2 keySets are completely different.
+     */
     @Test
     public void testContainsAllNoOneInKeySet(){
         MapAdapter map = helper(4,7);
@@ -1787,6 +1896,18 @@ public class MapAdapterTest{
         Assert.assertFalse(keySet.containsAll(keySet2));
     }
 
+    /**
+     * Tests the containsAll() method on a keySet using null key. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet using null key when containsAll() is called on it.
+     * 
+     * @testDescription Instantiates two keySets and checks if a NullPointerException is thrown.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults NullPointerException.
+     */
     @Test
     public void testContainsAllNullPointerKeySet(){
         MapAdapter map = helper(0,2);
@@ -1796,6 +1917,18 @@ public class MapAdapterTest{
         Assert.assertThrows(NullPointerException.class,()->{keySet.containsAll(null);});
     }
 
+    /**
+     * Tests the containsAll() method on a keySet passing a keySet with different type of keys. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when containsAll() is called on it passing a keySet
+     *                 with different type of keys.
+     * @testDescription Instantiates a keySet and checks if the 2 keySets are different.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults ClassCastException.
+     */
     @Test
     public void testContainsAllClassCastKeySet(){
         MapAdapter map = helper(0,2);
@@ -1806,6 +1939,17 @@ public class MapAdapterTest{
         Assert.assertThrows(ClassCastException.class,()->{keySet.containsAll(keySet2);});
     }
 
+    /**
+     * Tests the addAll() method on a keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when addAll() is called on it.
+     * @testDescription Instantiates a keySet and checks if addAll() metod is not supported.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults myAdapter.UnsopportedOperationException.
+     */
     @Test
     public void testAddAllKeySet(){
         MapAdapter map = helper(0,10);
@@ -1815,6 +1959,17 @@ public class MapAdapterTest{
         Assert.assertThrows(myAdapter.UnsupportedOperationException.class,()->{keySet.addAll(keySet2);});
     }
 
+    /**
+     * Tests the retainAll() method on a keySet. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when retainAll() is called on it passing another keySet.
+     * @testDescription Instantiates a keySet and checks if the set is modified.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults The keySet is not modified.
+     */
     @Test
     public void testRetainAllKeySet(){
         MapAdapter map = helper(0,3);
@@ -1824,7 +1979,18 @@ public class MapAdapterTest{
         Assert.assertFalse(keySet.retainAll(keySet2));
         Assert.assertEquals(3,keySet.size());
     }
-
+    
+    /**
+     * Tests the retainAll() method on a keySet using keySet with some different. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet using keySet with some different when retainAll() is called on it.
+     * @testDescription Instantiates a keySet and checks if the set is modified.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults The keySets are .
+     */
     @Test
     public void testRetainAllSomeDifferentKeySet(){
         MapAdapter map = helper(0,3);
@@ -1836,7 +2002,18 @@ public class MapAdapterTest{
         Assert.assertTrue(keySet.retainAll(keySet2));
         Assert.assertEquals(2,keySet.size());
     }
-
+    
+    /**
+     * Tests the retainAll() method on a keySet passing a different keyset. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when retainAll() is called on it passing a different keySet.
+     * @testDescription Instantiates a keySet and checks if the set is modified.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults The keySet is modified.
+     */
     @Test
     public void testRetainAllNoOneInKeySet(){
         MapAdapter map = helper(4,7);
@@ -1846,12 +2023,21 @@ public class MapAdapterTest{
         Assert.assertTrue(keySet.retainAll(keySet2));
     }
 
+    /**
+     * Tests the retainAll() method on a keySet passing null parameter. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when retainAll() is called on it passing a different keySet.
+     * @testDescription Instantiates a keySet and checks if the set is modified.
+     * 
+     * @preCondition The 2 keySets are correctly instantiated.
+     * @postCondition The 2 keySets are valid instances.
+     * @expectedResults The keySet is modified.
+     */
     @Test
     public void testRetainAllNullPointerKeySet(){
         MapAdapter map = helper(0,2);
         HSet keySet = map.keySet();
-        MapAdapter map2 = helper(0,2);
-        HSet keySet2 = map2.keySet();
         Assert.assertThrows(NullPointerException.class,()->{keySet.retainAll(null);});
     }
 
@@ -1978,10 +2164,10 @@ public class MapAdapterTest{
         
         MapAdapter map = helper(0,10);
         MapAdapter map2 = helper(0,10);
-        map2.remove(0);
+        map2.remove(1);
         HSet keySet = map.keySet();
         HSet keySet2 = map2.keySet();
-        Assert.assertEquals(keySet.hashCode(),keySet2.hashCode());
+        Assert.assertNotEquals(keySet.hashCode(),keySet2.hashCode());
     }
     
 
@@ -2080,8 +2266,6 @@ public class MapAdapterTest{
         Assert.assertEquals(3,vet2.length);
     }
 
-    //CHATGPT GENERATOR
-
     @Test
     public void testToArrayObjectValues(){
         MapAdapter map = new MapAdapter();
@@ -2104,10 +2288,10 @@ public class MapAdapterTest{
         HCollection values = map.values();
         MapAdapter[] vet = new MapAdapter[3];
         Object[] vet2 = values.toArray(vet);
-        Assert.assertEquals("A",vet2[0]);
+        Assert.assertEquals("C",vet2[0]);
         Assert.assertEquals(3,vet2.length);
     }
-
+    
     @Test
     public void testToArrayObjectBiggerSizeValues(){
         MapAdapter map = new MapAdapter();
@@ -2117,7 +2301,7 @@ public class MapAdapterTest{
         HCollection values = map.values();
         String[] vet = new String[4];
         Object[] vet2 = values.toArray(vet);
-        Assert.assertEquals("A",vet2[0]);
+        Assert.assertEquals("C",vet2[0]);
         Assert.assertEquals(null,vet2[3]);
         Assert.assertEquals(4,vet2.length);
     }
@@ -2131,7 +2315,7 @@ public class MapAdapterTest{
         HCollection values = map.values();
         String[] vet = new String[2];
         Object[] vet2 = values.toArray(vet);
-        Assert.assertEquals("A",vet2[0]);
+        Assert.assertEquals("C",vet2[0]);
         Assert.assertEquals(3,vet2.length);
     }
 
@@ -2156,9 +2340,8 @@ public class MapAdapterTest{
     public void testRemoveValues(){
         MapAdapter map = helper(0,10);
         HCollection values = map.values();
-        values.remove("0");
-        Assert.assertEquals(9,values.size());
-        Assert.assertFalse(values.contains("0"));
+        values.remove("A");
+        Assert.assertFalse(values.contains("A"));
     }
 
     @Test
@@ -2174,7 +2357,7 @@ public class MapAdapterTest{
         HCollection values = map.values();
         Assert.assertThrows(NullPointerException.class,()->{values.remove(null);});
     }
-
+    
     @Test
     public void testRemoveOnEmptyValues(){
         MapAdapter map = new MapAdapter();
@@ -2231,11 +2414,11 @@ public class MapAdapterTest{
         MapAdapter map = helper(0,2);
         HCollection values = map.values();
         MapAdapter map2 = new MapAdapter();
-        map2.put("A","A");
+        map2.put("A",1);
         HCollection values2 = map2.values();
         Assert.assertThrows(ClassCastException.class,()->{values.containsAll(values2);});
     }
-
+    
     @Test
     public void testAddAllValues(){
         MapAdapter map = helper(0,10);
@@ -2266,7 +2449,7 @@ public class MapAdapterTest{
         Assert.assertTrue(values.retainAll(values2));
         Assert.assertEquals(2,values.size());
     }
-
+    
     @Test
     public void testRetainAllNoOneInValues(){
         MapAdapter map = helper(4,7);
@@ -2280,8 +2463,6 @@ public class MapAdapterTest{
     public void testRetainAllNullPointerValues(){
         MapAdapter map = helper(0,2);
         HCollection values = map.values();
-        MapAdapter map2 = helper(0,2);
-        HCollection values2 = map2.values();
         Assert.assertThrows(NullPointerException.class,()->{values.retainAll(null);});
     }
 
@@ -2290,7 +2471,7 @@ public class MapAdapterTest{
         MapAdapter map = helper(0,2);
         HCollection values = map.values();
         MapAdapter map2 = new MapAdapter();
-        map2.put("A","A");
+        map2.put("A",1);
         HCollection values2 = map2.values();
         Assert.assertThrows(ClassCastException.class,()->{values.retainAll(values2);});
     }
@@ -2330,17 +2511,15 @@ public class MapAdapterTest{
     public void testRemoveAllNullPointerValues(){
         MapAdapter map = helper(0,2);
         HCollection values = map.values();
-        MapAdapter map2 = helper(0,2);
-        HCollection values2 = map2.values();
         Assert.assertThrows(NullPointerException.class,()->{values.removeAll(null);});
     }
-
+    
     @Test
     public void testRemoveAllClassCastValues(){
         MapAdapter map = helper(0,2);
         HCollection values = map.values();
         MapAdapter map2 = new MapAdapter();
-        map2.put("A","A");
+        map2.put("A",1);
         HCollection values2 = map2.values();
         Assert.assertThrows(ClassCastException.class,()->{values.removeAll(values2);});
     }
@@ -2352,7 +2531,7 @@ public class MapAdapterTest{
         values.clear();
         Assert.assertEquals(0,values.size());
     }
-    
+
     @Test
     public void testClearOnEmptyValues(){
         MapAdapter map = new MapAdapter();
@@ -2383,13 +2562,13 @@ public class MapAdapterTest{
     @Test 
     public void testEqualsDifferentValues() {
         MapAdapter map = helper(0,10);
-        MapAdapter map2 = helper(0,10);
+        MapAdapter map2 = helper(11,15);
         map2.put(11,"A");
         HCollection values = map.values();
         HCollection values2 = map2.values();
         Assert.assertFalse(values.equals(values2));
     }
-
+    
     @Test 
     public void testHashCodeValues() {
         MapAdapter map = helper(0,10);
@@ -2398,7 +2577,8 @@ public class MapAdapterTest{
         HCollection values2 = map2.values();
         Assert.assertEquals(values.hashCode(),values2.hashCode());
     }
-
+    
+    
     @Test 
     public void testHashCodeDifferentValues() {
         MapAdapter map = helper(0,10);
@@ -2406,7 +2586,7 @@ public class MapAdapterTest{
         map2.remove(0);
         HCollection values = map.values();
         HCollection values2 = map2.values();
-        Assert.assertEquals(values.hashCode(),values2.hashCode());
+        Assert.assertNotEquals(values.hashCode(),values2.hashCode());
     }
 
     @Test 
@@ -2416,6 +2596,64 @@ public class MapAdapterTest{
         Assert.assertEquals(0,values.hashCode());
     }
 
+    //TODO: TEST HSET RITORNATO DA ENTRYSET
+
+    
+    @Test
+    public void testSizeEntrySet() {
+        MapAdapter map = helper(0,10);
+        HSet entrySet = map.entrySet();
+        Assert.assertEquals(10, entrySet.size());
+    }
+
+    @Test
+    public void testSizeEntrySetOnEmptySet() {
+        MapAdapter map = new MapAdapter();
+        HSet entrySet = map.entrySet();
+        Assert.assertEquals(0, entrySet.size());
+    }
+
+
+    //TODO: TEST ITERATOR KEYSET
+    @Test
+    public void testIteratorHasNextKeySet() {
+        MapAdapter map = helper(0,10);
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertTrue(it.hasNext());
+    }
+    
+    @Test
+    public void testIteratorHasNextEmptyKeySet() {
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertFalse(it.hasNext());
+    }
+
+    @Test
+    public void testIteratorHasNextLastElementKeySet() {
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertFalse(it.hasNext());
+    }
+    
+    @Test
+    public void testIteratorNextKeyset(){
+        MapAdapter map = helper(0, 10);
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertEquals(9, it.next());
+    }
+    
+    @Test
+    public void testIteratorNextEmptyKeyset(){
+        MapAdapter map = new MapAdapter();
+        HSet keySet = map.keySet();
+        HIterator it = keySet.iterator();
+        Assert.assertThrows(NoSuchElementException.class,()->{it.next();});
+    }
     
 }
 

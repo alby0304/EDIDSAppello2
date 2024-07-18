@@ -679,7 +679,7 @@ public class MapAdapter implements HMap{
                 Enumeration en = hash.keys();
                 while(en.hasMoreElements()){
                     Object key = en.nextElement();
-                    if(o == get(key)){
+                    if(o.equals(hash.get(key))){
                         hash.remove(key);
                         rtn = true;
                     }
