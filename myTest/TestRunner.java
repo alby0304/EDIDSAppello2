@@ -4,15 +4,17 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
+import myAdapter.MapAdapter;
+
 /**
- * This class runs the ListAdapterTest tests.
+ * This class runs the MapAdapterTest tests.
  * 
  * @see MapAdapter
  */
 public class TestRunner {
 
     /**
-     * Runs the tests in ListAdapterTest and prints on standard output the results.
+     * Runs the tests in MapAdapterTest and prints on standard output the results.
      * 
      * @param args The command line arguments. This parameter is ignored.
      */
