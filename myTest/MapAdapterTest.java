@@ -4888,7 +4888,7 @@ public class MapAdapterTest{
         Assert.assertEquals(9,map.size());
     }
 
-         /**
+    /**
      * Tests the remove method on entrySet using the iterator calling it after next() twice. 
      *     
      * @testCaseDesign This test is designed for checking the behavior
@@ -4919,7 +4919,21 @@ public class MapAdapterTest{
     }
     
 
-    //SET ENTRY SU ITERATOR 
+    //SET ENTRY SU ITERATOR
+
+     /**
+     * Tests the setValue method on entrySet. 
+     *     
+     * @testCaseDesign This test is designed for checking the behavior
+     *                 of setValue() on entrySet using the iterator.
+     * 
+     * @testDescription Instantiates a entrySet and a iterator and checks if the entrySet
+                        has a new value associated to the specific key.
+     * 
+     * @preCondition The entrySet and iterator are correctly instantiated.
+     * @postCondition The entrySet and iterator are valid instance.
+     * @expectedResults The entrySet has a new value associated to the specific key.
+     */
     @Test
     public void testIteratorSetValuesEntrySet(){
         MapAdapter map = helper(0,1);
