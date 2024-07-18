@@ -1577,33 +1577,32 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a keySet when toArray() is called on it.
      * 
-     * @testDescription Instantiates a keySet and checks if the method works correctly.
+     * @testDescription Instantiates a keySet and checks the array is correctly created.
      * 
      * @preCondition The keySet is correctly instantiated.
      * @postCondition The keySet is valid instance.
-     * @expectedResults The array has correct length and value in order .
+     * @expectedResults The array has correct length and value in order.
      */
     @Test
     public void testToArrayKeySet(){
         MapAdapter map = helper(0,3);
         HSet keySet = map.keySet();
-        int[] vet = {0,1,2};
         Object[] vet2 = keySet.toArray();
         Assert.assertEquals(2,vet2[0]);
         Assert.assertEquals(3,vet2.length);
     }
 
     /**
-     * Tests the toArray() method of Hset on a keySet. 
+     * Tests the toArray() method of Hset on a keySet passing it an array. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a keySet using a different type of key when contains() is called on it.
+     *                 of a keySet when toArray() is called on it passing an array.
      * 
-     * @testDescription Instantiates a set and checks if it is empty.
+     * @testDescription Instantiates a keySet and checks if the array is correctly created.
      * 
      * @preCondition The keySet is correctly instantiated.
      * @postCondition The keySet is valid instance.
-     * @expectedResults The keySet can't contain different type of key.
+     * @expectedResults The array has correct length and value in order..
      */
     @Test
     public void testToArrayObjectKeySet(){
@@ -1617,7 +1616,19 @@ public class MapAdapterTest{
         Assert.assertEquals("3",vet2[0]);
         Assert.assertEquals(3,vet2.length);
     }
-
+    
+     /**
+     * Tests the toArray() method of Hset on a keySet using different type of object. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet using a different type of object when toArray() is called on it.
+     * 
+     * @testDescription Instantiates a keySet and checks if the array is correctly created.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The array has correct length and value.
+     */
     @Test
     public void testToArrayObjectDifferentTypeKeySet(){
         MapAdapter map = new MapAdapter();
@@ -1631,6 +1642,18 @@ public class MapAdapterTest{
         Assert.assertEquals(3,vet2.length);
     }
 
+    /**
+     * Tests the toArray() method of Hset on a keySet passing it a bigger array. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when toArray() is called on it passing an array bigger than its size.
+     * 
+     * @testDescription Instantiates a keySet and checks if the array is correctly created.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The array has correct length, value in order and and the last one is <code>null</code>.
+     */
     @Test
     public void testToArrayObjectBiggerSizeKeySet(){
         MapAdapter map = new MapAdapter();
@@ -1644,7 +1667,19 @@ public class MapAdapterTest{
         Assert.assertEquals(null,vet2[3]);
         Assert.assertEquals(4,vet2.length);
     }
-
+    
+    /**
+     * Tests the toArray() method of Hset on a keySet passing it a smaller array. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when toArray() is called on it passing an array smaller than its size.
+     * 
+     * @testDescription Instantiates a keySet and checks if the array is correctly created.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The array has correct length, value in order and and the last one is <code>.
+     */
     @Test
     public void testToArrayObjectSmallerSizeKeySet(){
         MapAdapter map = new MapAdapter();
@@ -1658,6 +1693,18 @@ public class MapAdapterTest{
         Assert.assertEquals(3,vet2.length);
     }
 
+    /**
+     * Tests the toArray() method of Hset on a keySet passing it a bigger array. 
+     *     
+     * @testCaseDesign This test is designed for analyzing the behaviour 
+     *                 of a keySet when toArray() is called on it passing an array bigger than its size.
+     * 
+     * @testDescription Instantiates a keySet and checks if the array is correctly created.
+     * 
+     * @preCondition The keySet is correctly instantiated.
+     * @postCondition The keySet is valid instance.
+     * @expectedResults The array has correct length, value in order and and the last one is <code>null</code>.
+     */
     @Test
     public void testToArrayObjectNullPointerKeySet(){
         MapAdapter map = new MapAdapter();
@@ -1976,7 +2023,7 @@ public class MapAdapterTest{
     public void testContainsValues() {
         MapAdapter map = helper(0,10);
         HCollection values = map.values();
-        Assert.assertTrue(values.contains(0));
+        Assert.assertTrue(values.contains("A"));
     }
 
     @Test
@@ -2028,14 +2075,12 @@ public class MapAdapterTest{
     public void testToArrayValues(){
         MapAdapter map = helper(0,3);
         HCollection values = map.values();
-        Object[] vet = {"A","B","C"};
         Object[] vet2 = values.toArray();
         Assert.assertEquals("C",vet2[0]);
         Assert.assertEquals(3,vet2.length);
     }
 
     //CHATGPT GENERATOR
-
 
     @Test
     public void testToArrayObjectValues(){
