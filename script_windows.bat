@@ -14,10 +14,10 @@ if %errorlevel% equ 0 (
     java -cp ".;cldc-1.1.jar;jUnit/junit-4.13.2.jar;jUnit/hamcrest-core-1.3.jar" myTest.TestRunner
 
     rem Chiedi all'utente se desidera eliminare tutti i file .class
-    set /p risposta="Vuoi eliminare tutti i file .class dopo l'esecuzione? (si/no) "
+    set /p risposta="Vuoi eliminare tutti i file .class dopo l'esecuzione? (s/n) "
 
     rem Controlla la risposta dell'utente
-    if "%risposta%"=="si" (
+    if /I "%risposta%"=="s" (
         rem Se l'utente ha risposto si, elimina tutti i file .class
         echo Eliminazione di tutti i file .class...
         for /r %%f in (*.class) do del /F /Q "%%f"
