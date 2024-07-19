@@ -11,7 +11,7 @@ if %errorlevel% equ 0 (
 
     rem Esecuzione dei test
     echo Esecuzione dei test...
-    java -cp ".;cldc-1.1.jar;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" myTest.TestRunner
+    java -cp ".;cldc-1.1.jar;jUnit/junit-4.13.2.jar;jUnit/hamcrest-core-1.3.jar" myTest.TestRunner
 
     rem Chiedi all'utente se desidera eliminare tutti i file .class
     set /p risposta="Vuoi eliminare tutti i file .class dopo l'esecuzione? (si/no) "
