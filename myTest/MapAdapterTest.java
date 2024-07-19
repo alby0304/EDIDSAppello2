@@ -2360,16 +2360,16 @@ public class MapAdapterTest{
     
     
     /**
-     * Tests the size method of Values. 
+     * Tests the size() method on a collection of Values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when size() is called on it.
+     *                 of a collection of values when size() is called on it.
      * 
-     * @testDescription Instantiates a values and checks its size.
+     * @testDescription Instantiates a collection Values and checks its size.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values has size 10.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is a valid instance.
+     * @expectedResults The collection has size 10.
      */
     @Test
     public void testSizeValues() {
@@ -2379,16 +2379,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the size method of HCollection on empty values. 
+     * Tests the size() method on an empty collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a empty vlaues when size() is called on it.
+     *                 of a empty collection of values when size() is called on it.
      * 
-     * @testDescription Instantiates a values and checks its size.
+     * @testDescription Instantiates a collection of values and checks its size.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values has size 0.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection has size 0.
      */
     @Test
     public void testSizeValuesOnEmptySet() {
@@ -2398,16 +2398,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the isEmpty method of values. 
+     * Tests the isEmpty() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when isEmpty() is called on it.
+     *                 of a collection of values when isEmpty() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if it is empty.
+     * @testDescription Instantiates a collection of values and checks if it is empty.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values is not empty.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection is not empty.
      */
     @Test
     public void testIsEmptyValues() {
@@ -2417,16 +2417,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the isEmpty method of HCollection on empty values. 
+     * Tests the isEmpty() method on an empty collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of an empty values when isEmpty() is called on it.
+     *                 of an empty collection of values when isEmpty() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if it is empty.
+     * @testDescription Instantiates a collection of values and checks if it is empty.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values is empty.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection is empty.
      */
     @Test
     public void testIsEmptyValuesOnEmptyValues() {
@@ -2436,16 +2436,17 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains method of HCollection on a values. 
+     * Tests the contains() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when contains() is called on it.
+     *                 of a collection of values when contains() is called on it.
      * 
-     * @testDescription Instantiates a values and checks it contains the specific value.
+     * @testDescription Instantiates a collection of values and 
+     *                  checks it contains the specific value.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values contains the specific values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection contains the specific values.
      */
     @Test
     public void testContainsValues() {
@@ -2455,16 +2456,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains() method of HCollection on a values . 
+     * Tests the contains() method on a collection of values . 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of an empty values when contains() is called on it.
+     *                 of an empty collection of values when contains() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if it doesn't contain the specific value.
+     * @testDescription Instantiates a collection of values and checks if it doesn't contain the specific value.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values doesn't contain the specific values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection doesn't contain the specific values.
      */
     @Test
     public void testContainsValuesOnEmptyValue() {
@@ -2474,16 +2475,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains method of HCollection on a values using null values. 
+     * Tests the contains method on a collection of values using null values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using null key when contains() is called on it.
+     *                 of a collection of values using null value when contains() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if it throws NullPointerException.
+     * @testDescription Instantiates a collection of values and checks if it throws NullPointerException.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values can't contain a null values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection can't contain a null values.
      */
     @Test
     public void testContainsNullValues() {
@@ -2493,16 +2494,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains() method of HCollection on empty values using null values. 
+     * Tests the contains() method on an empty collection of values using null values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of an empty values when contains() is called on it using null values.
+     *                 of an empty collection of values when contains() is called on it using null values.
      * 
-     * @testDescription Instantiates an empty values and checks if it can contain a null values .
+     * @testDescription Instantiates an empty values and checks if it throws NullPointerException.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values does not contain null values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection does not contain null values.
      */
     @Test
     public void testContainsNullValuesOnEmptyValues() {
@@ -2512,16 +2513,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains method of HCollection on values using a different type of values. 
+     * Tests the contains method on a collection of values using a different type of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using a different type of value when contains() is called on it.
+     *                 of a collection of values using a different type of value when contains() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if it is empty.
+     * @testDescription Instantiates a collection of values and checks if it is empty.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values can't contain different type of values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection can't contain different type of values.
      */
     @Test
     public void testContainsDifferentTypeValues() {
@@ -2531,16 +2532,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the creation of an iterator of a values. 
+     * Tests the creation of an iterator of a collection of values. 
      *     
      * @testCaseDesign This test is designed for checking the creation 
-     *                 of an Iterator of a values
+     *                 of an Iterator of a collection of values
      * 
-     * @testDescription Instantiates a values and a iterator and checks if it's valid.
+     * @testDescription Instantiates a collection of values and a iterator and checks if it's valid.
      * 
-     * @preCondition The values and iterator are correctly instantiated.
-     * @postCondition The values and iterator are valid instance.
-     * @expectedResults The iteration has more elements
+     * @preCondition The collection and iterator are correctly instantiated.
+     * @postCondition The collection and iterator are valid instance.
+     * @expectedResults The iteration has more elements.
      */
     @Test
     public void testIteratorCreationValues(){
@@ -2551,15 +2552,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the creation of an iterator of an empty values. 
+     * Tests the creation of an iterator of an empty collection of values. 
      *     
      * @testCaseDesign This test is designed for checking the creation 
-     *                 of an Iterator of a values that is empty.
+     *                 of an Iterator of a collection of values that is empty.
      * 
-     * @testDescription Instantiates a values and a iterator and checks if it's invalid.
+     * @testDescription Instantiates a collection of values and a iterator and checks if it's invalid.
      * 
-     * @preCondition The values and iterator are correctly instantiated.
-     * @postCondition The values and iterator are valid instance.
+     * @preCondition The collection and iterator are correctly instantiated.
+     * @postCondition The collection and iterator are valid instance.
      * @expectedResults The iteration has no more elements.
      */
     @Test
@@ -2571,15 +2572,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests toArray method of HCollection on values. 
+     * Tests toArray() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when toArray() is called on it.
+     *                 of a collection of values when toArray() is called on it.
      * 
-     * @testDescription Instantiates a values and checks the array is correctly created.
+     * @testDescription Instantiates a collection of values and checks the array is correctly created.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
      * @expectedResults The array has correct length and value in order.
      */
     @Test
@@ -2592,16 +2593,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the toArray() method of HCollection on a values passing it an array. 
+     * Tests the toArray() method on a collection of values passing it an array. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when toArray() is called on it passing an array.
+     *                 of a collection of values when toArray() is called on it passing an array.
      * 
-     * @testDescription Instantiates a values and checks if the array is correctly created.
+     * @testDescription Instantiates a collection of values and checks if the array is correctly created.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The array has correct length and value in order.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection has correct length and value in order.
      */
     @Test
     public void testToArrayObjectValues(){
@@ -2617,15 +2618,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the toArray() method of HCollection on a values using different type of object. 
+     * Tests the toArray() method on a collection of values passing different type of object. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using a different type of object when toArray() is called on it.
+     *                 of a collection of values using a different type of object when toArray() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if the array is correctly created.
+     * @testDescription Instantiates a collection of values and checks if the array is correctly created.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
      * @expectedResults The array has correct length and value.
      */
     @Test
@@ -2642,15 +2643,15 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the toArray() method of HCollection on a values passing it a bigger array. 
+     * Tests the toArray() method on a collection of values passing it a bigger array. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when toArray() is called on it passing an array bigger than its size.
+     *                 of a collection of values when toArray() is called on it passing an array bigger than its size.
      * 
-     * @testDescription Instantiates a values and checks if the array is correctly created.
+     * @testDescription Instantiates a collection of values and checks if the array is correctly created.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
      * @expectedResults The array has correct length, value in order and and the last one is <code>null</code>.
      */
     @Test
@@ -2668,15 +2669,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the toArray() method of HCollection on a values passing it a smaller array. 
+     * Tests the toArray() method on a collection of values passing it a smaller array. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when toArray() is called on it passing an array smaller than its size.
+     *                 of a collection of values when toArray() is called on it passing an array smaller than its size.
      * 
-     * @testDescription Instantiates a values and checks if the array is correctly created.
+     * @testDescription Instantiates a collection of values and checks if the array is correctly created.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
      * @expectedResults The array has correct length, value in order and and the last one is 3.
      */
     @Test
@@ -2693,15 +2694,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the toArray() method of HCollection on a values passing it null element. 
+     * Tests the toArray() method on a collection of values passing it null element. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when toArray() is called on it passing a null element.
+     *                 of a collection of values when toArray() is called on it passing a null element.
      * 
-     * @testDescription Instantiates a values and checks if the method throws NullPointerException.
+     * @testDescription Instantiates a collection of values and checks if it is thrown NullPointerException.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
      * @expectedResults The array is not created.
      */
     @Test
@@ -2715,16 +2716,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the add() method of HCollection on a values. 
+     * Tests the add() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when add() is called on it.
+     *                 of a collection of values when add() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if throws UnsupportedOperationException.
+     * @testDescription Instantiates a collection of values and checks if it throws UnsupportedOperationException.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values can't use the opertion. 
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection don't support the operation. 
      */
     @Test
     public void testAddValues(){
@@ -2734,16 +2735,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the remove() method of HCollection on a values. 
+     * Tests the remove() method on a collection of values. 
      *     
-     * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when remove() is called on it.
+     * @testCaseDesign This test is designed for analyzing the behaviour  
+     *                 of a collection of values when remove() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if the value is still in the keySet .
+     * @testDescription Instantiates a collection of values and checks if the value is still in the keySet .
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values has 9 values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection has 9 values.
      */
     @Test
     public void testRemoveValues(){
@@ -2754,16 +2755,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the remove() method of HCollection on a values using different type of value. 
+     * Tests the remove() method on a collection of values using different type of value. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using different type of key when remove() is called on it.
+     *                 of a collection of values using different type of key when remove() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if the method throws ClassCastException .
+     * @testDescription Instantiates a collection of values and checks if ClassCastException is thrown.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values can't use remove with different type of value.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection can't use remove with different type of value.
      */
     @Test
     public void testRemoveDifferentTypeValues(){
@@ -2773,16 +2774,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the remove() method of HCollection on a values passing a null value. 
+     * Tests the remove() method on a collection of values passing a null value. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when remove() is called on it passing a null value.
+     *                 of a collection of values when remove() is called on it passing a null value.
      * 
-     * @testDescription Instantiates a values and checks if a NullPointerException is thrown.
+     * @testDescription Instantiates a collection of values and checks if NullPointerException is thrown.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values has 10 values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection has 10 values.
      */
     @Test
     public void testRemoveNullValues(){
@@ -2792,16 +2793,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the remove() method of HCollection on an empty values. 
+     * Tests the remove() method on an empty collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of an empty values when remove() is called on it.
+     *                 of an empty collection of values when remove() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if the values has no value.
+     * @testDescription Instantiates a collection of values and checks if the values has no value.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values has 0 values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection has 0 values.
      */
     @Test
     public void testRemoveOnEmptyValues(){
@@ -2811,16 +2812,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the remove() method on a values passing a value not in the collection. 
+     * Tests the remove() method on a collection of values passing a value not in the collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when remove() is called on it passing a value not in the set.
+     *                 of a collection of values when remove() is called on it passing a value not in the set.
      * 
-     * @testDescription Instantiates a values and checks if the values is the same.
+     * @testDescription Instantiates a collection of values and checks if the values is the same.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values has 10 values.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection has 10 values.
      */
     @Test
     public void testRemoveNotInValues(){
@@ -2830,16 +2831,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the containsAll() method of HCollection on a values. 
+     * Tests the containsAll() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when containsAll() is called on it.
+     *                 of a collection of values when containsAll() is called on it.
      * 
-     * @testDescription Instantiates two values and checks if the two values have the same element .
+     * @testDescription Instantiates two collections of values and checks if the two collections have the same element .
      * 
-     * @preCondition The values are correctly instantiated.
-     * @postCondition The values are valid instance.
-     * @expectedResults The two values have the same element.
+     * @preCondition The collections are correctly instantiated.
+     * @postCondition The collections are valid instance.
+     * @expectedResults The two collections have the same elements.
      */
     @Test
     public void testContainsAllValues(){
@@ -2851,16 +2852,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the containsAll() method on a values passing a values with some difference. 
+     * Tests the containsAll() method on a collection of values passing a collection with some difference. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when containsAll() is called on it passing a values a little difference.
+     *                 of a collection of values when containsAll() is called on it passing a collection a little different.
      * 
-     * @testDescription Instantiates a keySet and checks if the 2 values are different.
+     * @testDescription Instantiates 2 collections of values and checks if they are different.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The 2 values have different elements.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults The 2 collections have different elements.
      */
     @Test
     public void testContainsAllSomeDifferentValues(){
@@ -2873,16 +2874,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the containsAll() method on a values passing a different values. 
+     * Tests the containsAll() method on a collection of values passing a different collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when containsAll() is called on it passing a different values.
+     *                 of a collection of values when containsAll() is called on it passing a different collection.
      * 
-     * @testDescription Instantiates a values and checks if the 2 values are different.
+     * @testDescription Instantiates 2 collections and checks if they are different.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The 2 values are completely different.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults The 2 collections are completely different.
      */
     @Test
     public void testContainsAllNoOneInValues(){
@@ -2894,36 +2895,36 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the containsAll() method on a values using null value. 
+     * Tests the containsAll() method on a collection of values using null collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using null value when containsAll() is called on it.
+     *                 of a collection of values using null collection when containsAll() is called on it.
      * 
-     * @testDescription Instantiates two values and checks if a NullPointerException is thrown.
+     * @testDescription Instantiates a collection of values and checks if a NullPointerException is thrown.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is a valid instance.
      * @expectedResults NullPointerException.
      */
     @Test
     public void testContainsAllNullPointerValues(){
         MapAdapter map = helper(0,2);
         HCollection values = map.values();
-        MapAdapter map2 = helper(0,2);
-        HCollection values2 = map2.values();
+        //MapAdapter map2 = helper(0,2);
+        //HCollection values2 = map2.values();
         Assert.assertThrows(NullPointerException.class,()->{values.containsAll(null);});
     }
 
     /**
-     * Tests the containsAll() method on a values passing a values with different type of keys. 
+     * Tests the containsAll() method on a collection of values passing a collection with different type of keys. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when containsAll() is called on it passing a values
+     *                 of a collection of values when containsAll() is called on it passing a collection
      *                 with different type of value.
-     * @testDescription Instantiates a values and checks if the 2 values are different.
+     * @testDescription Instantiates a collection of values and checks if the 2 collections are different.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
      * @expectedResults ClassCastException.
      */
     @Test
@@ -2937,15 +2938,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the addAll() method on a values. 
+     * Tests the addAll() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when addAll() is called on it.
-     * @testDescription Instantiates a values and checks if addAll() metod is not supported.
+     *                 of a collection of values when addAll() is called on it.
+     * @testDescription Instantiates a collection of values and checks if 
+     *                  <code>myAdapter.UnsopportedOperationException</code> is thrown.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults myAdapter.UnsopportedOperationException.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults addAll() metod is not supported.
      */
     @Test
     public void testAddAllValues(){
@@ -2957,15 +2959,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the retainAll() method on a values. 
+     * Tests the retainAll() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when retainAll() is called on it passing another values.
-     * @testDescription Instantiates a values and checks if the set is modified.
+     *                 of a collection of values when retainAll() is called on it passing another collection.
+     * @testDescription Instantiates a collection and checks if it is modified.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The values is not modified.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults The collection is not modified.
      */
     @Test
     public void testRetainAllValues(){
@@ -2978,16 +2980,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the retainAll() method on a values using values with some difference. 
+     * Tests the retainAll() method on a collection of values using collection with some difference. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using values with some difference when retainAll() is called on it.
+     *                 of a collection of values using collection with some difference when retainAll() is called on it.
      * 
-     * @testDescription Instantiates a values and checks if the set is modified.
+     * @testDescription Instantiates a collection of values and checks if it is modified.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The values is modified.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collection are valid instances.
+     * @expectedResults The collection is modified.
      */
     @Test
     public void testRetainAllSomeDifferentValues(){
@@ -3002,15 +3004,15 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the retainAll() method on a values passing a different values. 
+     * Tests the retainAll() method on a collection of values passing a different collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when retainAll() is called on it passing a different values.
-     * @testDescription Instantiates a values and checks if the set is modified.
+     *                 of a collection of values when retainAll() is called on it passing a different collection.
+     * @testDescription Instantiates a collection of values and checks if it is modified.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The values is modified.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults The collections is modified.
      */
     @Test
     public void testRetainAllNoOneInValues(){
@@ -3023,15 +3025,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the retainAll() method on a values passing null parameter. 
+     * Tests the retainAll() method on a collection of values passing null parameter. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when retainAll() is called on it passing a null parameter.
-     * @testDescription Instantiates a values and checks if NullPointerException is thrown.
+     *                 of a collection of values when retainAll() is called on it passing a null parameter.
+     * @testDescription Instantiates a collection of values and checks if NullPointerException is thrown.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is a valid instance.
-     * @expectedResults The values is not modified.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is a valid instance.
+     * @expectedResults The collection is not modified.
      */
     @Test
     public void testRetainAllNullPointerValues(){
@@ -3041,15 +3043,16 @@ public class MapAdapterTest{
     }
 
      /**
-     * Tests the retainAll() method on a values passing a values with defferent type of value. 
+     * Tests the retainAll() method on a collection of values passing a collection with different type of value. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values passing a values with defferent type of value when retainAll() is called on it.
+     *                 of a collection of values passing a collection with different type of value 
+     *                 when retainAll() is called on it.
      *     
-     * @testDescription Instantiates a values and checks if the method throws ClassCastException.
+     * @testDescription Instantiates a collection of values and checks if the method throws ClassCastException.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collection are valid instances.
      * @expectedResults ClassCastException
      */
     @Test
@@ -3063,15 +3066,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the removeAll() method on a values. 
+     * Tests the removeAll() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when removeAll() is called on it passing another value.
-     * @testDescription Instantiates a values and checks if all its element has been removed .
+     *                 of a collection of values when removeAll() is called on it passing another collection.
+     * @testDescription Instantiates a collection of values and checks if all its element has been removed .
      * 
-     * @preCondition The values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The values is empty.
+     * @preCondition The collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults The collection is empty.
      */
     @Test
     public void testRemoveAllValues(){
@@ -3084,16 +3087,17 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the removeAll() method on a values with some difference. 
+     * Tests the removeAll() method on a collection of values with some difference. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using values with some difference when removeAll() is called on it.
+     *                 of a collection of values using collection with some difference 
+     *                 when removeAll() is called on it.
      * 
-     * @testDescription Instantiates two values and checks if the modification occurred.
+     * @testDescription Instantiates two collections and checks if the modification occurred.
      * 
-     * @preCondition The values are correctly instantiated.
-     * @postCondition The values are a valid instance.
-     * @expectedResults The values has less key.
+     * @preCondition The collections are correctly instantiated.
+     * @postCondition The collections are a valid instance.
+     * @expectedResults The collection has less key.
      */
     @Test
     public void testRemoveAllSomeDifferentValues(){
@@ -3108,15 +3112,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the removeAll() method on a values passing a different values. 
+     * Tests the removeAll() method on a collection of values passing a different collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when removeAll() is called on it passing a different keySet.
-     * @testDescription Instantiates a values and checks if the set is modified.
+     *                 of a collection of values when removeAll() is called on it passing a different keySet.
+     * @testDescription Instantiates a collection of values and checks if the set is modified.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
-     * @expectedResults The values is not modified.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
+     * @expectedResults The collection is not modified.
      */
     @Test
     public void testRemoveAllNoOneInValues(){
@@ -3128,15 +3132,15 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the removeAll() method on a values passing null parameter. 
+     * Tests the removeAll() method on a collection of values passing null parameter. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when removeAll() is called on it passing a null parameter.
-     * @testDescription Instantiates a values and checks if NullPointerException is thrown.
+     *                 of a collection of values when removeAll() is called on it passing a null parameter.
+     * @testDescription Instantiates a collection of values and checks if NullPointerException is thrown.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is a valid instance.
-     * @expectedResults The values is not modified.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is a valid instance.
+     * @expectedResults The collection is not modified.
      */
     @Test
     public void testRemoveAllNullPointerValues(){
@@ -3146,15 +3150,15 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the removeAll() method on a values passing a values with defferent type of key. 
+     * Tests the removeAll() method on a collection of values passing a collection with different type of key. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values passing a values with defferent type of key when removeAll() is called on it.
+     *                 of a collection of values passing a collection with defferent type of key when removeAll() is called on it.
      *     
-     * @testDescription Instantiates a values and checks if the method throws ClassCastException.
+     * @testDescription Instantiates a collection of values and checks if the method throws ClassCastException.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instances.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instances.
      * @expectedResults ClassCastException
      */
     @Test
@@ -3168,16 +3172,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the clear() method on a values. 
+     * Tests the clear() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when clear() is called on it.
+     *                 of a collection of values when clear() is called on it.
      *     
-     * @testDescription Instantiates a values and checks if it has no value.
+     * @testDescription Instantiates a collection of values and checks if it has no value.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values is empty.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection is empty.
      */
     @Test
     public void testClearValues(){
@@ -3188,16 +3192,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the clear() method on an empty values. 
+     * Tests the clear() method on an empty collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of an empty values when clear() is called on it.
+     *                 of an empty collection of values when clear() is called on it.
      *     
-     * @testDescription Instantiates a values and checks if it's still empty.
+     * @testDescription Instantiates a collection of values and checks if it's still empty.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values is empty.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection is empty.
      */
     @Test
     public void testClearOnEmptyValues(){
@@ -3208,16 +3212,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the equals() method on a values. 
+     * Tests the equals() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when equals() is called on it.
+     *                 of a collection of values when equals() is called on it.
      *     
-     * @testDescription Instantiates 2 values and checks if they are equal.
+     * @testDescription Instantiates 2 collections of values and checks if they are equal.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instance.
-     * @expectedResults The 2 values are equal.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instance.
+     * @expectedResults The 2 collections are equal.
      */
     @Test 
     public void testEqualsValues() {
@@ -3229,16 +3233,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the equalsquals() method on a values using less values.  
+     * Tests the equalsquals() method on a collection of values using less values.  
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values using less values when equals() is called on it.
+     *                 of a collection of values using less values when equals() is called on it.
      *     
-     * @testDescription Instantiates a values and checks if it has no key.
+     * @testDescription Instantiates a collection of values and checks if it has no key.
      * 
-     * @preCondition The values is correctly instantiated.
-     * @postCondition The values is valid instance.
-     * @expectedResults The values is not empty.
+     * @preCondition The collection is correctly instantiated.
+     * @postCondition The collection is valid instance.
+     * @expectedResults The collection is not empty.
      */
     @Test 
     public void testEqualsLessValues() {
@@ -3251,16 +3255,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the equals() method on a values passing a different values. 
+     * Tests the equals() method on a collection of values passing a different collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values passing a different values when equals() is called on it.
+     *                 of a collection of values passing a different values when equals() is called on it.
      *     
-     * @testDescription Instantiates 2 values and checks if they are not equal.
+     * @testDescription Instantiates 2 collections of values and checks if they are not equal.
      * 
-     * @preCondition The 2 values are correctly instantiated.
-     * @postCondition The 2 values are valid instance.
-     * @expectedResults The 2 values are not equal.
+     * @preCondition The 2 collections are correctly instantiated.
+     * @postCondition The 2 collections are valid instance.
+     * @expectedResults The 2 collections are not equal.
      */
     @Test 
     public void testEqualsDifferentValues() {
@@ -3273,16 +3277,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the hashCode() method on a values. 
+     * Tests the hashCode() method on a collection of values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values when hashcode() is called on it.
+     *                 of a collection of values when hashcode() is called on it.
      *     
-     * @testDescription Instantiates two values and checks if have the same hashCode.
+     * @testDescription Instantiates two collections of values and checks if have the same hashCode.
      * 
-     * @preCondition The values are correctly instantiated.
-     * @postCondition The values are valid instance.
-     * @expectedResults The values have the same hashCode.
+     * @preCondition The collections are correctly instantiated.
+     * @postCondition The collections are valid instance.
+     * @expectedResults The collections have the same hashCode.
      */
     @Test 
     public void testHashCodeValues() {
@@ -3294,16 +3298,16 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the hashCode() method on a values passing different values. 
+     * Tests the hashCode() method on a collection of values passing different collection. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values passing different values when hashcode() is called on it.
+     *                 of a collection of values passing different collection when hashcode() is called on it.
      *     
-     * @testDescription Instantiates two values and checks if haven't the same hashCode.
+     * @testDescription Instantiates two collections of values and checks if haven't the same hashCode.
      * 
-     * @preCondition The values are correctly instantiated.
-     * @postCondition The values are valid instance.
-     * @expectedResults The values haven't the same hashCode.
+     * @preCondition The collections are correctly instantiated.
+     * @postCondition The collections are valid instance.
+     * @expectedResults The collections haven't the same hashCode.
      */
     @Test 
     public void testHashCodeDifferentValues() {
@@ -3316,16 +3320,16 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the hashCode() method on a values passing null values. 
+     * Tests the hashCode() method on a collection of values passing null values. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a values passing null values when hashcode() is called on it.
+     *                 of a collection of values passing null values when hashcode() is called on it.
      *     
-     * @testDescription Instantiates a values and checks if the hashCode is 0.
+     * @testDescription Instantiates a collection of values and checks if the hashCode is 0.
      * 
-     * @preCondition The values are correctly instantiated.
-     * @postCondition The values are valid instance.
-     * @expectedResults The values have hashCode 0.
+     * @preCondition The collections are correctly instantiated.
+     * @postCondition The collections are valid instance.
+     * @expectedResults The collections have hashCode 0.
      */
     @Test 
     public void testHashCodeNullValues() {
@@ -3336,7 +3340,7 @@ public class MapAdapterTest{
 
     //TODO: TEST HSET RITORNATO DA ENTRYSET
 
-        /**
+    /**
      * Tests the size method of EntrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
