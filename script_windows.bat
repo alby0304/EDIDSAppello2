@@ -3,7 +3,7 @@ rem Script per compilare ed eseguire il progetto ListAdapter
 
 rem Compilazione del codice sorgente
 echo Compilazione del codice sorgente...
-javac -cp ".;cldc-1.1.jar;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" myAdapter/*.java myTest/*.java
+javac -cp ".;cldc-1.1.jar;jUnit/junit-4.13.2.jar;jUnit/hamcrest-core-1.3.jar" myAdapter/*.java myTest/*.java
 
 rem Verifica se la compilazione è stata completata con successo
 if %errorlevel% equ 0 (
