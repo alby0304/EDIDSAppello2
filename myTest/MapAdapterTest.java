@@ -3341,7 +3341,7 @@ public class MapAdapterTest{
     //TODO: TEST HSET RITORNATO DA ENTRYSET
 
     /**
-     * Tests the size method of EntrySet. 
+     * Tests the size() method of EntrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when size() is called on it.
@@ -3360,10 +3360,10 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the size method of HSet on empty entrySet. 
+     * Tests the size() method of HSet on empty entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a empty vlaues when size() is called on it.
+     *                 of a empty entrySet when size() is called on it.
      * 
      * @testDescription Instantiates a entrySet and checks its size.
      * 
@@ -3379,7 +3379,7 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the isEmpty method of entrySet. 
+     * Tests the isEmpty() method on entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when isEmpty() is called on it.
@@ -3398,7 +3398,7 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the isEmpty method of HSet on empty entrySet. 
+     * Tests the isEmpty() method of HSet on empty entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of an empty entrySet when isEmpty() is called on it.
@@ -3417,7 +3417,7 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains method of HSet on a entrySet. 
+     * Tests the contains() method of HSet on a entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when contains() is called on it.
@@ -3455,12 +3455,12 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains method of HSet on a entrySet using null entrySet. 
+     * Tests the contains() method of HSet on a entrySet using null entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet using null key when contains() is called on it.
+     *                 of a entrySet using null entrySet when contains() is called on it.
      * 
-     * @testDescription Instantiates a entrySet and checks if it throws NullPointerException.
+     * @testDescription Instantiates a entrySet and checks if the method throws NullPointerException.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
@@ -3477,9 +3477,9 @@ public class MapAdapterTest{
      * Tests the contains() method of HSet on empty entrySet using null entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of an empty entrySet when contains() is called on it using null entrySet.
+     *                 of an empty entrySet using null entrySet when contains() is called on it.
      * 
-     * @testDescription Instantiates an empty entrySet and checks if it can contain a null entrySet .
+     * @testDescription Instantiates an empty entrySet and checks if the method throws NullPointerException.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
@@ -3493,12 +3493,12 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the contains method of HSet on entrySet using a different type of entrySet. 
+     * Tests the contains() method of HSet on entrySet using a different type of entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet using a different type of value when contains() is called on it.
+     *                 of a entrySet using a different type of entrySet when contains() is called on it.
      * 
-     * @testDescription Instantiates a entrySet and checks if it is empty.
+     * @testDescription Instantiates a entrySet and checks if the method throws ClassCastException .
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
@@ -3512,10 +3512,10 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the creation of an iterator of a entrySet. 
+     * Tests the creation of an iterator on a entrySet. 
      *     
      * @testCaseDesign This test is designed for checking the creation 
-     *                 of an Iterator of a entrySet
+     *                 of an Iterator on a entrySet
      * 
      * @testDescription Instantiates a entrySet and a iterator and checks if it's valid.
      * 
@@ -3532,10 +3532,10 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the creation of an iterator of an empty entrySet. 
+     * Tests the creation of an iterator on an empty entrySet. 
      *     
      * @testCaseDesign This test is designed for checking the creation 
-     *                 of an Iterator of a entrySet that is empty.
+     *                 of an Iterator on an empty entrySet.
      * 
      * @testDescription Instantiates a entrySet and a iterator and checks if it's invalid.
      * 
@@ -3552,12 +3552,12 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests toArray method of HSet on entrySet. 
+     * Tests toArray() method of HSet on entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when toArray() is called on it.
      * 
-     * @testDescription Instantiates a entrySet and checks the array is correctly created.
+     * @testDescription Instantiates a entrySet and checks if the array is correctly created.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
@@ -3583,7 +3583,7 @@ public class MapAdapterTest{
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
-     * @expectedResults The array has correct length and value in order.
+     * @expectedResults The array has correct length.
      */
     @Test
     public void testToArrayObjectEntrySet(){
@@ -3702,7 +3702,7 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when add() is called on it.
      * 
-     * @testDescription Instantiates a entrySet and checks if throws UnsupportedOperationException.
+     * @testDescription Instantiates a entrySet and checks if it is thrown myAdapter.UnsupportedOperationException.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
@@ -3721,7 +3721,7 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when remove() is called on it.
      * 
-     * @testDescription Instantiates a entrySet and checks if the value is still in the keySet .
+     * @testDescription Instantiates a entrySet and checks if the value is still in the entrySet.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
@@ -3736,7 +3736,7 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the remove() method of HSet on a entrySet using different type of value. 
+     * Tests the remove() method of HSet on a entrySet using different type of key. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet using different type of key when remove() is called on it.
@@ -3745,7 +3745,7 @@ public class MapAdapterTest{
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
-     * @expectedResults The entrySet can't use remove with different type of value.
+     * @expectedResults The entrySet can't use remove with different type of key.
      */
     @Test
     public void testRemoveDifferentTypeEntrySet(){
@@ -3755,10 +3755,10 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the remove() method of HSet on a entrySet passing a null value. 
+     * Tests the remove() method of HSet on a entrySet passing a null key. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet when remove() is called on it passing a null value.
+     *                 of a entrySet when remove() is called on it passing a null key.
      * 
      * @testDescription Instantiates a entrySet and checks if a NullPointerException is thrown.
      * 
@@ -3779,11 +3779,11 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of an empty entrySet when remove() is called on it.
      * 
-     * @testDescription Instantiates a entrySet and checks if the entrySet has no value.
+     * @testDescription Instantiates a entrySet and try to remove the entry in the entrySet.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
-     * @expectedResults The entrySet has 0 entrySet.
+     * @expectedResults The entrySet has not the specific entry .
      */
     @Test
     public void testRemoveOnEmptyEntrySet(){
@@ -3876,10 +3876,10 @@ public class MapAdapterTest{
     }
 
     /**
-     * Tests the containsAll() method on a entrySet using null value. 
+     * Tests the containsAll() method on a entrySet using null entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet using null value when containsAll() is called on it.
+     *                 of a entrySet using null entrySet when containsAll() is called on it.
      * 
      * @testDescription Instantiates two entrySet and checks if a NullPointerException is thrown.
      * 
@@ -3923,11 +3923,11 @@ public class MapAdapterTest{
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when addAll() is called on it.
-     * @testDescription Instantiates a entrySet and checks if addAll() metod is not supported.
+     * @testDescription Instantiates a entrySet and checks if it is thrown <code>myAdapter.UnsopportedOperationException</code>.
      * 
      * @preCondition The 2 entrySet are correctly instantiated.
      * @postCondition The 2 entrySet are valid instances.
-     * @expectedResults myAdapter.UnsopportedOperationException.
+     * @expectedResults <code>addAll()</code> metod is not supported.
      */
     @Test
     public void testAddAllEntrySet(){
@@ -4024,12 +4024,12 @@ public class MapAdapterTest{
     }
 
      /**
-     * Tests the retainAll() method on a entrySet passing a entrySet with defferent type of value. 
+     * Tests the retainAll() method on a entrySet passing a entrySet with different type of value. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet passing a entrySet with defferent type of value when retainAll() is called on it.
+     *                 of a entrySet passing a entrySet with different type of value when retainAll() is called on it.
      *     
-     * @testDescription Instantiates a entrySet and checks if the method throws ClassCastException.
+     * @testDescription Instantiates a entrySet and checks if it is thrown ClassCastException.
      * 
      * @preCondition The 2 entrySet are correctly instantiated.
      * @postCondition The 2 entrySet are valid instances.
@@ -4049,10 +4049,10 @@ public class MapAdapterTest{
      * Tests the removeAll() method on a entrySet. 
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet when removeAll() is called on it passing another value.
+     *                 of a entrySet when removeAll() is called on it passing another entrySet.
      * @testDescription Instantiates a entrySet and checks if all its element has been removed .
      * 
-     * @preCondition The entrySet are correctly instantiated.
+     * @preCondition The 2 entrySet are correctly instantiated.
      * @postCondition The 2 entrySet are valid instances.
      * @expectedResults The entrySet is empty.
      */
@@ -4134,7 +4134,7 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet passing a entrySet with defferent type of key when removeAll() is called on it.
      *     
-     * @testDescription Instantiates a entrySet and checks if the method throws ClassCastException.
+     * @testDescription Instantiates a entrySet and checks if it is thrown ClassCastException.
      * 
      * @preCondition The 2 entrySet are correctly instantiated.
      * @postCondition The 2 entrySet are valid instances.
@@ -4212,19 +4212,19 @@ public class MapAdapterTest{
     }
     
     /**
-     * Tests the equalsquals() method on a entrySet using less entrySet.  
+     * Tests the equals() method on a entrySet using entrySet with some difference.  
      *     
      * @testCaseDesign This test is designed for analyzing the behaviour 
-     *                 of a entrySet using less entrySet when equals() is called on it.
+     *                 of a entrySet using entrySet a little different when equals() is called on it.
      *     
      * @testDescription Instantiates a entrySet and checks if it has no key.
      * 
      * @preCondition The entrySet is correctly instantiated.
      * @postCondition The entrySet is valid instance.
-     * @expectedResults The entrySet is not empty.
+     * @expectedResults The 2 entrySets are not equals.
      */
     @Test 
-    public void testEqualsLessEntrySet() {
+    public void testEqualsDifferentSizeEntrySet() {
         MapAdapter map = helper(0,10);
         MapAdapter map2 = helper(0,10);
         map2.remove(0);
@@ -4261,7 +4261,7 @@ public class MapAdapterTest{
      * @testCaseDesign This test is designed for analyzing the behaviour 
      *                 of a entrySet when hashcode() is called on it.
      *     
-     * @testDescription Instantiates two entrySet and checks if have the same hashCode.
+     * @testDescription Instantiates two entrySet and checks if they have the same hashCode.
      * 
      * @preCondition The entrySet are correctly instantiated.
      * @postCondition The entrySet are valid instance.
@@ -4947,6 +4947,3 @@ public class MapAdapterTest{
         Assert.assertEquals("Z",map.get(0));
     }
 }
-
-
-
